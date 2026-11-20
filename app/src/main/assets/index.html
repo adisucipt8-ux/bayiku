@@ -200,8 +200,8 @@ const dk2ts=v=>{const[y,m,d]=v.split('-').map(Number);return new Date(y,m-1,d).g
 function hplTs(){const p=S.profile;if(!p)return null;if(p.hpl)return dk2ts(p.hpl);if(p.gaW)return birthTs()+(280-(p.gaW*7+(p.gaD||0)))*864e5;return null}
 function gaDays(){const p=S.profile;if(p.gaW)return p.gaW*7+(p.gaD||0);const h=hplTs();return h?280-Math.round((h-birthTs())/864e5):null}
 function isPrem(){const g=gaDays();return g!=null&&g<259}
-const corrBase=()=>{const h=hplTs();return h&&h>birthTs()?h:birthTs()};
-function corrText(){const h=hplTs();if(!h||h<=birthTs())return'';const now=startOfDay(Date.now());if(now<h){const d=Math.round((h-now)/864e5),pma=gaDays()+Math.round((now-birthTs())/864e5);return'Usia koreksi: '+Math.ceil(d/7)+' mgg sebelum HPL · '+Math.floor(pma/7)+'+'+(pma%7)+' mgg'}
+const corrBase=()=>{const h=hplTs();return isPrem()&&h&&h>birthTs()?h:birthTs()};
+function corrText(){const h=hplTs();if(!isPrem()||!h||h<=birthTs())return'';const now=startOfDay(Date.now());if(now<h){const d=Math.round((h-now)/864e5),pma=gaDays()+Math.round((now-birthTs())/864e5);return'Usia koreksi: '+Math.ceil(d/7)+' mgg sebelum HPL · '+Math.floor(pma/7)+'+'+(pma%7)+' mgg'}
  const days=Math.round((now-h)/864e5);if(days<60)return'Usia koreksi: '+days+' hari';let m=0;while(addMonths(h,m+1)<=now)m++;const rest=Math.round((now-addMonths(h,m))/864e5);return'Usia koreksi: '+m+' bln'+(rest?' '+rest+' hr':'')}
 function ageText(){const b=birthTs(),now=startOfDay(Date.now());const days=Math.round((now-b)/864e5);if(days<0)return'Belum lahir';if(days<60)return days+' hari';let m=0;while(addMonths(b,m+1)<=now)m++;const rest=Math.round((now-addMonths(b,m))/864e5);return m+' bulan'+(rest?' '+rest+' hari':'')}
 const TYPES={feed:['Menyusu',I.feed,'feed'],bottle:['Botol',I.bottle,'bot'],sleep:['Tidur',I.sleep,'sleep'],diaper:['Popok',I.diaper,'diap'],tummy:['Tummy time',I.tummy,'tum'],growth:['Pertumbuhan',I.grow,'tum'],temp:['Suhu & napas',I.temp,'bot'],note:['Catatan',I.note,'diap'],med:['Obat / vitamin',I.temp,'tum'],pmk:['PMK (kanguru)',I.sleep,'sleep'],vomit:['Muntah',I.diaper,'diap'],visit:['Kunjungan / kontrol',I.note,'bot'],pijat:['Pijat bayi',I.tummy,'tum'],pump:['Perah ASI',I.bottle,'feed'],skin:['Pelembap kulit',I.note,'tum']};
@@ -267,7 +267,7 @@ function vHome(){
  if(!T.feed){const nx=lf&&lf.side==='L'?'R':'L';h+=`<div class="feedgo">${['L','R'].map(sd=>`<button data-a="feedStart" data-side="${sd}"><span class="ico">${I.feed}</span><span>Menyusu ${sideName(sd).toLowerCase()}<small>${lf&&sd===nx?'disarankan berikutnya':'mulai timer'}</small></span></button>`).join('')}</div>`}
  const nv=nextVax();
  if(nv)h+=`<button class="card vax ${nv.late?'late':''}" data-tab="vax"><div class="ico c-bot">${I.vax}</div><div style="flex:1"><b>${nv.late?'Imunisasi terlewat':nv.soon?'Saatnya imunisasi':'Imunisasi berikutnya'}</b><div class="muted">${esc(nv.items.join(', '))}</div><div class="muted">${nv.late||nv.soon?'Jadwal ':''}${tgl(nv.due)}</div></div></button>`;
- if(isKbk()||hplTs()&&hplTs()>birthTs()){const open=PREM.filter(it=>it.need()&&!(S.prem||{})[it.k]).length;h+=`<button class="card" data-tab="prem" style="width:100%;text-align:left;display:flex;gap:12px;align-items:center"><span class="ico b-sleep c-sleep">${I.note}</span><span style="flex:1"><b style="font:700 17px Fraunces,Georgia,serif">Buku Bayi Kecil</b><br><span class="muted">${open?open+' penapisan dianjurkan belum dicatat':'Penapisan, PMK, rekap harian, kontrol'}</span></span><span class="muted">›</span></button>`}
+ if(isKbk()||isPrem()){const open=PREM.filter(it=>it.need()&&!(S.prem||{})[it.k]).length;h+=`<button class="card" data-tab="prem" style="width:100%;text-align:left;display:flex;gap:12px;align-items:center"><span class="ico b-sleep c-sleep">${I.note}</span><span style="flex:1"><b style="font:700 17px Fraunces,Georgia,serif">Buku Bayi Kecil</b><br><span class="muted">${open?open+' penapisan dianjurkan belum dicatat':'Penapisan, PMK, rekap harian, kontrol'}</span></span><span class="muted">›</span></button>`}
  h+=trendCard();
  h+=medsToday();
  h+=`<h2>Hari ini</h2><div class="today">
@@ -316,7 +316,7 @@ function vChart(){
  if(!S.profile.sex)return h+`<div class="card">Isi jenis kelamin di menu <b>Atur</b> supaya kurva WHO bisa ditampilkan.</div>`;
  const [nm,u,f]=IND[growInd],pts=g.filter(e=>e[f]&&ageMo(e.t)>=0&&ageMo(e.t)<=24);
  h+=`<div class="card"><div class="seg" style="margin-bottom:10px">${Object.entries(IND).map(([k,v])=>`<button data-gi="${k}" class="${growInd===k?'on':''}">${k==='h'?'L. kepala':v[0].split(' ')[0]}</button>`).join('')}</div>
- <b>${nm} (${u}) menurut ${hplTs()&&hplTs()>birthTs()?'usia koreksi':'umur'} · WHO ${S.profile.sex==='P'?'perempuan':'laki-laki'}</b>${hplTs()&&hplTs()>birthTs()?'<p class="muted" style="margin:4px 0 0">Bayi prematur diplot menurut usia koreksi (dihitung dari HPL). Pengukuran sebelum HPL tidak ditampilkan; untuk masa itu dokter biasanya memakai kurva Fenton.</p>':''}<div class="chart tall"><svg id="wchart"></svg></div>
+ <b>${nm} (${u}) menurut ${isPrem()?'usia koreksi':'umur'} · WHO ${S.profile.sex==='P'?'perempuan':'laki-laki'}</b>${isPrem()?'<p class="muted" style="margin:4px 0 0">Bayi prematur diplot menurut usia koreksi (dihitung dari HPL). Pengukuran sebelum HPL tidak ditampilkan; untuk masa itu dokter biasanya memakai kurva Fenton.</p>':''}<div class="chart tall"><svg id="wchart"></svg></div>
  <div class="legend"><span><i style="background:var(--sky-i)"></i>Median</span><span><i style="background:var(--sun-i)"></i>±2 SD</span><span><i style="background:var(--red)"></i>±3 SD</span><span><i style="background:var(--ink)"></i>${esc(S.profile.name)}</span></div>`;
  if(pts.length){const e=pts[pts.length-1],z=zOf(lms(growInd,ageMo(e.t)),+e[f]);let msg,warn=false;
   if(z<-2){msg='di bawah rentang normal WHO (< −2 SD). Sebaiknya konsultasikan ke dokter anak atau bidan.';warn=true}
@@ -585,7 +585,7 @@ function vSet(){const p=S.profile;return header()+`
  <div class="card"><b>Cadangan data</b><p class="muted">${S.sync&&S.sync.on?"Sinkron aktif, tapi cadangan tetap dianjurkan.":"Data hanya ada di HP ini."} Simpan cadangan sesekali (mis. ke Google Drive/WhatsApp) supaya tidak hilang kalau HP ganti atau aplikasi terhapus.</p>
  <div class="row"><button class="btn ghost" data-a="export">Simpan cadangan</button><button class="btn" data-a="import">Pulihkan</button></div></div>
  <div class="card"><b>Hapus semua data</b><p class="muted">Tidak bisa dibatalkan.</p><button class="btn danger" data-a="wipe" style="width:100%">Hapus semua</button></div>
- <p class="muted" style="text-align:center">Bayiku 5.1 · ${S.entries.length} catatan tersimpan</p>`}
+ <p class="muted" style="text-align:center">Bayiku 5.2 · ${S.entries.length} catatan tersimpan</p>`}
 
 /* ---------- SHEETS ---------- */
 function openSheet(html){$('#sheet').innerHTML=html;$('#sheetBg').classList.add('open')}

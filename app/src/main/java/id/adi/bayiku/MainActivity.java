@@ -7,6 +7,10 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintManager;
+import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.webkit.JavascriptInterface;
@@ -30,7 +34,8 @@ public class MainActivity extends Activity {
     private WebView web;
     private boolean pageReady = false;
     private String pendingAct, pendingArg;
-    private String pendingJson;
+    private byte[] pendingBytes;
+    private WebView printWeb;
     private ValueCallback<Uri[]> fileCallback;
 
     @Override
@@ -124,8 +129,8 @@ public class MainActivity extends Activity {
 
     private void applyBars(boolean dark) {
         Window w = getWindow();
-        w.setStatusBarColor(Color.parseColor(dark ? "#111917" : "#F4F7F5"));
-        w.setNavigationBarColor(Color.parseColor(dark ? "#1A2422" : "#FFFFFF"));
+        w.setStatusBarColor(Color.parseColor(dark ? "#1C1713" : "#F4EDE3"));
+        w.setNavigationBarColor(Color.parseColor(dark ? "#28211C" : "#FFFAF3"));
         int flags = 0;
         if (!dark) {
             flags = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
@@ -137,11 +142,46 @@ public class MainActivity extends Activity {
     class Bridge {
         @JavascriptInterface
         public void saveBackup(final String json, final String fileName) {
+            saveBytes(json.getBytes(StandardCharsets.UTF_8), fileName, "application/json");
+        }
+
+        @JavascriptInterface
+        public void saveBase64(final String b64, final String fileName, final String mime) {
+            byte[] data;
+            try {
+                data = Base64.decode(b64, Base64.DEFAULT);
+            } catch (Exception e) {
+                runOnUiThread(() -> web.evaluateJavascript("window.onBackupSaved&&onBackupSaved(false)", null));
+                return;
+            }
+            saveBytes(data, fileName, mime);
+        }
+
+        @JavascriptInterface
+        public void printPdf(final String html, final String jobName) {
             runOnUiThread(() -> {
-                pendingJson = json;
+                WebView pw = new WebView(MainActivity.this);
+                pw.setWebViewClient(new WebViewClient() {
+                    @Override
+                    public void onPageFinished(WebView view, String url) {
+                        PrintManager pm = (PrintManager) getSystemService(PRINT_SERVICE);
+                        if (pm == null) return;
+                        PrintDocumentAdapter adapter = view.createPrintDocumentAdapter(jobName);
+                        pm.print(jobName, adapter, new PrintAttributes.Builder()
+                                .setMediaSize(PrintAttributes.MediaSize.ISO_A4).build());
+                    }
+                });
+                pw.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null);
+                printWeb = pw; // simpan referensi sampai proses cetak selesai
+            });
+        }
+
+        private void saveBytes(final byte[] data, final String fileName, final String mime) {
+            runOnUiThread(() -> {
+                pendingBytes = data;
                 Intent i = new Intent(Intent.ACTION_CREATE_DOCUMENT);
                 i.addCategory(Intent.CATEGORY_OPENABLE);
-                i.setType("application/json");
+                i.setType(mime);
                 i.putExtra(Intent.EXTRA_TITLE, fileName);
                 try {
                     startActivityForResult(i, REQ_SAVE);
@@ -188,15 +228,15 @@ public class MainActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQ_SAVE) {
             boolean ok = false;
-            if (resultCode == RESULT_OK && data != null && data.getData() != null && pendingJson != null) {
+            if (resultCode == RESULT_OK && data != null && data.getData() != null && pendingBytes != null) {
                 try (OutputStream out = getContentResolver().openOutputStream(data.getData())) {
                     if (out != null) {
-                        out.write(pendingJson.getBytes(StandardCharsets.UTF_8));
+                        out.write(pendingBytes);
                         ok = true;
                     }
                 } catch (Exception ignored) { }
             }
-            pendingJson = null;
+            pendingBytes = null;
             web.evaluateJavascript("window.onBackupSaved&&onBackupSaved(" + ok + ")", null);
         } else if (requestCode == REQ_OPEN && fileCallback != null) {
             Uri[] result = null;

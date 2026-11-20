@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Bayiku"
-        android:textColor="#2F7F73"
+        android:textColor="#B0573A"
         android:textSize="15sp"
         android:textStyle="bold" />
 
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Buka aplikasi untuk mulai"
-        android:textColor="#1D2B2A"
+        android:textColor="#3A2C24"
         android:textSize="14sp"
         android:maxLines="1"
         android:ellipsize="end" />
@@ -30,7 +30,7 @@
         android:id="@+id/w_sub"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#6B7B79"
+        android:textColor="#8A7A6D"
         android:textSize="12sp"
         android:maxLines="1"
         android:ellipsize="end" />
@@ -50,7 +50,7 @@
             android:background="@drawable/widget_btn"
             android:text="Kiri"
             android:textAllCaps="false"
-            android:textColor="#3A1D0F"
+            android:textColor="#3F2616"
             android:textSize="13sp" />
 
         <Button
@@ -62,7 +62,7 @@
             android:background="@drawable/widget_btn"
             android:text="Kanan"
             android:textAllCaps="false"
-            android:textColor="#3A1D0F"
+            android:textColor="#3F2616"
             android:textSize="13sp" />
 
         <Button
@@ -73,7 +73,7 @@
             android:background="@drawable/widget_btn2"
             android:text="Popok"
             android:textAllCaps="false"
-            android:textColor="#2F7F73"
+            android:textColor="#B0573A"
             android:textSize="13sp" />
     </LinearLayout>
 </LinearLayout>

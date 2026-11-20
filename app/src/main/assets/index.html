@@ -151,7 +151,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:9px 6px;b
 <script>
 {
 const KEY='bayiku.v1';
-const DEF_SET={theme:'auto',feedOn:true,feedHours:3,vaxOn:true,vaxDays:3};
+const DEF_SET={theme:'auto',feedOn:true,feedHours:3,vaxOn:true,vaxDays:3,pumpOn:false,pumpHours:3,skinOn:false};
 const WHO={"wm":[[0.3487,3.3464,0.14602],[0.2297,4.4709,0.13395],[0.197,5.5675,0.12385],[0.1738,6.3762,0.11727],[0.1553,7.0023,0.11316],[0.1395,7.5105,0.1108],[0.1257,7.934,0.10958],[0.1134,8.297,0.10902],[0.1021,8.6151,0.10882],[0.0917,8.9014,0.10881],[0.082,9.1649,0.10891],[0.073,9.4122,0.10906],[0.0644,9.6479,0.10925],[0.0563,9.8749,0.10949],[0.0487,10.0953,0.10976],[0.0413,10.3108,0.11007],[0.0343,10.5228,0.11041],[0.0275,10.7319,0.11079],[0.0211,10.9385,0.11119],[0.0148,11.143,0.11164],[0.0087,11.3462,0.11211],[0.0029,11.5486,0.11261],[-0.0028,11.7504,0.11314],[-0.0083,11.9514,0.11369],[-0.0137,12.1515,0.11426]],"wf":[[0.3809,3.2322,0.14171],[0.1714,4.1873,0.13724],[0.0962,5.1282,0.13],[0.0402,5.8458,0.12619],[-0.005,6.4237,0.12402],[-0.043,6.8985,0.12274],[-0.0756,7.297,0.12204],[-0.1039,7.6422,0.12178],[-0.1288,7.9487,0.12181],[-0.1507,8.2254,0.12199],[-0.17,8.48,0.12223],[-0.1872,8.7192,0.12247],[-0.2024,8.9481,0.12268],[-0.2158,9.1699,0.12283],[-0.2278,9.387,0.12294],[-0.2384,9.6008,0.12299],[-0.2478,9.8124,0.12303],[-0.2562,10.0226,0.12306],[-0.2637,10.2315,0.12309],[-0.2703,10.4393,0.12315],[-0.2762,10.6464,0.12323],[-0.2815,10.8534,0.12335],[-0.2862,11.0608,0.1235],[-0.2903,11.2688,0.12369],[-0.2941,11.4775,0.1239]],"lm":[[1.0,49.8842,0.03795],[1.0,54.7244,0.03557],[1.0,58.4249,0.03424],[1.0,61.4292,0.03328],[1.0,63.886,0.03257],[1.0,65.9026,0.03204],[1.0,67.6236,0.03165],[1.0,69.1645,0.03139],[1.0,70.5994,0.03124],[1.0,71.9687,0.03117],[1.0,73.2812,0.03118],[1.0,74.5388,0.03125],[1.0,75.7488,0.03137],[1.0,76.9186,0.03154],[1.0,78.0497,0.03174],[1.0,79.1458,0.03197],[1.0,80.2113,0.03222],[1.0,81.2487,0.0325],[1.0,82.2587,0.03279],[1.0,83.2418,0.0331],[1.0,84.1996,0.03342],[1.0,85.1348,0.03376],[1.0,86.0477,0.0341],[1.0,86.941,0.03445],[1.0,87.8161,0.03479]],"lf":[[1.0,49.1477,0.0379],[1.0,53.6872,0.0364],[1.0,57.0673,0.03568],[1.0,59.8029,0.0352],[1.0,62.0899,0.03486],[1.0,64.0301,0.03463],[1.0,65.7311,0.03448],[1.0,67.2873,0.03441],[1.0,68.7498,0.0344],[1.0,70.1435,0.03444],[1.0,71.4818,0.03452],[1.0,72.771,0.03464],[1.0,74.015,0.03479],[1.0,75.2176,0.03496],[1.0,76.3817,0.03514],[1.0,77.5099,0.03534],[1.0,78.6055,0.03555],[1.0,79.671,0.03576],[1.0,80.7079,0.03598],[1.0,81.7182,0.0362],[1.0,82.7036,0.03643],[1.0,83.6654,0.03666],[1.0,84.604,0.03688],[1.0,85.5202,0.03711],[1.0,86.4153,0.03734]],"hm":[[1.0,34.4618,0.03686],[1.0,37.2759,0.03133],[1.0,39.1285,0.02997],[1.0,40.5135,0.02918],[1.0,41.6317,0.02868],[1.0,42.5576,0.02837],[1.0,43.3306,0.02817],[1.0,43.9803,0.02804],[1.0,44.53,0.02796],[1.0,44.9998,0.02792],[1.0,45.4051,0.0279],[1.0,45.7573,0.02789],[1.0,46.0661,0.02789],[1.0,46.3395,0.02789],[1.0,46.5844,0.02791],[1.0,46.806,0.02792],[1.0,47.0088,0.02795],[1.0,47.1962,0.02797],[1.0,47.3711,0.028],[1.0,47.5357,0.02803],[1.0,47.6919,0.02806],[1.0,47.8408,0.0281],[1.0,47.9833,0.02813],[1.0,48.1201,0.02817],[1.0,48.2515,0.02821]],"hf":[[1.0,33.8787,0.03496],[1.0,36.5463,0.0321],[1.0,38.2521,0.03168],[1.0,39.5328,0.0314],[1.0,40.5817,0.03119],[1.0,41.459,0.03102],[1.0,42.1995,0.03087],[1.0,42.829,0.03075],[1.0,43.3671,0.03063],[1.0,43.83,0.03053],[1.0,44.2319,0.03044],[1.0,44.5844,0.03035],[1.0,44.8965,0.03027],[1.0,45.1752,0.03019],[1.0,45.4265,0.03012],[1.0,45.6551,0.03006],[1.0,45.865,0.02999],[1.0,46.0598,0.02993],[1.0,46.2424,0.02987],[1.0,46.4152,0.02982],[1.0,46.5801,0.02977],[1.0,46.7384,0.02972],[1.0,46.8913,0.02967],[1.0,47.0391,0.02962],[1.0,47.1822,0.02957]]};
 const I={
  feed:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v3l-2 3v10a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V9l-2-3V3"/><path d="M8 13h8"/></svg>',
@@ -204,22 +204,28 @@ const corrBase=()=>{const h=hplTs();return h&&h>birthTs()?h:birthTs()};
 function corrText(){const h=hplTs();if(!h||h<=birthTs())return'';const now=startOfDay(Date.now());if(now<h){const d=Math.round((h-now)/864e5),pma=gaDays()+Math.round((now-birthTs())/864e5);return'Usia koreksi: '+Math.ceil(d/7)+' mgg sebelum HPL · '+Math.floor(pma/7)+'+'+(pma%7)+' mgg'}
  const days=Math.round((now-h)/864e5);if(days<60)return'Usia koreksi: '+days+' hari';let m=0;while(addMonths(h,m+1)<=now)m++;const rest=Math.round((now-addMonths(h,m))/864e5);return'Usia koreksi: '+m+' bln'+(rest?' '+rest+' hr':'')}
 function ageText(){const b=birthTs(),now=startOfDay(Date.now());const days=Math.round((now-b)/864e5);if(days<0)return'Belum lahir';if(days<60)return days+' hari';let m=0;while(addMonths(b,m+1)<=now)m++;const rest=Math.round((now-addMonths(b,m))/864e5);return m+' bulan'+(rest?' '+rest+' hari':'')}
-const TYPES={feed:['Menyusu',I.feed,'feed'],bottle:['Botol',I.bottle,'bot'],sleep:['Tidur',I.sleep,'sleep'],diaper:['Popok',I.diaper,'diap'],tummy:['Tummy time',I.tummy,'tum'],growth:['Pertumbuhan',I.grow,'tum'],temp:['Suhu',I.temp,'bot'],note:['Catatan',I.note,'diap'],med:['Obat / vitamin',I.temp,'tum']};
+const TYPES={feed:['Menyusu',I.feed,'feed'],bottle:['Botol',I.bottle,'bot'],sleep:['Tidur',I.sleep,'sleep'],diaper:['Popok',I.diaper,'diap'],tummy:['Tummy time',I.tummy,'tum'],growth:['Pertumbuhan',I.grow,'tum'],temp:['Suhu & napas',I.temp,'bot'],note:['Catatan',I.note,'diap'],med:['Obat / vitamin',I.temp,'tum'],pmk:['PMK (kanguru)',I.sleep,'sleep'],vomit:['Muntah',I.diaper,'diap'],visit:['Kunjungan / kontrol',I.note,'bot'],pijat:['Pijat bayi',I.tummy,'tum'],pump:['Perah ASI',I.bottle,'feed'],skin:['Pelembap kulit',I.note,'tum']};
 function sideName(s){return s==='L'?'Kiri':'Kanan'}
 function describe(e){
  switch(e.type){
   case'feed':return['Menyusu · '+sideName(e.side),dur(e.dur)];
-  case'bottle':return['Botol · '+esc(e.milk),e.ml+' ml'];
+  case'bottle':return['Minum · '+esc(e.milk)+(e.cara&&e.cara!=='Botol'?' ('+esc(e.cara).toLowerCase()+')':''),e.ml+' ml'];
   case'sleep':return['Tidur',dur(e.end-e.t)];
   case'tummy':return['Tummy time',dur(e.end-e.t)];
   case'diaper':return['Popok · '+({pipis:'Pipis',pup:'Pup',keduanya:'Pipis + pup'}[e.kind]),''];
   case'growth':return['Pertumbuhan',[e.w&&dec(e.w)+' kg',e.l&&dec(e.l)+' cm',e.hc&&'LK '+dec(e.hc)+' cm'].filter(Boolean).join(' · ')];
-  case'temp':return['Suhu badan',dec(e.c)+' °C'];
+  case'temp':return['Suhu & napas',[e.c&&dec(e.c)+' °C',e.rr&&e.rr+' x/menit'].filter(Boolean).join(' · ')];
+  case'pmk':return['PMK (kanguru)',dur(e.end-e.t)];
+  case'vomit':return['Muntah · '+esc(e.kind||'Biasa'),e.ml?e.ml+' ml':''];
+  case'visit':return['Kunjungan'+(e.place?' · '+esc(e.place):''),esc(e.saran||e.keluhan||'')+(e.back?' · kembali '+tgl(dk2ts(e.back)):'')];
+  case'pump':return['Perah ASI'+(e.side?' · '+esc(e.side):''),e.ml!=null?e.ml+' ml':''];
+  case'skin':return['Pelembap kulit',''];
+  case'pijat':return['Pijat bayi',e.dur?Math.round(e.dur/6e4)+' menit':''];
   case'note':return['Catatan',esc(e.text)];
   case'med':return['Vitamin/obat · '+esc(e.name),esc(mlTxt(e))+(e.slot?' (jadwal '+e.slot+')':'')];
  }return['',''];
 }
-const sorted=()=>S.entries.slice().sort((a,b)=>b.t-a.t);
+const sorted=()=>S.entries.map((e,i)=>[e,i]).sort((x,y)=>y[0].t-x[0].t||y[1]-x[1]).map(x=>x[0]);
 function feedElapsed(f){return(f.pausedAt||Date.now())-f.start-(f.pausedMs||0)}
 
 /* ---------- RENDER ---------- */
@@ -257,11 +263,12 @@ function vHome(){
 
  if(T.feed){const f=T.feed;h+=`<div class="card timer"><div class="lbl">Menyusu · ${sideName(f.side)}${f.pausedAt?' · dijeda':''}</div><div class="big" data-clock="feed">${clock(feedElapsed(f))}</div>
   <div class="row"><button class="btn" data-a="feedPause">${f.pausedAt?'Lanjut':'Jeda'}</button><button class="btn" data-a="feedSwitch">⇄ ${sideName(f.side==='L'?'R':'L')}</button><button class="btn pri" data-a="feedStop">Selesai</button></div></div>`}
- for(const k of['sleep','tummy'])if(T[k])h+=`<div class="card timer ${k==='sleep'?'b-sleep':'b-tum'}"><div class="lbl ${k==='sleep'?'c-sleep':'c-tum'}">${k==='sleep'?'Sedang tidur':'Tummy time'} · mulai ${hm(T[k].start)}</div><div class="big" data-clock="${k}">${clock(now-T[k].start)}</div><div class="row"><button class="btn" data-a="cancel" data-k="${k}">Batal</button><button class="btn pri" data-a="stop" data-k="${k}">${k==='sleep'?'Bangun':'Selesai'}</button></div></div>`;
+ for(const k of['sleep','tummy','pmk'])if(T[k])h+=`<div class="card timer ${k==='tummy'?'b-tum':'b-sleep'}"><div class="lbl ${k==='tummy'?'c-tum':'c-sleep'}">${{sleep:'Sedang tidur',tummy:'Tummy time',pmk:'PMK (kanguru)'}[k]} · mulai ${hm(T[k].start)}</div><div class="big" data-clock="${k}">${clock(now-T[k].start)}</div><div class="row"><button class="btn" data-a="cancel" data-k="${k}">Batal</button><button class="btn pri" data-a="stop" data-k="${k}">${k==='sleep'?'Bangun':'Selesai'}</button></div></div>`;
  if(!T.feed){const nx=lf&&lf.side==='L'?'R':'L';h+=`<div class="feedgo">${['L','R'].map(sd=>`<button data-a="feedStart" data-side="${sd}"><span class="ico">${I.feed}</span><span>Menyusu ${sideName(sd).toLowerCase()}<small>${lf&&sd===nx?'disarankan berikutnya':'mulai timer'}</small></span></button>`).join('')}</div>`}
  const nv=nextVax();
  if(nv)h+=`<button class="card vax ${nv.late?'late':''}" data-tab="vax"><div class="ico c-bot">${I.vax}</div><div style="flex:1"><b>${nv.late?'Imunisasi terlewat':nv.soon?'Saatnya imunisasi':'Imunisasi berikutnya'}</b><div class="muted">${esc(nv.items.join(', '))}</div><div class="muted">${nv.late||nv.soon?'Jadwal ':''}${tgl(nv.due)}</div></div></button>`;
- if(isPrem()||hplTs()&&hplTs()>birthTs()){const open=PREM.filter(it=>it.need()&&!(S.prem||{})[it.k]).length;h+=`<button class="card" data-tab="prem" style="width:100%;text-align:left;display:flex;gap:12px;align-items:center"><span class="ico b-sleep c-sleep">${I.note}</span><span style="flex:1"><b style="font:700 17px Fraunces,Georgia,serif">Bayi prematur</b><br><span class="muted">${open?open+' skrining/konsultasi dianjurkan belum dicentang':'Skrining & konsultasi, usia koreksi'}</span></span><span class="muted">›</span></button>`}
+ if(isKbk()||hplTs()&&hplTs()>birthTs()){const open=PREM.filter(it=>it.need()&&!(S.prem||{})[it.k]).length;h+=`<button class="card" data-tab="prem" style="width:100%;text-align:left;display:flex;gap:12px;align-items:center"><span class="ico b-sleep c-sleep">${I.note}</span><span style="flex:1"><b style="font:700 17px Fraunces,Georgia,serif">Buku Bayi Kecil</b><br><span class="muted">${open?open+' penapisan dianjurkan belum dicatat':'Penapisan, PMK, rekap harian, kontrol'}</span></span><span class="muted">›</span></button>`}
+ h+=trendCard();
  h+=medsToday();
  h+=`<h2>Hari ini</h2><div class="today">
  ${stat('feed','Menyusu',I.feed,dur(feeds.reduce((a,e)=>a+e.dur,0)),feeds.length+'× · '+(lf?'terakhir '+ago(lf.end):'belum ada'),T.feed?'Sedang menyusu':(lf?sideName(lf.side==='L'?'R':'L')+' berikutnya':''))}
@@ -269,7 +276,9 @@ function vHome(){
  ${stat('diap','Popok',I.diaper,ld?ago(ld.t):'–',diap.filter(e=>e.kind!=='pup').length+' pipis · '+diap.filter(e=>e.kind!=='pipis').length+' pup','Stok '+(S.stock.diapers||0),'diaper')}
  ${stat('bot','Botol',I.bottle,bottles.reduce((a,e)=>a+Number(e.ml||0),0)+' ml',bottles.length+'× hari ini','','bottle')}
  ${stat('tum','Tummy time',I.tummy,dur(tums.reduce((a,e)=>a+e.end-e.t,0)),tums.length+'× · '+(lt?ago(lt.end):'belum'),T.tummy?'Sedang berjalan':'','tummyStart')}
- ${stat('bot','Suhu',I.temp,(()=>{const x=lastOf('temp');return x?String(x.c).replace('.',',')+' °C':'–'})(),(()=>{const x=lastOf('temp');return x?ago(x.t):'belum dicatat'})(),'','temp')}
+ ${(isKbk()||S.entries.some(e=>e.type==='pump'))?stat('feed','Perah ASI',I.bottle,today.filter(e=>e.type==='pump').reduce((a,e)=>a+(+e.ml||0),0)+' ml',today.filter(e=>e.type==='pump').length+' dari 8–12× hari ini',(()=>{const x=sorted().find(e=>e.type==='pump');return x?'Terakhir '+ago(x.t):''})(),'pump'):''}
+ ${isKbk()?stat('sleep','PMK',I.sleep,dur(today.filter(e=>e.type==='pmk').reduce((a,e)=>a+e.end-e.t,0)),today.filter(e=>e.type==='pmk').length+'× hari ini',S.timers.pmk?'Sedang berjalan':'','pmkStart'):''}
+ ${stat('bot','Suhu & napas',I.temp,(()=>{const x=lastOf('temp');return x?String(x.c).replace('.',',')+' °C':'–'})(),(()=>{const x=lastOf('temp');return x?ago(x.t):'belum dicatat'})(),'','temp')}
  </div>`;
  return h;
 }
@@ -282,7 +291,7 @@ function vHist(){
   h+=`<button class="item" data-edit="${e.id}"><span class="ico b-${ty[2]} c-${ty[2]}">${ty[1]}</span><span class="m"><b>${t}</b><small>${v}</small></span><span class="tm">${hm(e.t)}${e.end?'–'+hm(e.end):''}</span></button>`}
  return h+'</div>';
 }
-function vaxRows(){const b=birthTs(),today=startOfDay(Date.now());return VAX[S.profile.region||'nasional'].map(([m,label,items])=>{const due=addMonths(b,m);return{m,label,due,items:items.map(n=>({n,key:m+'|'+n,done:S.vax[m+'|'+n]}))}}).map(r=>Object.assign(r,{allDone:r.items.every(i=>i.done),late:r.due<today&&!r.items.every(i=>i.done),soon:r.due>=today&&r.due-today<=14*864e5}))}
+function vaxRows(){const b=birthTs(),today=startOfDay(Date.now()),low=S.profile.bw&&S.profile.bw<2000;return VAX[S.profile.region||'nasional'].map(([m,label,items])=>{const due=addMonths(b,m===0&&low?1:m);if(m===0&&low)label='Ditunda (berat lahir < 2000 g): usia 1 bulan / saat pulang';return{m,label,due,items:items.map(n=>({n,key:m+'|'+n,done:S.vax[m+'|'+n]}))}}).map(r=>Object.assign(r,{allDone:r.items.every(i=>i.done),late:r.due<today&&!r.items.every(i=>i.done),soon:r.due>=today&&r.due-today<=14*864e5}))}
 function nextVax(){const r=vaxRows().find(r=>!r.allDone);if(!r)return null;const today=startOfDay(Date.now());return{items:r.items.filter(i=>!i.done).map(i=>i.n),due:r.due,late:r.due<today,soon:r.due-today<=14*864e5}}
 function vVax(){
  let h=header()+`<p class="muted">Jadwal ${S.profile.region==='yogyakarta'?'Yogyakarta':'Nasional'} Kemenkes. Centang yang sudah diberikan; tanggal dihitung dari tanggal lahir.</p>`;
@@ -299,7 +308,7 @@ const atZ=([L,M,Sv],z)=>L===0?M*Math.exp(Sv*z):M*Math.pow(1+L*Sv*z,1/L);
 const zOf=([L,M,Sv],x)=>L===0?Math.log(x/M)/Sv:(Math.pow(x/M,L)-1)/(L*Sv);
 function vGrow(){
  let h=header()+`<div class="seg" style="margin-bottom:12px"><button data-a="gv" data-v="chart" class="${growView==='chart'?'on':''}">Pertumbuhan</button><button data-a="gv" data-v="ms" class="${growView==='ms'?'on':''}">Milestone</button></div>`;
- return h+(growView==='ms'?vMs():vChart());
+ return h+(growView==='ms'?vMs()+vDev():vChart());
 }
 function vChart(){
  const g=S.entries.filter(e=>e.type==='growth').sort((a,b)=>a.t-b.t);
@@ -316,7 +325,7 @@ function vChart(){
   h+=`<div class="zbox ${warn?'warn':''}">Pengukuran terakhir ${dec(e[f])} ${u} (${tgl(e.t)}), z-score ${dec(z.toFixed(1))}: ${msg}</div>`}
  else h+=`<p class="muted">Belum ada data ${nm.toLowerCase()} untuk umur 0–24 bulan.</p>`;
  h+='</div>';
- if(g.length)h+=`<div class="card" style="overflow-x:auto"><table><thead><tr><th>Tanggal</th><th>Berat</th><th>Panjang</th><th>LK</th></tr></thead><tbody>${g.slice().reverse().map(e=>`<tr data-edit="${e.id}"><td>${tgl(e.t)}</td><td>${e.w?dec(e.w)+' kg':'–'}</td><td>${e.l?dec(e.l)+' cm':'–'}</td><td>${e.hc?dec(e.hc)+' cm':'–'}</td></tr>`).join('')}</tbody></table></div>`;
+ if(g.length)h+=`<div class="card" style="overflow-x:auto"><table><thead><tr><th>Tanggal</th><th>Berat</th><th>Panjang</th><th>LK</th></tr></thead><tbody>${g.slice().reverse().map(e=>{const pv=f=>{const ser=series(f),i=ser.indexOf(e);return i>0?ser[i-1]:null},dl=(f,u,k)=>{if(!e[f])return'–';const p=pv(f);let d='';if(p){const x=+e[f]-+p[f];d=f==='w'?(x>=0?'+':'−')+Math.round(Math.abs(x)*1000)+' g':(x>=0?'+':'−')+dec(Math.round(Math.abs(x)*10)/10)+' cm';d=`<br><small style="color:${x<0?'var(--red)':'var(--sky-i)'};font-weight:700">${d}</small>`}return dec(e[f])+' '+u+d};return`<tr data-edit="${e.id}"><td>${tgl(e.t)}${e.id==='birth'?'<br><small class="muted">lahir</small>':e.id==='discharge'?'<br><small class="muted">pulang RS</small>':''}</td><td>${dl('w','kg')}</td><td>${dl('l','cm')}</td><td>${dl('hc','cm')}</td></tr>`}).join('')}</tbody></table></div>`;
  return h+'<p class="muted">Kurva berdasarkan Standar Pertumbuhan Anak WHO (0–24 bulan). Grafik ini alat bantu, bukan pengganti pemeriksaan tenaga kesehatan.</p>';
 }
 function drawChart(){const s=$('#wchart');if(!s||!S.profile||!S.profile.sex)return;const W=s.clientWidth,H=s.clientHeight;if(!W)return;
@@ -337,37 +346,118 @@ function vMs(){
  if(!list.length)return h+'<div class="empty">Belum ada momen. Catat senyum pertama, tengkurap, gigi pertama, dan lainnya, lengkap dengan foto.</div>';
  return h+'<div class="list">'+list.map(m=>`<button class="ms" data-ms="${m.id}"><span class="ph" data-photo="${m.photo?m.id:''}">${m.photo?'':I.grow}</span><span class="m" style="flex:1"><b>${esc(m.title)}</b><small class="muted">${tgl(m.date)} · ${msAge(m.date)}</small>${m.note?`<small class="muted" style="display:block">${esc(m.note)}</small>`:''}</span></button>`).join('')+'</div>';
 }
+function series(f){return S.entries.filter(e=>e.type==='growth'&&e[f]).sort((a,b)=>a.t-b.t)}
+function deltaTxt(f,a,b){const d=+b[f]-+a[f],days=Math.round((startOfDay(b.t)-startOfDay(a.t))/864e5),sg=d>=0?'+':'−';
+ if(f==='w'){const g=Math.round(Math.abs(d)*1000);return days<1?sg+g+' g dari ukur sebelumnya':sg+g+' g dalam '+days+' hari ('+sg+Math.round(g/days)+' g/hari)'}
+ return sg+dec(Math.round(Math.abs(d)*10)/10)+' cm '+(days<1?'dari ukur sebelumnya':'dalam '+days+' hari')}
+function spark(list,f){if(list.length<2)return'';const xs=list.map(e=>e.t),ys=list.map(e=>+e[f]),x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+ const X=t=>(t-x0)/((x1-x0)||1)*96+2,Y=v=>28-(v-y0)/((y1-y0)||1)*24;
+ return`<svg viewBox="0 0 100 30" preserveAspectRatio="none" style="width:100%;height:38px;display:block;margin-top:6px"><polyline fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round" points="${list.map(e=>X(e.t).toFixed(1)+','+Y(+e[f]).toFixed(1)).join(' ')}"/>${list.map(e=>`<circle cx="${X(e.t).toFixed(1)}" cy="${Y(+e[f]).toFixed(1)}" r="1.6" fill="currentColor"/>`).join('')}</svg>`}
+function trendCard(){const W=series('w').slice(-12),L=series('l').slice(-12);if(!W.length&&!L.length)return'';
+ const col=(nm,list,f,u,c)=>{if(!list.length)return`<div style="flex:1"><div class="muted" style="font-weight:700">${nm}</div><div class="muted">Belum ada data</div></div>`;const a=list[list.length-2],b=list[list.length-1];
+  return`<div style="flex:1;min-width:0" class="${c}"><div class="muted" style="font-weight:700">${nm}</div><div style="font:700 24px Fraunces,Georgia,serif;color:var(--ink)">${dec(b[f])} <span style="font:600 13px Nunito,sans-serif;color:var(--muted)">${u}</span></div><div style="font-size:12.5px;font-weight:700">${a?deltaTxt(f,a,b):'Ukur lagi untuk melihat tren'}</div>${spark(list,f)}<div class="muted" style="font-size:12px">${list.length} kali ukur · terakhir ${tgl(b.t)}</div></div>`};
+ return`<button class="card" data-tab="grow" style="width:100%;text-align:left"><div style="display:flex;justify-content:space-between;align-items:center"><b style="font:700 18px Fraunces,Georgia,serif">Tren pertumbuhan</b><span class="tag done" data-a="growth" style="min-height:30px;display:inline-grid;place-items:center">+ Ukur</span></div>
+ <div style="display:flex;gap:14px;margin-top:10px">${col('Berat badan',W,'w','kg','c-feed')}${col('Panjang badan',L,'l','cm','c-bot')}</div></button>`}
 function medsToday(){
  const meds=S.meds.filter(m=>m.on);const sod=startOfDay(Date.now());
  if(!meds.length)return`<button class="card" data-a="medNew" style="width:100%;text-align:left;display:flex;gap:12px;align-items:center"><span class="ico b-tum c-tum">${I.temp}</span><span><b style="font:700 17px Fraunces,Georgia,serif">Vitamin & obat</b><br><span class="muted">Tambah Vitamin D, DHA, atau lainnya</span></span></button>`;
  const given=S.entries.filter(e=>e.type==='med'&&e.t>=sod);
  return`<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b style="font:700 18px Fraunces,Georgia,serif">Vitamin & obat hari ini</b><button class="tag done" data-a="medNew" style="min-height:32px">+ Tambah</button></div>${meds.map(m=>{const cnt=given.filter(e=>e.medId===m.id).length;return`<div style="margin-top:12px"><button data-med="${m.id}" style="padding:0;text-align:left;font-weight:800">${esc(m.name)} <span class="muted" style="font-weight:600">${esc(mlTxt(m))}${cnt?' · '+cnt+'× hari ini':''}</span></button><div class="med">${m.times.map(t=>{const ok=given.some(e=>e.medId===m.id&&e.slot===t);return`<button class="${ok?'on':''}" ${ok?'':`data-dose="${m.id}" data-slot="${t}"`}>${ok?'✓ ':''}${t}</button>`}).join('')}<button data-dose="${m.id}" data-slot="">+ Catat sekarang</button></div></div>`}).join('')}</div>`;
 }
+/* ===== Buku KIA Khusus Bayi Kecil (Kemenkes & JICA, 2021) ===== */
+const RES={lr:[['Kanan',['Pass','Refer']],['Kiri',['Pass','Refer']]],rop:[['Mata kanan',['Normal','Derajat 1','Derajat 2','Derajat 3','Plus disease']],['Mata kiri',['Normal','Derajat 1','Derajat 2','Derajat 3','Plus disease']]],usg:[['Sisi kanan',['Normal','IVH','PVL']],['Sisi kiri',['Normal','IVH','PVL']]]};
 const PREM=[
- {k:'usg',t:'USG kepala',who:'Dokter anak / neonatologi',when:'Terutama untuk bayi lahir < 32 minggu (pada kondisi berat bisa sampai 34 minggu), sesuai jadwal dokter.',need:()=>gaDays()!=null&&gaDays()<34*7},
- {k:'rop',t:'Skrining mata ROP (retinopati prematuritas)',who:'Dokter mata (oftalmologi anak)',when:'Kriteria Indonesia: berat lahir ≤ 1500 g atau usia kehamilan ≤ 34 minggu; di atas itu bila ada faktor risiko (oksigen > 7 hari, sepsis, transfusi berulang, dll.). Kemenkes menganjurkan 2–4 minggu setelah lahir.',need:()=>(gaDays()!=null&&gaDays()<=34*7)||(S.profile.bw&&S.profile.bw<=1500),due:()=>birthTs()+(gaDays()!=null&&gaDays()<=30*7?28:14)*864e5},
- {k:'oae',t:'Skrining pendengaran (OAE / AABR / BERA)',who:'Dokter THT / audiologi',when:'Untuk semua bayi; paling lambat usia 3 bulan.',need:()=>true,due:()=>addMonths(birthTs(),3)},
- {k:'shk',t:'Skrining hipotiroid kongenital (SHK)',who:'Dokter anak',when:'Umumnya diambil saat bayi berumur 48–72 jam. Tanyakan apakah bayi prematur perlu tes ulang.',need:()=>true},
- {k:'jantung',t:'USG jantung (ekokardiografi)',who:'Dokter anak / kardiologi anak',when:'Sesuai indikasi dan jadwal dari dokter.',need:()=>false},
- {k:'ginjal',t:'USG ginjal',who:'Dokter anak',when:'Memeriksa endapan kalsium di ginjal; dianjurkan minimal sekali sebelum pulang. Risikonya lebih tinggi bila lahir makin dini.',need:()=>isPrem()},
- {k:'tulang',t:'Skrining penyakit tulang (osteopenia prematuritas)',who:'Dokter anak',when:'Dilakukan pada bayi prematur.',need:()=>isPrem()},
- {k:'anemia',t:'Pemantauan anemia prematuritas',who:'Dokter anak',when:'Tanyakan pemeriksaan darah dan perlu tidaknya suplementasi zat besi.',need:()=>isPrem()},
- {k:'tumbang',t:'Kontrol tumbuh kembang',who:'Dokter anak / klinik tumbuh kembang',when:'Nilai pertumbuhan dan perkembangan dengan usia koreksi; catat di Buku KIA / Buku Bayi Kecil Kemenkes.',need:()=>isPrem()},
- {k:'nutrisi',t:'Konsultasi nutrisi (ASI, fortifier/HMF)',who:'Dokter anak / konselor laktasi',when:'Bayi < 32 minggu sering memerlukan fortifikasi ASI (HMF). Ikuti jumlah dari dokter.',need:()=>gaDays()!=null&&gaDays()<32*7}];
+ {k:'usg',kbk:1,t:'USG kepala',who:'Dokter spesialis anak',when:'Terutama bayi lahir < 34 minggu atau sesuai indikasi (sakit berat, trauma lahir). Minimal 1x selama perawatan atau sebelum rawat jalan.',res:'usg',need:()=>gaDays()!=null&&gaDays()<34*7},
+ {k:'rop',kbk:1,t:'Retinopati pada prematuritas (ROP)',who:'Dokter spesialis mata',when:'Terutama bayi lahir < 34 minggu atau < 1.500 g, atau sakit berat (sepsis/asfiksia). Minimal 1x sebelum rawat jalan, selambat-lambatnya usia koreksi 0 bulan (HPL); selanjutnya sesuai dokter mata.',res:'rop',need:()=>(gaDays()!=null&&gaDays()<34*7)||(S.profile.bw&&S.profile.bw<1500),due:()=>hplTs()},
+ {k:'oae',kbk:1,t:'Gangguan pendengaran (OAE/AABR)',who:'Dokter THT / audiologi',when:'Minimal sebelum bayi dipulangkan, selambat-lambatnya sebelum usia kronologis 3 bulan.',res:'lr',need:()=>true,due:()=>addMonths(birthTs(),3)},
+ {k:'shk',kbk:1,t:'Fungsi tiroid (SHK)',who:'Dokter / bidan yang merawat',when:'Diambil pada usia 48–72 jam.',need:()=>true,due:()=>birthTs()+3*864e5},
+ {k:'shk2',kbk:1,t:'Fungsi tiroid ulang',who:'Dokter spesialis anak',when:'Untuk bayi lahir < 35 minggu: diulang pada usia kehamilan 37–42 minggu atau sebelum pulang.',need:()=>gaDays()!=null&&gaDays()<35*7,due:()=>gaDays()!=null?birthTs()+Math.max(0,37*7-gaDays())*864e5:null},
+ {k:'jantung',t:'USG jantung (PDA)',who:'Dokter spesialis anak / kardiologi anak',when:'Dilakukan bila ada dugaan klinis dari dokter spesialis anak.',need:()=>false},
+ {k:'ginjal',t:'USG ginjal',who:'Dokter spesialis anak',when:'Memeriksa endapan kalsium di ginjal; dianjurkan minimal sekali sebelum pulang.',need:()=>false},
+ {k:'anemia',t:'Pemantauan anemia & zat besi',who:'Dokter spesialis anak',when:'Tanyakan pemeriksaan Hb dan suplementasi zat besi (sesuai anjuran dokter).',need:()=>isPrem()},
+ {k:'tumbang',t:'Kontrol tumbuh kembang',who:'Dokter anak / klinik tumbuh kembang',when:'Pantau ketat paling tidak sampai usia 2 tahun dengan usia koreksi.',need:()=>isKbk()}];
+const DEV=[[2,['Senyum responsif saat diajak senyum','Bersuara / cooing (ah, uh)','Membuka tangan dan mengepal','Mengangkat kepala dan dada saat tengkurap'],['Tidak berespons terhadap suara keras','Tidak dapat menatap wajah','Tidak dapat mengangkat kepala saat tengkurap']],
+ [4,['Tertawa spontan dan keras','Menoleh ke arah suara','Telapak tangan tidak mengepal','Cooing panjang (aah, uuh)','Bermain dengan jari di tengah tubuh','Menggenggam benda','Menopang dada dengan siku saat tengkurap','Berguling (tengkurap ke telentang)'],['Tidak pernah memperhatikan benda yang bergerak','Tidak pernah mengeluarkan suara (cooing)','Tidak dapat menggerakkan tangan ke tengah tubuh']],
+ [6,['Tersenyum melihat wajah di cermin','Menoleh ketika namanya dipanggil','Bergumam konsonan (m, b)','Duduk sebentar tanpa ditopang','Meraup benda dengan 4 jari','Mencoba memasukkan benda ke mulut','Mengoceh vokal bergiliran (ah, eh, oh)','Memindahkan benda dari satu tangan ke tangan lain','Berguling dua arah'],['Tidak pernah tersenyum atau tertawa','Wajah tanpa ekspresi, tidak tertarik berinteraksi','Tidak menoleh ke arah suara','Tidak pernah mengeluarkan suara vokal','Tidak dapat menopang dada saat tengkurap','Tidak berupaya meraih benda','Tangan sering mengepal','Tampak sangat kaku atau sangat lemas']]];
+const CARE=[["vInv", "Alat bantu napas invasif", "hari"], ["vNon", "Alat bantu napas non-invasif (CPAP/NIPPV/high flow/nasal kanul)", "hari"], ["o2", "Terapi oksigen", "hari"], ["prc", "Transfusi sel darah merah (PRC)", "kali"], ["tc", "Transfusi trombosit (TC)", "kali"], ["ogt", "Sonde lambung (OGT)", "hari"], ["inf", "Infeksi: antibiotik", "hari"], ["hb", "Hb terakhir", "g/dL"]];
+const LEARN=['Perawatan Metode Kanguru (PMK)','Menyusui dan memerah ASI','Memandikan bayi & membersihkan kelamin','Memakaikan baju & mengganti popok','Memijat bayi'];
+const DANGER=['Sesak napas (napas > 60 kali/menit dengan tarikan dinding dada)','Hipotermia: suhu < 36,5 °C dan bayi tidak aktif','Demam: suhu > 37,5 °C','Kejang','Tampak lemas atau tidak mau menyusu','Kulit tampak pucat','Mata dan kulit kuning sampai lutut atau siku','Muntah hijau, muntah darah, atau BAB berdarah','Diare','Tidak BAB > 7 hari (ASI eksklusif) atau > 3 hari (susu formula) disertai perut membuncit','Tali pusat kemerahan, berbau, atau bernanah','Grafik berat badan mendatar atau tidak naik'];
+function isKbk(){const p=S.profile;return!!p&&(isPrem()||(p.bw&&p.bw<2500))}
+function corrMonths(t){return(t-corrBase())/(30.4375*864e5)}
+function ageAt(t){const b=birthTs(),d=Math.round((startOfDay(t)-b)/864e5);const c=corrBase()>b?Math.round((startOfDay(t)-corrBase())/864e5):null;return{kron:d<60?d+' hari':Math.floor(d/30.4375)+' bln',kor:c==null?null:c<0?Math.ceil(-c/7)+' mgg sebelum HPL':c<60?c+' hari':Math.floor(c/30.4375)+' bln'}}
+function resTxt(d){if(!d||!d.res)return'';return Object.entries(d.res).filter(([,v])=>v).map(([k,v])=>k+' '+v).join(' · ')}
+function upsertGrowth(id,t,w,l,hc){S.entries=S.entries.filter(e=>e.id!==id);if(w||l||hc)S.entries.push({id,type:'growth',t,w:w||null,l:l||null,hc:hc||null})}
+function dailyRekap(days){const out=[];for(let i=0;i<days;i++){const d0=startOfDay(Date.now())-i*864e5,d1=d0+864e5,E=S.entries.filter(e=>e.t>=d0&&e.t<d1);if(!E.length&&i>0)continue;
+ const temps=E.filter(e=>e.type==='temp'&&e.c).map(e=>+e.c),rr=E.filter(e=>e.type==='temp'&&e.rr).map(e=>+e.rr),w=E.filter(e=>e.type==='growth'&&e.w).pop(),bot=E.filter(e=>e.type==='bottle'),fd=E.filter(e=>e.type==='feed');
+ out.push({t:d0,bb:w?Math.round(w.w*1000):'',ml:bot.reduce((a,e)=>a+(+e.ml||0),0),cara:[...new Set([fd.length?'menyusu langsung '+fd.length+'x':null,...bot.map(e=>(e.cara||'botol').toLowerCase())].filter(Boolean))].join(', '),
+  suhu:temps.length?dec(Math.min(...temps))+(temps.length>1?'–'+dec(Math.max(...temps)):''):'',napas:rr.length?Math.max(...rr):'',bab:E.filter(e=>e.type==='diaper'&&e.kind!=='pipis').length,kencing:E.filter(e=>e.type==='diaper'&&e.kind!=='pup').length,muntah:E.filter(e=>e.type==='vomit').length,
+  perah:E.filter(e=>e.type==='pump').reduce((a,e)=>a+(+e.ml||0),0),pmk:dur(E.filter(e=>e.type==='pmk').reduce((a,e)=>a+(e.end-e.t),0)),masalah:E.filter(e=>e.type==='note'||(e.type==='vomit'&&e.kind!=='Biasa')).map(e=>e.type==='note'?e.text:'Muntah '+e.kind.toLowerCase()).join('; ')})}return out}
 function vPrem(){
- const p=S.profile,g=gaDays(),pr=S.prem||{};
- let h=header()+`<button class="btn" data-tab="home" style="margin-bottom:12px">← Kembali</button>`;
- h+=`<div class="card"><b>Data kelahiran</b><table style="margin-top:8px"><tbody>
- <tr><td>Usia kehamilan saat lahir</td><td>${g!=null?Math.floor(g/7)+' mgg '+(g%7)+' hr':'–'}</td></tr>
- <tr><td>HPL</td><td>${hplTs()?tgl(hplTs()):'–'}</td></tr><tr><td>Berat lahir</td><td>${p.bw?p.bw+' g':'–'}</td></tr>
+ const p=S.profile,g=gaDays(),pr=S.prem||{},a=ageAt(Date.now());
+ let h=header()+`<button class="btn" data-tab="home" style="margin-bottom:12px">← Kembali</button>
+ <div class="card" style="background:var(--lav);border-color:transparent"><b>Buku Bayi Kecil</b><p style="margin:6px 0 0;font-size:14px">Mengikuti Buku KIA Khusus Bayi Kecil (Kemenkes & JICA, 2021) untuk bayi dengan berat lahir &lt; 2500 g atau usia kehamilan &lt; 37 minggu. Dipakai bersama Buku KIA (buku pink).</p></div>`;
+ h+=`<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><b>Bayi saat lahir & pulang</b><button class="tag done" data-a="kbkData" style="min-height:32px">Ubah</button></div><table style="margin-top:8px"><tbody>
+ <tr><td>Usia kehamilan saat lahir</td><td>${g!=null?Math.floor(g/7)+' mgg '+(g%7)+' hr':'–'}</td></tr><tr><td>HPL</td><td>${hplTs()?tgl(hplTs()):'–'}</td></tr>
+ <tr><td>Lahir: BB / PB / LK</td><td>${p.bw?p.bw+' g':'–'} / ${p.bl?dec(p.bl)+' cm':'–'} / ${p.bhc?dec(p.bhc)+' cm':'–'}</td></tr>
+ <tr><td>Pulang RS${p.dc?' ('+tgl(dk2ts(p.dc))+')':''}</td><td>${p.dw?p.dw+' g':'–'} / ${p.dl?dec(p.dl)+' cm':'–'} / ${p.dhc?dec(p.dhc)+' cm':'–'}</td></tr>
+ <tr><td>Lama rawat</td><td>${p.los?p.los+' hari':'–'}</td></tr>
  <tr><td>Usia kronologis</td><td>${ageText()}</td></tr><tr><td>Usia koreksi</td><td>${corrText().replace('Usia koreksi: ','')||'–'}</td></tr></tbody></table>
- <p class="muted">Usia koreksi dipakai untuk menilai pertumbuhan & perkembangan (umumnya sampai usia 2 tahun). Imunisasi tetap mengikuti usia kronologis (sejak tanggal lahir).</p></div>`;
- h+=`<div class="card" style="background:var(--sun);border-color:transparent"><b>Catatan imunisasi bayi prematur</b><p style="margin:6px 0 0;font-size:14px">Menurut IDAI 2023, bayi dengan berat lahir &lt; 2000 g sebaiknya menunda hepatitis B sampai usia 1 bulan atau saat pulang, kecuali ibu HBsAg positif. Diskusikan jadwal lengkapnya dengan dokter anak.</p></div>`;
- h+=`<h2>Skrining & konsultasi</h2><p class="muted">Ketuk untuk menandai sudah dilakukan dan mencatat hasilnya. Tanda "dianjurkan" dihitung dari data kelahiran; dokter yang merawat tetap menentukan.</p><div class="list">`;
- for(const it of PREM){const d=pr[it.k],need=it.need(),due=it.due&&it.due();
-  h+=`<button class="item" data-prem="${it.k}" style="align-items:flex-start"><span class="chk ${d?'on':''}" style="margin-top:2px">${d?'✓':''}</span><span class="m"><b>${it.t}</b><small style="display:block">${it.when}</small><small style="display:block;margin-top:3px"><b style="display:inline;font-size:13px">Konsul:</b> ${it.who}${due&&!d?' · target '+tgl(due):''}</small>${d?`<small style="display:block;color:var(--sky-i);font-weight:700">Sudah ${tgl(d.t)}${d.note?' · '+esc(d.note):''}</small>`:''}</span>${!d&&need?'<span class="tag soon">dianjurkan</span>':''}</button>`}
- h+='</div><p class="muted" style="margin-top:12px">Informasi umum dari pedoman IDAI/Kemenkes, bukan pengganti nasihat dokter. Segera ke IGD bila bayi sesak, biru, kejang, sangat lemas, atau tidak mau menyusu.</p>';
+ ${p.anakKe||p.cara||p.apgar||p.gol?`<p style="font-size:14px;margin:8px 0 0">${[p.anakKe&&'Anak ke-'+p.anakKe+(p.hamilKe?' dari kehamilan ke-'+p.hamilKe:''),p.cara&&'Lahir '+p.cara.toLowerCase(),p.apgar&&'APGAR '+esc(p.apgar),p.gol&&'Gol. darah '+esc(p.gol)].filter(Boolean).join(' · ')}</p>`:''}
+ ${Object.keys(p.care2||{}).length?`<p style="font-size:14px;margin:8px 0 0"><b style="display:inline;font-size:14px">Perawatan RS:</b> ${CARE.filter(([k])=>(p.care2||{})[k]!=null).map(([k,n,u])=>n.split(' (')[0]+' '+dec(p.care2[k])+' '+u).join('; ')}</p>`:''}
+ ${p.care?`<p style="font-size:14px;margin:8px 0 0"><b style="display:inline;font-size:14px">Catatan:</b> ${esc(p.care)}</p>`:''}
+ ${(p.learn||[]).length?`<p style="font-size:14px;margin:8px 0 0"><b style="display:inline;font-size:14px">Sudah dipelajari:</b> ${p.learn.map(esc).join(', ')}</p>`:''}
+ <p class="muted">Usia koreksi = (usia bayi + usia kehamilan saat lahir) − 40 minggu. Dipakai sampai usia 2 tahun untuk menilai tumbuh kembang; tidak mengubah tanggal ulang tahun. Imunisasi & vitamin A tetap mengikuti usia kronologis.</p></div>`;
+ const today=S.entries.filter(e=>e.type==='pmk'&&e.t>=startOfDay(Date.now())).reduce((a2,e)=>a2+(e.end-e.t),0);
+ h+=`<div class="card b-sleep" style="border-color:transparent"><b>Sudahkah PMK hari ini?</b><p style="margin:6px 0 10px;font-size:14px">Perawatan Metode Kanguru: bayi hanya memakai popok, topi, dan kaus kaki, menempel dada ibu/ayah dengan posisi kaki "kodok", diikat kain agar aman. Bayi yang menentukan kapan selesai. Hari ini: <b style="display:inline">${dur(today)}</b>.</p>
+ ${S.timers.pmk?'<button class="btn" data-tab="home" style="width:100%">PMK sedang berjalan — lihat timer</button>':'<button class="btn teal" data-a="pmkStart" style="width:100%">Mulai PMK</button>'}<p class="muted" style="margin:8px 0 0">Jangan memakai inkubator atau botol air panas di rumah untuk menghangatkan bayi.</p></div>`;
+ h+=`<h2>Penapisan (skrining)</h2><p class="muted">Sesuai halaman "Penapisan Bayi Prematur Saat Rawat Jalan". Ketuk untuk mencatat tanggal & hasil.</p><div class="list">`;
+ for(const it of PREM){const d=pr[it.k],need=it.need(),due=it.due&&it.due(),rt=resTxt(d),bad=rt&&/Refer|Derajat|Plus|IVH|PVL/.test(rt);
+  h+=`<button class="item" data-prem="${it.k}" style="align-items:flex-start"><span class="chk ${d?'on':''}" style="margin-top:2px">${d?'✓':''}</span><span class="m"><b>${it.t}${it.kbk?'':' <span class="muted" style="font-weight:600">(lainnya)</span>'}</b><small style="display:block">${it.when}</small><small style="display:block;margin-top:3px">Konsul: ${it.who}${due&&!d?' · target '+tgl(due):''}</small>${d?`<small style="display:block;color:${bad?'var(--red)':'var(--sky-i)'};font-weight:700">Sudah ${tgl(d.t)}${rt?' · '+esc(rt):''}${d.note?' · '+esc(d.note):''}</small>`:''}</span>${!d&&need?'<span class="tag soon">dianjurkan</span>':bad?'<span class="tag late">kontrol</span>':''}</button>`}
+ h+='</div>';
+ const rk=dailyRekap(14);
+ h+=`<h2>Rekap pemantauan harian</h2><p class="muted">Terisi otomatis dari catatan: timbang, minum, suhu & napas, popok, muntah, PMK. Catat suhu & napas lewat tombol +.</p><div class="card" style="overflow-x:auto;padding:10px"><table style="font-size:13px;min-width:640px"><thead><tr><th>Tanggal</th><th>BB (g)</th><th>Minum (ml)</th><th>Cara</th><th>Suhu</th><th>Napas</th><th>BAB</th><th>Kencing</th><th>Muntah</th><th>PMK</th><th>Perah (ml)</th></tr></thead><tbody>${rk.map(r=>`<tr><td>${tgl(r.t)}</td><td>${r.bb||'–'}</td><td>${r.ml||'–'}</td><td style="text-align:left">${esc(r.cara)||'–'}</td><td>${r.suhu||'–'}</td><td>${r.napas||'–'}</td><td>${r.bab}</td><td>${r.kencing}</td><td>${r.muntah}</td><td>${r.pmk}</td><td>${r.perah||'–'}</td></tr>`).join('')}</tbody></table></div>`;
+ const vis=S.entries.filter(e=>e.type==='visit').sort((x,y)=>y.t-x.t);
+ h+=`<h2>Ringkasan pelayanan</h2><p class="muted">Catat setiap kontrol ke dokter/bidan. Tanggal kembali akan diingatkan.</p><button class="btn ghost" data-form="visit" style="width:100%;margin-bottom:10px">Catat kunjungan / kontrol</button>${vis.length?'<div class="list">'+vis.map(e=>{const aa=ageAt(e.t);return`<button class="item" data-edit="${e.id}" style="align-items:flex-start"><span class="ico b-bot c-bot">${I.note}</span><span class="m"><b>${tgl(e.t)}${e.place?' · '+esc(e.place):''}</b><small style="display:block">Usia ${aa.kron}${aa.kor?' · koreksi '+aa.kor:''}</small>${e.keluhan?`<small style="display:block">Keluhan: ${esc(e.keluhan)}</small>`:''}${e.saran?`<small style="display:block">Tindakan/saran: ${esc(e.saran)}</small>`:''}${e.back?`<small style="display:block;font-weight:700;color:var(--teal)">Kembali ${tgl(dk2ts(e.back))}</small>`:''}</span></button>`}).join('')+'</div>':''}`;
+ const EDU=[['Gizi untuk bayi kecil',['Urutan prioritas: (1) ASI, (2) ASI donor — harus melalui prosedur khusus, (3) penambahan Human Milk Fortifier (HMF), (4) pendamping ASI; nomor 3 dan 4 sesuai anjuran dokter.','Suplementasi zat besi dapat diberikan sesuai anjuran dokter.','Semakin sering menyusui/memerah, produksi ASI semakin banyak.']],
+ ['Kiat meningkatkan produksi ASI',['Perah 8–12 kali sehari (tiap 2–3 jam), termasuk malam hari.','Kosongkan payudara: lanjutkan memerah 2 menit setelah tetes terakhir.','Pijat payudara sebelum dan sesudah memerah.','Cukupi makan & minum ibu; ciptakan suasana tenang.','Minta bantuan konselor laktasi/bidan/dokter bila hasil perah terus sedikit.']],
+ ['Merawat kulit & tali pusat',['Mandikan setiap hari dengan air suam-suam kuku di ruangan tertutup, segera keringkan.','Pakai sabun bayi pH seimbang; bersihkan lipatan dengan lembut.','Pelembap minimal tiap 8 jam; hindari dedaunan/rempah pada kulit.','Tali pusat dibersihkan air hangat bersih lalu dikeringkan, dibiarkan terbuka; tanpa alkohol, ramuan, minyak, atau bedak.']],
+ ['Tips merawat bayi kecil',['Persingkat kunjungan ke fasilitas kesehatan; jaga kebersihan rumah dan selalu cuci tangan (terutama bila ada tamu).','Jauhkan dari asap rokok.','Tidur telentang tanpa bantal dan selimut; tengkurap hanya dengan pengawasan di alas keras.','Ibu cukup istirahat; minta keluarga membantu pekerjaan rumah.','Lengkapi imunisasi dan vitamin A sesuai usia kronologis (lihat Buku KIA).']],
+ ['Boleh & tidak boleh',['Boleh: PMK agar bayi hangat; obat penurun demam & makanan semi padat hanya atas petunjuk dokter.','Tidak boleh: botol panas atau inkubator di rumah, membalur badan dengan bawang/terasi, memberi makanan semi padat terlalu dini, memberi ramuan/minyak/bedak di tali pusat.']],
+ ['Mitos & fakta',['Gurita: pemakaian lama membuat bayi sulit bernapas.','Air tajin tidak bisa menggantikan ASI.','Bayi prematur boleh dimandikan rutin, lalu dikeringkan dan diberi pelembap.','Kolostrum (ASI kuning kental pertama) justru penting, jangan dibuang.','Menarik hidung tidak membuatnya mancung; gunting/peniti di baju berisiko melukai.']]];
+ h+=`<h2>Panduan dari Buku KBK</h2>`+EDU.map(([t,li])=>`<details class="card" style="padding:14px 16px"><summary style="font:700 17px Fraunces,Georgia,serif;cursor:pointer">${t}</summary><ul style="margin:8px 0 0;padding-left:20px;font-size:14px">${li.map(x=>`<li style="margin-bottom:4px">${x}</li>`).join('')}</ul></details>`).join('');
+ h+=`<h2>Kenali tanda bahaya</h2><div class="card" style="background:var(--red2);border-color:transparent"><p style="margin:0 0 6px;font-weight:800;color:var(--red)">Jika ada 1 atau lebih tanda ini, segera bawa bayi ke fasilitas kesehatan.</p><ul style="margin:0;padding-left:20px;font-size:14px">${DANGER.map(x=>`<li>${x}</li>`).join('')}</ul></div>`;
+ h+=`<h2>Pijat bayi prematur</h2><div class="card"><p style="margin:0;font-size:14px">Boleh dilakukan orang tua bila sudah diajari tenaga kesehatan dan bayi sudah stabil; bisa setiap hari pada 6–7 bulan pertama. Tiap gerakan ±2×5 detik, diulang 6 kali, total sekitar 5 menit per posisi (telentang, lalu tengkurap).</p>
+ <ul style="font-size:14px;padding-left:20px;margin:8px 0"><li>Cuci & hangatkan tangan, pakai minyak/lotion aman untuk bayi, ajak bicara dan kontak mata.</li><li>Jangan memijat setelah menyusu, saat bayi sakit, atau membangunkan bayi hanya untuk dipijat.</li><li>Hentikan bila bayi rewel atau tidak nyaman.</li></ul><button class="btn ghost" data-form="pijat" style="width:100%">Catat pijat hari ini</button></div>`;
+ return h+'<p class="muted" style="margin-top:12px">Sumber: Buku KIA Khusus Bayi Kecil, Kemenkes RI & JICA (2021). Bukan pengganti pemeriksaan tenaga kesehatan.</p>';
+}
+function kbkDataSheet(){const p=S.profile,v=x=>x??'';
+ openSheet(`<h3>Bayi saat lahir & pulang</h3><form id="kbkForm">
+ <label>Usia kehamilan saat lahir</label><div class="row"><input id="kGa" type="number" inputmode="numeric" placeholder="minggu" value="${v(p.gaW)}" style="flex:2"><input id="kGaD" type="number" inputmode="numeric" placeholder="+hari" value="${v(p.gaD)}" style="flex:1"></div>
+ <label for="kHpl">HPL</label><input id="kHpl" type="date" value="${esc(p.hpl||'')}">
+ <label>Saat lahir: berat (g) · panjang (cm) · lingkar kepala (cm)</label><div class="row"><input id="kBw" type="number" inputmode="numeric" placeholder="gram" value="${v(p.bw)}"><input id="kBl" type="number" inputmode="decimal" step="0.1" placeholder="PB" value="${v(p.bl)}"><input id="kBhc" type="number" inputmode="decimal" step="0.1" placeholder="LK" value="${v(p.bhc)}"></div>
+ <label>Anak ke · kehamilan ke</label><div class="row"><input id="kAk" type="number" inputmode="numeric" placeholder="anak ke" value="${v(p.anakKe)}"><input id="kHk" type="number" inputmode="numeric" placeholder="kehamilan ke" value="${v(p.hamilKe)}"></div>
+ <label for="kCara">Cara lahir</label><select id="kCara">${['','Spontan','Ekstraksi vakum','Ekstraksi forsep','Operasi Caesar'].map(o=>`<option ${p.cara===o?'selected':''} value="${o}">${o||'–'}</option>`).join('')}</select>
+ <label>APGAR · golongan darah</label><div class="row"><input id="kApg" placeholder="mis. 7/9" value="${esc(p.apgar||'')}"><input id="kGol" placeholder="mis. O+" value="${esc(p.gol||'')}"></div>
+ <label for="kLos">Lama perawatan di rumah sakit (hari)</label><input id="kLos" type="number" inputmode="numeric" value="${v(p.los)}">
+ <label for="kDc">Tanggal pulang dari RS</label><input id="kDc" type="date" value="${esc(p.dc||'')}">
+ <label>Saat pulang: berat (g) · panjang (cm) · lingkar kepala (cm)</label><div class="row"><input id="kDw" type="number" inputmode="numeric" placeholder="gram" value="${v(p.dw)}"><input id="kDl" type="number" inputmode="decimal" step="0.1" placeholder="PB" value="${v(p.dl)}"><input id="kDhc" type="number" inputmode="decimal" step="0.1" placeholder="LK" value="${v(p.dhc)}"></div>
+ <label>Catatan perawatan di RS (kosongkan bila tidak ada)</label><div style="display:grid;grid-template-columns:1fr 92px;gap:6px 8px;align-items:center">${CARE.map(([k,n,u])=>`<span style="font-size:14px">${n} <span class="muted">(${u})</span></span><input id="kc_${k}" type="number" inputmode="decimal" step="any" value="${v((p.care2||{})[k])}">`).join('')}</div>
+ <label>Perawatan yang sudah dipelajari orang tua di RS</label>${LEARN.map((x,i)=>`<div class="sw"><span style="font-weight:600">${x}</span><input type="checkbox" id="kl${i}" ${(p.learn||[]).includes(x)?'checked':''}></div>`).join('')}
+ <label for="kCare">Catatan lain</label><textarea id="kCare" style="min-height:80px">${esc(p.care||'')}</textarea>
+ <div style="height:14px"></div><button class="btn teal" style="width:100%">Simpan</button></form>`)}
+function saveKbk(){const n=id=>{const x=$('#'+id).value;return x===''?null:Number(String(x).replace(',','.'))};const p=S.profile;
+ const care2={};for(const[k]of CARE){const x=n('kc_'+k);if(x!=null)care2[k]=x}
+ Object.assign(p,{care2,learn:LEARN.filter((x,i)=>$('#kl'+i).checked),anakKe:n('kAk'),hamilKe:n('kHk'),cara:$('#kCara').value||null,apgar:$('#kApg').value.trim(),gol:$('#kGol').value.trim(),gaW:n('kGa'),gaD:n('kGaD')||0,hpl:$('#kHpl').value||null,bw:n('kBw'),bl:n('kBl'),bhc:n('kBhc'),los:n('kLos'),dc:$('#kDc').value||null,dw:n('kDw'),dl:n('kDl'),dhc:n('kDhc'),care:$('#kCare').value.trim()});
+ upsertGrowth('birth',birthTs(),p.bw?p.bw/1000:null,p.bl,p.bhc);if(p.dc)upsertGrowth('discharge',dk2ts(p.dc),p.dw?p.dw/1000:null,p.dl,p.dhc);else S.entries=S.entries.filter(e=>e.id!=='discharge');
+ save();closeSheet();render();toast('Data tersimpan')}
+function vDev(){const pr=corrBase()>birthTs(),cm=Math.max(0,corrMonths(Date.now()));
+ let h=`<h2>Tahapan perkembangan</h2><p class="muted">Dari Buku KIA Khusus Bayi Kecil. Ketuk saat ${esc(S.profile.name)} sudah bisa melakukannya — ${pr?'usia koreksi':'usia'} saat itu dicatat otomatis.</p>`;
+ for(const[m,skills,flags]of DEV){h+=`<div class="day">${pr?'Usia koreksi':'Usia'} ${m} bulan${cm>=m-0.5&&cm<m+2?' <span class="tag soon">sekarang</span>':''}</div><div class="list">`+skills.map(x=>{const k=m+'|'+x,d=(S.dev||{})[k];const aa=d?ageAt(d):null;return`<button class="item" data-dev="${esc(k)}"><span class="chk ${d?'on':''}">${d?'✓':''}</span><span class="m"><b>${x}</b><small>${d?'Bisa sejak '+tgl(d)+' · '+(aa.kor&&pr?'usia koreksi '+aa.kor:'usia '+aa.kron):'Belum'}</small></span></button>`}).join('')+
+  `</div><div class="card" style="background:var(--red2);border-color:transparent;margin-top:8px;padding:12px 14px"><small style="font-weight:800;color:var(--red)">Segera konsultasi ke dokter bila di usia ini bayi:</small><ul style="margin:4px 0 0;padding-left:18px;font-size:13px">${flags.map(x=>`<li>${x}</li>`).join('')}</ul></div>`}
  return h}
+function vitalAlert(e){const w=[];if(e.type==='temp'){if(e.c&&e.c<36.5)w.push('Suhu '+dec(e.c)+' °C (di bawah 36,5 °C). Hangatkan dengan PMK; bila bayi tidak aktif, segera ke fasilitas kesehatan.');if(e.c&&e.c>37.5)w.push('Demam: suhu '+dec(e.c)+' °C (di atas 37,5 °C) termasuk tanda bahaya. Segera bawa bayi ke fasilitas kesehatan.');if(e.rr&&e.rr>60)w.push('Napas '+e.rr+' kali/menit (di atas 60). Bila ada tarikan dinding dada, segera ke fasilitas kesehatan.')}
+ if(e.type==='vomit'&&e.kind!=='Biasa')w.push('Muntah '+e.kind.toLowerCase()+' termasuk tanda bahaya. Segera bawa bayi ke fasilitas kesehatan.');
+ if(w.length)openSheet(`<h3 style="color:var(--red)">Perhatikan</h3>${w.map(x=>`<div class="zbox warn" style="font-size:15px">${x}</div>`).join('')}<div style="height:14px"></div><button class="btn" data-a="close" style="width:100%">Mengerti</button>`)}
 function vSet(){const p=S.profile;return header()+`
  <div class="card"><b>Data bayi</b><form id="profForm"><label for="pName">Nama</label><input id="pName" value="${esc(p.name)}" required><label for="pBirth">Tanggal lahir</label><input id="pBirth" type="date" value="${esc(p.birth)}" required>
  <label for="pSex">Jenis kelamin</label><select id="pSex"><option value="L" ${p.sex!=='P'?'selected':''}>Laki-laki</option><option value="P" ${p.sex==='P'?'selected':''}>Perempuan</option></select>
@@ -376,13 +466,16 @@ function vSet(){const p=S.profile;return header()+`
  <label for="pBw">Berat lahir (gram)</label><input id="pBw" type="number" inputmode="numeric" min="300" max="6000" value="${p.bw??''}">
  <label for="pReg">Jadwal imunisasi</label><select id="pReg"><option value="nasional" ${p.region!=='yogyakarta'?'selected':''}>Nasional</option><option value="yogyakarta" ${p.region==='yogyakarta'?'selected':''}>Yogyakarta</option></select>
  <div style="height:12px"></div><button class="btn teal" style="width:100%">Simpan</button></form></div>
- <button class="card" data-tab="prem" style="width:100%;text-align:left"><b style="font:700 18px Fraunces,Georgia,serif">Bayi prematur & skrining</b><br><span class="muted">Usia koreksi, daftar skrining, dan konsultasi</span></button>
+ <button class="card" data-tab="prem" style="width:100%;text-align:left"><b style="font:700 18px Fraunces,Georgia,serif">Buku Bayi Kecil (prematur/BBLR)</b><br><span class="muted">Data lahir & pulang, usia koreksi, penapisan, PMK, rekap harian, kontrol</span></button>
  <div class="card"><b>Pengingat</b>
  <div class="sw"><span>Pengingat menyusu</span><input type="checkbox" id="rFeed" ${S.settings.feedOn?'checked':''}></div>
  <label for="rFeedH">Ingatkan setelah (jam) sejak mulai menyusu terakhir</label><select id="rFeedH">${[1.5,2,2.5,3,3.5,4].map(v=>`<option value="${v}" ${S.settings.feedHours==v?'selected':''}>${dec(v)} jam</option>`).join('')}</select>
  <div class="sw" style="margin-top:8px"><span>Pengingat imunisasi</span><input type="checkbox" id="rVax" ${S.settings.vaxOn?'checked':''}></div>
  <label for="rVaxD">Ingatkan sebelum jadwal</label><select id="rVaxD">${[1,3,7].map(v=>`<option value="${v}" ${S.settings.vaxDays==v?'selected':''}>${v} hari</option>`).join('')}</select>
- <p class="muted">Pengingat imunisasi muncul jam 08.00, juga di hari jadwalnya.</p></div>
+ <p class="muted">Pengingat imunisasi muncul jam 08.00, juga di hari jadwalnya.</p>
+ <div class="sw" style="margin-top:8px"><span>Pengingat perah ASI</span><input type="checkbox" id="rPump" ${S.settings.pumpOn?'checked':''}></div>
+ <label for="rPumpH">Ingatkan setelah (jam) sejak perah terakhir</label><select id="rPumpH">${[2,2.5,3].map(v=>`<option value="${v}" ${S.settings.pumpHours==v?'selected':''}>${dec(v)} jam</option>`).join('')}</select>
+ <div class="sw" style="margin-top:8px"><span>Pengingat pelembap kulit (tiap 8 jam)</span><input type="checkbox" id="rSkin" ${S.settings.skinOn?'checked':''}></div></div>
  <div class="card"><b>Vitamin & obat</b><p class="muted">Tambah sendiri nama dan jumlahnya (ml). Jam pengingat boleh dikosongkan.</p>
  ${S.meds.length?'<div class="list" style="background:var(--bg);margin-bottom:10px">'+S.meds.map(m=>`<button class="item" data-med="${m.id}"><span class="m"><b>${esc(m.name)}${m.on?'':' (nonaktif)'}</b><small>${esc(mlTxt(m))||'tanpa jumlah'} · ${m.times.length?m.times.join(', '):'tanpa pengingat'}</small></span></button>`).join('')+'</div>':''}
  <button class="btn ghost" data-a="medNew" style="width:100%">Tambah vitamin / obat</button></div>
@@ -391,25 +484,30 @@ function vSet(){const p=S.profile;return header()+`
  <div class="card"><b>Cadangan data</b><p class="muted">Data hanya ada di HP ini. Simpan cadangan sesekali (mis. ke Google Drive/WhatsApp) supaya tidak hilang kalau HP ganti atau aplikasi terhapus.</p>
  <div class="row"><button class="btn ghost" data-a="export">Simpan cadangan</button><button class="btn" data-a="import">Pulihkan</button></div></div>
  <div class="card"><b>Hapus semua data</b><p class="muted">Tidak bisa dibatalkan.</p><button class="btn danger" data-a="wipe" style="width:100%">Hapus semua</button></div>
- <p class="muted" style="text-align:center">Bayiku 3.0 · ${S.entries.length} catatan tersimpan</p>`}
+ <p class="muted" style="text-align:center">Bayiku 4.0 · ${S.entries.length} catatan tersimpan</p>`}
 
 /* ---------- SHEETS ---------- */
 function openSheet(html){$('#sheet').innerHTML=html;$('#sheetBg').classList.add('open')}
 function closeSheet(){$('#sheetBg').classList.remove('open');$('#sheet').innerHTML=''}
 window.onBack=()=>{if($('#sheetBg').classList.contains('open')){closeSheet();return true}if(tab==='prem'){tab='home';render();return true}if(S.profile&&tab!=='home'){tab='home';render();return true}return false};
 function sheetAdd(){openSheet(`<h3>Tambah catatan</h3><div class="grid3">
- ${[['feedStart','Menyusu kiri',I.feed,'feed','L'],['feedStart','Menyusu kanan',I.feed,'feed','R'],['bottle','Botol',I.bottle,'bot'],['sleepStart','Mulai tidur',I.sleep,'sleep'],['diaper','Popok',I.diaper,'diap'],['tummyStart','Tummy time',I.tummy,'tum'],['growth','Pertumbuhan',I.grow,'tum'],['temp','Suhu',I.temp,'bot'],['medLog','Vitamin / obat',I.temp,'tum'],['note','Catatan',I.note,'diap']].map(([a,n,ic,c,sd])=>`<button class="tile" data-a="${a}" ${sd?`data-side="${sd}"`:''}><span class="ico b-${c} c-${c}">${ic}</span>${n}</button>`).join('')}
+ ${[['feedStart','Menyusu kiri',I.feed,'feed','L'],['feedStart','Menyusu kanan',I.feed,'feed','R'],['bottle','Botol',I.bottle,'bot'],['sleepStart','Mulai tidur',I.sleep,'sleep'],['diaper','Popok',I.diaper,'diap'],['tummyStart','Tummy time',I.tummy,'tum'],['growth','Pertumbuhan',I.grow,'tum'],['temp','Suhu & napas',I.temp,'bot'],['medLog','Vitamin / obat',I.temp,'tum'],['pmkStart','PMK (kanguru)',I.sleep,'sleep'],['pump','Perah ASI',I.bottle,'feed'],['skin','Pelembap',I.note,'tum'],['vomit','Muntah',I.diaper,'diap'],['note','Catatan',I.note,'diap']].map(([a,n,ic,c,sd])=>`<button class="tile" data-a="${a}" ${sd?`data-side="${sd}"`:''}><span class="ico b-${c} c-${c}">${ic}</span>${n}</button>`).join('')}
  </div><div style="height:12px"></div><button class="btn ghost" style="width:100%" data-a="past">Catat yang sudah lewat (isi jam manual)</button>`)}
 function timeField(id,t,lbl){return`<label for="${id}">${lbl||'Waktu'}</label><input id="${id}" type="datetime-local" value="${toLocalInput(t)}">`}
 function formSheet(type,e){
  const ed=!!e;e=e||{t:Date.now()};let f='';
- if(type==='bottle')f=`<label>Jenis susu</label><div class="seg" data-seg="milk">${['ASIP','Sufor'].map(m=>`<button type="button" data-v="${m}" class="${(e.milk||'ASIP')===m?'on':''}">${m}</button>`).join('')}</div><label for="fMl">Jumlah (ml)</label><input id="fMl" type="number" inputmode="numeric" min="1" required value="${e.ml||''}">`+timeField('fT',e.t);
+ if(type==='bottle')f=`<label>Cara minum</label><div class="seg" data-seg="cara">${['Botol','Sendok','Cup','Sonde'].map(m=>`<button type="button" data-v="${m}" class="${(e.cara||'Botol')===m?'on':''}">${m}</button>`).join('')}</div><label>Jenis susu</label><div class="seg" data-seg="milk">${['ASIP','ASI donor','Sufor'].map(m=>`<button type="button" data-v="${m}" class="${(e.milk||'ASIP')===m?'on':''}">${m}</button>`).join('')}</div><label for="fMl">Jumlah (ml)</label><input id="fMl" type="number" inputmode="numeric" min="1" required value="${e.ml||''}">`+timeField('fT',e.t);
  if(type==='diaper')f=`<label>Isi popok</label><div class="seg" data-seg="kind">${[['pipis','Pipis'],['pup','Pup'],['keduanya','Keduanya']].map(([v,n])=>`<button type="button" data-v="${v}" class="${(e.kind||'pipis')===v?'on':''}">${n}</button>`).join('')}</div>`+timeField('fT',e.t);
- if(type==='growth')f=`<label for="fW">Berat (kg)</label><input id="fW" type="number" inputmode="decimal" step="0.01" min="0" value="${e.w||''}" placeholder="mis. 3,53"><label for="fL">Panjang (cm)</label><input id="fL" type="number" inputmode="decimal" step="0.1" min="0" value="${e.l||''}"><label for="fH">Lingkar kepala (cm)</label><input id="fH" type="number" inputmode="decimal" step="0.1" min="0" value="${e.hc||''}">`+timeField('fT',e.t,'Tanggal ukur');
- if(type==='temp')f=`<label for="fC">Suhu (°C)</label><input id="fC" type="number" inputmode="decimal" step="0.1" min="30" max="45" required value="${e.c||''}" placeholder="mis. 36,8">`+timeField('fT',e.t);
+ if(type==='growth')f=`<label for="fW">Berat badan (kg atau gram)</label><input id="fW" type="number" inputmode="decimal" step="any" min="0" value="${e.w||''}" placeholder="mis. 3,53 atau 3530"><label for="fL">Panjang (cm)</label><input id="fL" type="number" inputmode="decimal" step="0.1" min="0" value="${e.l||''}"><label for="fH">Lingkar kepala (cm)</label><input id="fH" type="number" inputmode="decimal" step="0.1" min="0" value="${e.hc||''}">`+timeField('fT',e.t,'Tanggal ukur');
+ if(type==='temp')f=`<label for="fC">Suhu (°C)</label><input id="fC" type="number" inputmode="decimal" step="0.1" min="30" max="45" value="${e.c||''}" placeholder="mis. 36,8"><label for="fR">Napas (kali per menit) — opsional</label><input id="fR" type="number" inputmode="numeric" min="10" max="150" value="${e.rr||''}" placeholder="hitung selama 1 menit penuh"><p class="muted" style="margin:6px 0 0">Normal: suhu 36,5–37,5 °C; napas tidak lebih dari 60 kali/menit.</p>`+timeField('fT',e.t);
+ if(type==='vomit')f=`<label>Jenis muntah</label><div class="seg" data-seg="kind">${['Biasa','Hijau','Darah'].map(v=>`<button type="button" data-v="${v}" class="${(e.kind||'Biasa')===v?'on':''}">${v}</button>`).join('')}</div><label for="fMl">Perkiraan jumlah (ml) — opsional</label><input id="fMl" type="number" inputmode="numeric" min="0" value="${e.ml||''}">`+timeField('fT',e.t);
+ if(type==='pump')f=`<label>Payudara</label><div class="seg" data-seg="side">${['Kiri','Kanan','Keduanya'].map(v=>`<button type="button" data-v="${v}" class="${(e.side||'Keduanya')===v?'on':''}">${v}</button>`).join('')}</div><label for="fMl">Hasil perah (ml)</label><input id="fMl" type="number" inputmode="numeric" min="0" value="${e.ml??''}">`+timeField('fT',e.t)+`<p class="muted" style="margin:8px 0 0">Buku KBK: perah 8–12 kali sehari (tiap 2–3 jam) termasuk malam; lanjutkan 2 menit setelah tetes terakhir.</p>`;
+ if(type==='skin')f=timeField('fT',e.t)+`<p class="muted" style="margin:8px 0 0">Oleskan pelembap minimal tiap 8 jam. Pilih minyak alami (zaitun/kelapa/bunga matahari); hindari yang beralkohol, pewangi, pewarna, pengawet.</p>`;
+ if(type==='pijat')f=timeField('fT',e.t)+`<label for="fD">Lama (menit)</label><input id="fD" type="number" inputmode="numeric" min="1" value="${e.dur?Math.round(e.dur/6e4):10}">`;
+ if(type==='visit')f=`<label for="vPl">Tempat / dokter</label><input id="vPl" value="${esc(e.place||'')}" placeholder="mis. dr. Sp.A RS ..."><label for="vK">Keluhan</label><textarea id="vK" style="min-height:70px">${esc(e.keluhan||'')}</textarea><label for="vS">Pemeriksaan, tindakan, saran</label><textarea id="vS" style="min-height:90px">${esc(e.saran||'')}</textarea><label for="vB">Tanggal kembali (kontrol berikutnya)</label><input id="vB" type="date" value="${esc(e.back||'')}">`+timeField('fT',e.t,'Tanggal kunjungan');
  if(type==='note')f=`<label for="fN">Catatan (obat, gejala, dll.)</label><textarea id="fN" required>${esc(e.text||'')}</textarea>`+timeField('fT',e.t);
  if(type==='feed')f=`<label>Sisi</label><div class="seg" data-seg="side">${[['L','Kiri'],['R','Kanan']].map(([v,n])=>`<button type="button" data-v="${v}" class="${(e.side||'L')===v?'on':''}">${n}</button>`).join('')}</div>`+timeField('fT',e.t,'Mulai')+`<label for="fD">Lama (menit)</label><input id="fD" type="number" inputmode="numeric" min="1" required value="${e.dur?Math.round(e.dur/60000):''}">`;
- if(type==='sleep'||type==='tummy')f=timeField('fT',e.t,'Mulai')+timeField('fE',e.end||Date.now(),'Selesai');
+ if(type==='sleep'||type==='tummy'||type==='pmk')f=timeField('fT',e.t,'Mulai')+timeField('fE',e.end||Date.now(),'Selesai');
  openSheet(`<h3>${ed?'Ubah':''} ${TYPES[type][0]}</h3><form id="entryForm" data-type="${type}" data-id="${ed?e.id:''}">${f}<div style="height:16px"></div><div class="row">${ed?'<button type="button" class="btn danger" data-a="del">Hapus</button>':''}<button class="btn teal">Simpan</button></div></form>`);
 }
 function medSheet(m){const ed=!!m;m=m||{name:'',ml:'',times:[],on:true};
@@ -430,12 +528,13 @@ function msSheet(m){const ed=!!m;m=m||{title:'',date:startOfDay(Date.now()),note
  <label>Foto</label><button type="button" class="prev" data-a="msPhoto" id="msPrev">${m.photo?'':'Ketuk untuk pilih foto'}</button>
  <div style="height:14px"></div><div class="row">${ed?'<button type="button" class="btn danger" data-a="msDel">Hapus</button>':''}<button class="btn teal">Simpan</button></div></form>`);
  if(m.photo)idb('get',m.id).then(u=>{if(u&&$('#msPrev'))$('#msPrev').innerHTML='<img alt="" src="'+u+'">'})}
-function premSheet(k){const it=PREM.find(x=>x.k===k),d=(S.prem||{})[k];
- openSheet(`<h3>${it.t}</h3><p class="muted">${it.when}</p><form id="premForm" data-k="${k}"><label for="prD">Tanggal dilakukan</label><input id="prD" type="date" required value="${dayKey(d?d.t:Date.now())}">
+function premSheet(k){const it=PREM.find(x=>x.k===k),d=(S.prem||{})[k],fs=it.res?RES[it.res]:[];
+ openSheet(`<h3>${it.t}</h3><p class="muted">${it.when}</p><form id="premForm" data-k="${k}"><label for="prD">Tanggal pemeriksaan</label><input id="prD" type="date" required value="${dayKey(d?d.t:Date.now())}">
+ ${fs.map(([lb,opts],i)=>`<label for="prR${i}">${lb}</label><select id="prR${i}" data-lb="${lb}"><option value="">–</option>${opts.map(o=>`<option ${d&&d.res&&d.res[lb]===o?'selected':''}>${o}</option>`).join('')}</select>`).join('')}
  <label for="prN">Hasil / catatan dokter</label><textarea id="prN" style="min-height:80px" placeholder="mis. normal, kontrol 2 minggu lagi">${esc(d?d.note:'')}</textarea>
- <div style="height:14px"></div><div class="row">${d?'<button type="button" class="btn danger" data-a="premDel">Hapus tanda</button>':''}<button class="btn teal">Simpan</button></div></form>`)}
+ <div style="height:14px"></div><div class="row">${d?'<button type="button" class="btn danger" data-a="premDel">Hapus</button>':''}<button class="btn teal">Simpan</button></div></form>`)}
 function logDose(id,slot){const m=S.meds.find(x=>x.id===id);if(!m)return;S.entries.push({id:uid(),type:'med',t:Date.now(),medId:id,name:m.name,ml:m.ml,dose:m.dose,slot:slot||null});save();render();toast(m.name+' dicatat')}
-function sheetPast(){openSheet(`<h3>Catat yang sudah lewat</h3><div class="grid3">${['feed','sleep','tummy','bottle','diaper','note'].map(t=>`<button class="tile" data-form="${t}"><span class="ico b-${TYPES[t][2]} c-${TYPES[t][2]}">${TYPES[t][1]}</span>${TYPES[t][0]}</button>`).join('')}</div>`)}
+function sheetPast(){openSheet(`<h3>Catat yang sudah lewat</h3><div class="grid3">${['feed','sleep','tummy','bottle','diaper','temp','pmk','pump','skin','vomit','visit','pijat','note'].map(t=>`<button class="tile" data-form="${t}"><span class="ico b-${TYPES[t][2]} c-${TYPES[t][2]}">${TYPES[t][1]}</span>${TYPES[t][0]}</button>`).join('')}</div>`)}
 function submitEntry(form){
  const type=form.dataset.type,id=form.dataset.id,old=id?S.entries.find(e=>e.id===id):null;
  const seg=n=>{const b=form.querySelector(`[data-seg="${n}"] .on`);return b&&b.dataset.v};
@@ -444,13 +543,18 @@ function submitEntry(form){
  const e={id:id||uid(),type,t};
  if(type==='bottle'){e.milk=seg('milk');e.ml=num('#fMl')}
  if(type==='diaper'){e.kind=seg('kind');if(!old&&S.stock.diapers>0)S.stock.diapers--}
- if(type==='growth'){e.w=num('#fW');e.l=num('#fL');e.hc=num('#fH');if(!e.w&&!e.l&&!e.hc)return toast('Isi minimal satu ukuran')}
- if(type==='temp')e.c=num('#fC');
+ if(type==='growth'){e.w=num('#fW');if(e.w>=100)e.w=Math.round(e.w)/1000;e.l=num('#fL');e.hc=num('#fH');if(!e.w&&!e.l&&!e.hc)return toast('Isi minimal satu ukuran')}
+ if(type==='temp'){e.c=num('#fC');e.rr=num('#fR');if(!e.c&&!e.rr)return toast('Isi suhu atau napas')}
+ if(type==='bottle')e.cara=seg('cara');
+ if(type==='vomit'){e.kind=seg('kind');e.ml=num('#fMl')}
+ if(type==='pump'){e.side=seg('side');e.ml=num('#fMl')}
+ if(type==='pijat'){e.dur=(num('#fD')||0)*6e4;e.end=t+e.dur}
+ if(type==='visit'){e.place=$('#vPl').value.trim();e.keluhan=$('#vK').value.trim();e.saran=$('#vS').value.trim();e.back=$('#vB').value||null}
  if(type==='note')e.text=form.querySelector('#fN').value.trim();
  if(type==='feed'){e.side=seg('side');e.dur=num('#fD')*60000;e.end=t+e.dur}
- if(type==='sleep'||type==='tummy'){e.end=fromLocalInput(form.querySelector('#fE').value);if(!(e.end>t))return toast('Jam selesai harus setelah jam mulai')}
+ if(type==='sleep'||type==='tummy'||type==='pmk'){e.end=fromLocalInput(form.querySelector('#fE').value);if(!(e.end>t))return toast('Jam selesai harus setelah jam mulai')}
  if(old)Object.assign(old,e);else S.entries.push(e);
- save();closeSheet();render();toast(old?'Perubahan disimpan':'Tersimpan');
+ save();closeSheet();render();toast(old?'Perubahan disimpan':'Tersimpan');vitalAlert(e);if(type==='visit'&&e.back)askNotif();
 }
 
 /* ---------- ACTIONS ---------- */
@@ -465,9 +569,9 @@ function act(a,el){
   case'feedStop':finishFeed();save();render();toast('Menyusu dicatat');break;
   case'sleepStart':if(T.sleep){toast('Bayi sedang tidur');break}T.sleep={start:now};save();closeSheet();tab='home';render();break;
   case'tummyStart':if(T.tummy){toast('Tummy time sedang berjalan');break}T.tummy={start:now};save();closeSheet();tab='home';render();break;
-  case'stop':{const k=el.dataset.k,x=T[k];if(now-x.start<30000){delete T[k];save();render();toast('Terlalu singkat, tidak dicatat');break}S.entries.push({id:uid(),type:k,t:x.start,end:now});delete T[k];save();render();toast(k==='sleep'?'Tidur dicatat':'Tummy time dicatat');break}
+  case'stop':{const k=el.dataset.k,x=T[k];if(now-x.start<30000){delete T[k];save();render();toast('Terlalu singkat, tidak dicatat');break}S.entries.push({id:uid(),type:k,t:x.start,end:now});delete T[k];save();render();toast({sleep:'Tidur dicatat',tummy:'Tummy time dicatat',pmk:'PMK dicatat'}[k]);break}
   case'cancel':delete T[el.dataset.k];save();render();break;
-  case'bottle':case'diaper':case'growth':case'temp':case'note':formSheet(a);break;
+  case'bottle':case'diaper':case'growth':case'temp':case'note':case'vomit':case'pump':case'skin':formSheet(a);break;
   case'del':{const id=$('#entryForm').dataset.id,i=S.entries.findIndex(e=>e.id===id);if(i<0)break;const [rm]=S.entries.splice(i,1);save();closeSheet();render();toast('Catatan dihapus',()=>{S.entries.push(rm);save();render()});break}
   case'export':doExport();break;
   case'import':$('#fileIn').click();break;
@@ -479,6 +583,8 @@ function act(a,el){
    <p class="muted">Excel berisi lembar Riwayat, Ringkasan harian, Pertumbuhan, Imunisasi, dan Vitamin. PDF cocok dibawa saat kontrol ke dokter.</p><div class="row"><button class="btn teal" data-a="exXlsx">Excel (.xlsx)</button><button class="btn pri" data-a="exPdf">PDF</button></div>`);break;
   case'exXlsx':exportXlsx(+$('#exP').value);break;
   case'exPdf':exportPdf(+$('#exP').value);break;
+  case'kbkData':kbkDataSheet();break;
+  case'pmkStart':if(S.timers.pmk){toast('PMK sedang berjalan');break}S.timers.pmk={start:Date.now()};save();closeSheet();tab='home';render();break;
   case'premDel':{const k=$('#premForm').dataset.k;if(S.prem)delete S.prem[k];save();closeSheet();render();break}
   case'themeToggle':S.settings.theme=isDark()?'light':'dark';save();render();toast(isDark()?'Mode gelap':'Mode terang');break;
   case'medNew':medSheet();break;
@@ -490,10 +596,10 @@ function act(a,el){
 }
 function finishFeed(){const f=S.timers.feed;if(!f)return;const d=feedElapsed(f);if(d>=15000)S.entries.push({id:uid(),type:'feed',side:f.side,t:f.start,end:f.pausedAt||Date.now(),dur:d});delete S.timers.feed}
 const plain=h=>{const t=document.createElement('textarea');t.innerHTML=String(h);return t.value};
-const LBL={feed:'Menyusu',bottle:'Botol',sleep:'Tidur',tummy:'Tummy time',diaper:'Popok',growth:'Pertumbuhan',temp:'Suhu',note:'Catatan',med:'Vitamin/obat'};
+const LBL={pump:'Perah ASI',skin:'Pelembap',feed:'Menyusu',bottle:'Minum (botol/sendok)',sleep:'Tidur',tummy:'Tummy time',diaper:'Popok',growth:'Pertumbuhan',temp:'Suhu & napas',note:'Catatan',med:'Vitamin/obat',pmk:'PMK',vomit:'Muntah',visit:'Kunjungan',pijat:'Pijat'};
 function periodEntries(days){const from=days===1?startOfDay(Date.now()):days?Date.now()-days*864e5:0;return S.entries.filter(e=>e.t>=from).sort((a,b)=>a.t-b.t)}
 function periodName(days){return days===1?'Hari ini':days?days+' hari terakhir':'Semua catatan'}
-function entryRow(e){const[t,v]=describe(e);const ms=e.type==='feed'?e.dur:e.end?e.end-e.t:null;return[tgl(e.t),hm(e.t),e.end?hm(e.end):'',LBL[e.type]||e.type,plain(t.split(' · ').slice(1).join(' · ')||'')+(v&&e.type!=='feed'&&e.type!=='sleep'&&e.type!=='tummy'?(t.includes(' · ')?' · ':'')+plain(v):''),ms!=null?Math.round(ms/60000):'']}
+function entryRow(e){const[t,v]=describe(e);const ms=e.type==='feed'||e.type==='pijat'?e.dur:e.end?e.end-e.t:null;return[tgl(e.t),hm(e.t),e.end?hm(e.end):'',LBL[e.type]||e.type,plain(t.split(' · ').slice(1).join(' · ')||'')+(v&&e.type!=='feed'&&e.type!=='sleep'&&e.type!=='tummy'?(t.includes(' · ')?' · ':'')+plain(v):''),ms!=null?Math.round(ms/60000):'']}
 function dailyRows(list){const m=new Map();for(const e of list){const k=dayKey(e.t);if(!m.has(k))m.set(k,{t:e.t,fx:0,fm:0,ml:0,sl:0,pi:0,pu:0,tu:0,med:0});const d=m.get(k);
  if(e.type==='feed'){d.fx++;d.fm+=e.dur/6e4}if(e.type==='bottle')d.ml+=+e.ml||0;if(e.type==='sleep')d.sl+=(e.end-e.t)/36e5;if(e.type==='tummy')d.tu+=(e.end-e.t)/6e4;if(e.type==='diaper'){if(e.kind!=='pup')d.pi++;if(e.kind!=='pipis')d.pu++}if(e.type==='med')d.med++}
  return[...m.values()].map(d=>[tgl(d.t),d.fx,Math.round(d.fm),d.ml,Math.round(d.sl*10)/10,d.pi,d.pu,Math.round(d.tu),d.med])}
@@ -504,6 +610,9 @@ function exportXlsx(days){if(!window.XLSX)return toast('Modul Excel tidak termua
  add('Ringkasan harian',['Tanggal','Menyusu (kali)','Menyusu (menit)','Botol (ml)','Tidur (jam)','Pipis','Pup','Tummy time (menit)','Vitamin/obat (kali)'],dailyRows(list),[14,14,15,11,11,7,7,18,18]);
  add('Pertumbuhan',['Tanggal','Berat (kg)','Panjang (cm)','Lingkar kepala (cm)'],S.entries.filter(e=>e.type==='growth').sort((a,b)=>a.t-b.t).map(e=>[tgl(e.t),e.w||'',e.l||'',e.hc||'']),[14,11,13,19]);
  add('Imunisasi',['Jadwal','Target','Vaksin','Status'],vaxRows().flatMap(r=>r.items.map(i=>[r.label,tgl(r.due),i.n,i.done?'Diberikan '+tgl(i.done):'Belum'])),[16,14,30,22]);
+ add('Rekap harian BBLR',['Tanggal','Berat (g)','Minum ASIP/susu (ml)','Cara','Suhu (°C)','Napas maks (x/mnt)','BAB','Kencing','Muntah','PMK','Perah ASI (ml)','Masalah'],dailyRekap(days||365).reverse().map(r=>[tgl(r.t),r.bb,r.ml,r.cara,r.suhu,r.napas,r.bab,r.kencing,r.muntah,r.pmk,r.perah,r.masalah]),[14,10,18,24,10,16,6,8,8,9,14,30]);
+ add('Kunjungan',['Tanggal','Tempat/dokter','Keluhan','Tindakan/saran','Tanggal kembali'],S.entries.filter(e=>e.type==='visit').sort((a,b)=>a.t-b.t).map(e=>[tgl(e.t),e.place||'',e.keluhan||'',e.saran||'',e.back?tgl(dk2ts(e.back)):'']),[14,22,30,40,16]);
+ add('Penapisan',['Pemeriksaan','Tanggal','Hasil','Catatan'],PREM.filter(it=>(S.prem||{})[it.k]).map(it=>{const d=S.prem[it.k];return[it.t,tgl(d.t),resTxt(d),d.note||'']}),[34,14,30,30]);
  add('Vitamin',['Tanggal','Jam','Nama','Jumlah (ml)'],list.filter(e=>e.type==='med').map(e=>[tgl(e.t),hm(e.t),e.name,e.ml??'']),[14,8,22,12]);
  const name=exportName('xlsx');
  try{if(window.Android&&Android.saveBase64){Android.saveBase64(XLSX.write(wb,{bookType:'xlsx',type:'base64'}),name,'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');closeSheet()}else{XLSX.writeFile(wb,name);closeSheet();toast('Excel diunduh')}}catch(e){toast('Gagal membuat Excel')}}
@@ -514,6 +623,9 @@ function exportPdf(days){const list=periodEntries(days);if(!list.length)return t
  <h1>Laporan ${esc(p.name)}</h1><div class="meta">Lahir ${tgl(birthTs())} · ${esc(ageText())}${corrText()?' · '+esc(corrText()):''}${g!=null?' · Usia kehamilan saat lahir '+Math.floor(g/7)+'+'+(g%7)+' mgg':''}${p.bw?' · Berat lahir '+p.bw+' g':''}<br>Periode: ${periodName(days)} (${tgl(list[0].t)} – ${tgl(list[list.length-1].t)}) · Dibuat ${tgl(Date.now())} ${hm(Date.now())}</div>
  <h2>Ringkasan harian</h2>${tbl(['Tanggal','Menyusu (x)','Menyusu (mnt)','Botol (ml)','Tidur (jam)','Pipis','Pup','Tummy (mnt)','Vit/obat'],dailyRows(list))}
  ${gr.length?'<h2>Pertumbuhan</h2>'+tbl(['Tanggal','Berat (kg)','Panjang (cm)','Lingkar kepala (cm)'],gr.map(e=>[tgl(e.t),e.w?dec(e.w):'–',e.l?dec(e.l):'–',e.hc?dec(e.hc):'–'])):''}
+ ${isKbk()?'<h2>Rekap pemantauan harian BBLR</h2>'+tbl(['Tanggal','BB (g)','Minum (ml)','Cara','Suhu','Napas','BAB','Kencing','Muntah','PMK'],dailyRekap(days||365).reverse().map(r=>[tgl(r.t),r.bb,r.ml,r.cara,r.suhu,r.napas,r.bab,r.kencing,r.muntah,r.pmk])):''}
+ ${Object.keys(S.prem||{}).length?'<h2>Penapisan</h2>'+tbl(['Pemeriksaan','Tanggal','Hasil','Catatan'],PREM.filter(it=>(S.prem||{})[it.k]).map(it=>{const d=S.prem[it.k];return[it.t,tgl(d.t),resTxt(d),d.note||'']})):''}
+ ${S.entries.some(e=>e.type==='visit')?'<h2>Ringkasan pelayanan</h2>'+tbl(['Tanggal','Tempat','Keluhan','Tindakan/saran','Kembali'],S.entries.filter(e=>e.type==='visit').sort((a,b)=>a.t-b.t).map(e=>[tgl(e.t),e.place||'',e.keluhan||'',e.saran||'',e.back?tgl(dk2ts(e.back)):''])):''}
  <h2>Imunisasi</h2>${tbl(['Jadwal','Target','Vaksin','Status'],vaxRows().flatMap(r=>r.items.map(i=>[r.label,tgl(r.due),i.n,i.done?'Diberikan '+tgl(i.done):'Belum'])))}
  <h2>Riwayat lengkap</h2>${tbl(['Tanggal','Mulai','Selesai','Kegiatan','Detail','Durasi (mnt)'],list.map(entryRow))}
  <div class="foot">Dibuat dengan aplikasi Bayiku. Catatan orang tua, bukan rekam medis.</div></body></html>`;
@@ -528,11 +640,12 @@ function toast(msg,undoFn){$('#toastMsg').textContent=msg;undo=undoFn||null;$('#
 
 /* ---------- EVENTS ---------- */
 document.addEventListener('click',ev=>{
- const el=ev.target.closest('[data-a],[data-tab],[data-edit],[data-vax],[data-form],[data-reg],[data-sex],[data-ms],[data-med],[data-dose],[data-gi],[data-prem],.seg button');if(!el)return;
+ const el=ev.target.closest('[data-a],[data-tab],[data-edit],[data-vax],[data-form],[data-reg],[data-sex],[data-ms],[data-med],[data-dose],[data-gi],[data-prem],[data-dev],.seg button');if(!el)return;
  if(el.matches('.seg button')){el.parentElement.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b===el));if(!el.dataset.reg&&!el.dataset.gi&&!el.dataset.a&&!el.dataset.sex)return}
  if(el.dataset.reg||el.dataset.sex)return;
  if(el.dataset.gi){growInd=el.dataset.gi;render();return}
  if(el.dataset.prem){premSheet(el.dataset.prem);return}
+ if(el.dataset.dev){S.dev=S.dev||{};const k=el.dataset.dev;if(S.dev[k])delete S.dev[k];else S.dev[k]=Date.now();save();render();return}
  if(el.dataset.ms!==undefined&&el.dataset.ms!==''){if(el.dataset.ms==='new')msSheet();else msSheet(S.milestones.find(m=>m.id===el.dataset.ms));return}
  if(el.dataset.med){medSheet(S.meds.find(m=>m.id===el.dataset.med));return}
  if(el.dataset.dose){logDose(el.dataset.dose,el.dataset.slot);return}
@@ -552,7 +665,8 @@ document.addEventListener('submit',ev=>{ev.preventDefault();const f=ev.target;
  if(f.id==='entryForm')submitEntry(f);
  if(f.id==='medForm'){const raw=$('#mT').value.trim(),times=raw?raw.split(/[,\s]+/).map(x=>x.replace('.',':')).filter(x=>/^\d{1,2}:\d{2}$/.test(x)).map(x=>{const[h,m]=x.split(':');return pad(Math.min(23,+h))+':'+pad(Math.min(59,+m))}):[];if(raw&&!times.length)return toast('Format jam: 08:00, 20:00');
   const mlv=$('#mD').value;const m={id:f.dataset.id||uid(),name:$('#mN').value.trim(),ml:mlv===''?null:Number(String(mlv).replace(',','.')),times:[...new Set(times)].sort(),on:$('#mOn').checked};const i=S.meds.findIndex(x=>x.id===m.id);if(i>=0)S.meds[i]=m;else S.meds.push(m);save();closeSheet();render();toast(m.name+' disimpan');if(times.length)askNotif()}
- if(f.id==='premForm'){S.prem=S.prem||{};S.prem[f.dataset.k]={t:dk2ts($('#prD').value),note:$('#prN').value.trim()};save();closeSheet();render();toast('Tersimpan')}
+ if(f.id==='premForm'){S.prem=S.prem||{};const res={};f.querySelectorAll('select[data-lb]').forEach(x=>{if(x.value)res[x.dataset.lb]=x.value});S.prem[f.dataset.k]={t:dk2ts($('#prD').value),note:$('#prN').value.trim(),res};save();closeSheet();render();toast('Tersimpan')}
+ if(f.id==='kbkForm')saveKbk();
  if(f.id==='medLogForm'){const m=S.meds.find(x=>x.id===$('#lM').value);if(!m)return;const v=$('#lMl').value,t=fromLocalInput($('#lT').value)||Date.now();S.entries.push({id:uid(),type:'med',t,medId:m.id,name:m.name,ml:v===''?null:Number(String(v).replace(',','.')),slot:null});save();closeSheet();render();toast(m.name+' dicatat')}
  if(f.id==='msForm'){const id=f.dataset.id||uid(),[y,mo,d]=$('#msD').value.split('-').map(Number),old=S.milestones.find(x=>x.id===id);
   const m={id,title:$('#msT').value.trim(),date:new Date(y,mo-1,d).getTime(),note:$('#msN').value.trim(),photo:old?old.photo:false};
@@ -567,6 +681,9 @@ document.addEventListener('change',ev=>{const t=ev.target;
  if(t.id==='rFeedH'){S.settings.feedHours=+t.value;save()}
  if(t.id==='rVax'){S.settings.vaxOn=t.checked;save();if(t.checked)askNotif()}
  if(t.id==='rVaxD'){S.settings.vaxDays=+t.value;save()}
+ if(t.id==='rPump'){S.settings.pumpOn=t.checked;save();if(t.checked)askNotif()}
+ if(t.id==='rPumpH'){S.settings.pumpHours=+t.value;save()}
+ if(t.id==='rSkin'){S.settings.skinOn=t.checked;save();if(t.checked)askNotif()}
  if(t.id==='lM'){const m=S.meds.find(x=>x.id===t.value);if(m&&$('#lMl'))$('#lMl').value=m.ml??''}
  if(t.id==='pTheme'){S.settings.theme=t.value;save();applyTheme()}
 });
@@ -593,11 +710,14 @@ function reminders(){const out=[],now=Date.now(),st=S.settings,nm=S.profile.name
   const pre=at8(r.due-st.vaxDays*864e5),day=at8(r.due);
   if(pre>now)out.push({id:'vaxpre'+r.m,at:pre,title:'Imunisasi '+st.vaxDays+' hari lagi',body:nm+': '+items+' ('+tgl(r.due)+')'});
   if(day>now)out.push({id:'vaxday'+r.m,at:day,title:'Hari ini jadwal imunisasi',body:nm+': '+items})}
+ {const lp=sorted().find(e=>e.type==='pump');if(st.pumpOn&&lp){const t=lp.t+st.pumpHours*36e5;if(t>now)out.push({id:'pump',at:t,title:'Waktunya perah ASI',body:dec(st.pumpHours)+' jam sejak perah terakhir'})}
+  const ls=sorted().find(e=>e.type==='skin');if(st.skinOn&&ls){const t=ls.t+8*36e5;if(t>now)out.push({id:'skin',at:t,title:'Waktunya pelembap kulit',body:nm+': oleskan pelembap (tiap 8 jam)'})}}
+ for(const e of S.entries){if(e.type!=='visit'||!e.back)continue;const d=dk2ts(e.back),pre=d-864e5+19*36e5,day=d+7*36e5;if(pre>now)out.push({id:'visitpre'+e.id,at:pre,title:'Besok jadwal kontrol',body:nm+(e.place?' · '+e.place:'')});if(day>now)out.push({id:'visitday'+e.id,at:day,title:'Hari ini jadwal kontrol',body:nm+(e.place?' · '+e.place:'')})}
  for(const m of S.meds){if(!m.on)continue;for(let d=0;d<14;d++)for(const t of m.times){const[h,mi]=t.split(':').map(Number),x=new Date(startOfDay(now)+d*864e5);x.setHours(h,mi,0,0);if(x.getTime()>now&&!S.entries.some(e=>e.type==='med'&&e.medId===m.id&&e.slot===t&&dayKey(e.t)===dayKey(x.getTime())))out.push({id:'med'+m.id+dayKey(x.getTime())+t,at:x.getTime(),title:'Waktunya '+m.name,body:nm+(mlTxt(m)?' · '+mlTxt(m):'')+' (jam '+t+')'})}}
  return out.sort((a,b)=>a.at-b.at).slice(0,300)}
 function syncNative(){if(!window.Android||!S.profile)return;try{
  const T=S.timers,tm=[];if(T.feed)tm.push({kind:'feed',label:'Menyusu · '+sideName(T.feed.side),base:Date.now()-feedElapsed(T.feed),paused:!!T.feed.pausedAt,elapsed:feedElapsed(T.feed)});
- if(T.sleep)tm.push({kind:'sleep',label:'Tidur',base:T.sleep.start,paused:false});if(T.tummy)tm.push({kind:'tummy',label:'Tummy time',base:T.tummy.start,paused:false});
+ if(T.sleep)tm.push({kind:'sleep',label:'Tidur',base:T.sleep.start,paused:false});if(T.tummy)tm.push({kind:'tummy',label:'Tummy time',base:T.tummy.start,paused:false});if(T.pmk)tm.push({kind:'pmk',label:'PMK (kanguru)',base:T.pmk.start,paused:false});
  Android.setTimers&&Android.setTimers(JSON.stringify(tm));
  Android.setReminders&&Android.setReminders(JSON.stringify(reminders()));
  const lf=sorted().find(e=>e.type==='feed'),ld=sorted().find(e=>e.type==='diaper');

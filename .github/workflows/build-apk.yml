@@ -24,7 +24,8 @@ jobs:
           gradle-version: '8.9'
 
       - name: Rakit APK
-        run: gradle assembleRelease --no-daemon
+        # Coba ulang otomatis bila server Maven sedang sibuk (error 429)
+        run: gradle assembleRelease --no-daemon || (sleep 60 && gradle assembleRelease --no-daemon) || (sleep 120 && gradle assembleRelease --no-daemon)
 
       - name: Ganti nama file
         run: cp app/build/outputs/apk/release/app-release.apk Bayiku.apk
@@ -32,7 +33,7 @@ jobs:
       - name: Terbitkan di halaman Releases
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.${{ github.run_number }}
-          name: Bayiku v1.${{ github.run_number }}
+          tag_name: v4.${{ github.run_number }}
+          name: Bayiku 4.0 (build ${{ github.run_number }})
           body: Unduh Bayiku.apk di bawah, lalu pasang di HP Android.
           files: Bayiku.apk

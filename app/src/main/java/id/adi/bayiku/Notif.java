@@ -18,7 +18,7 @@ final class Notif {
     static final String CH_TIMER = "timer";
     static final String CH_REMIND = "reminder";
     static final String PREFS = "bayiku";
-    private static final String[] KINDS = {"feed", "sleep", "tummy"};
+    private static final String[] KINDS = {"feed", "sleep", "tummy", "pmk"};
 
     private Notif() { }
 

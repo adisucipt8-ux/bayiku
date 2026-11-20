@@ -14,7 +14,11 @@ Aplikasi Android untuk mencatat:
 - obat & vitamin dengan jadwal jam,
 - notifikasi timer berjalan, serta pengingat menyusu, imunisasi, dan obat,
 - mode gelap otomatis malam hari,
-- widget layar utama (tombol cepat Kiri, Kanan, Popok).
+- widget layar utama (tombol cepat Kiri, Kanan, Popok),
+- tampilan earth tone dengan mode terang/gelap,
+- vitamin/obat manual (ml), tren berat & panjang badan,
+- Buku Bayi Kecil (Kemenkes): usia koreksi, data lahir & pulang RS, penapisan, PMK, perah ASI, rekap pemantauan harian BBLR, tanda bahaya, tahapan perkembangan, ringkasan pelayanan/kontrol,
+- ekspor riwayat ke Excel dan PDF.
 
 Semua data tersimpan di HP saja dan aplikasinya bisa dipakai tanpa internet. Ada fitur **Simpan cadangan** dan **Pulihkan** di menu Atur.
 

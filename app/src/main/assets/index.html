@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<title>Bayiku</title>
+<style>
+/* VOICE: lembut, tenang, jelas dibaca jam 3 pagi
+   IDEA: buku catatan harian bayi di klinik
+   PICTURE: timer menyusu besar di atas
+   COLOUR/TYPE: hijau-teal lembut + aksen peach, font sistem
+   LAYOUT: satu kolom, tombol besar, navigasi bawah */
+:root{--bg:#f4f7f5;--card:#fff;--ink:#1d2b2a;--muted:#6b7b79;--line:#e3ebe8;--teal:#2f7f73;--teal2:#e1f0ec;--peach:#f2a07b;--peach2:#fdebe2;--sky:#e3eefb;--sky-i:#3567a8;--lav:#ece8fa;--lav-i:#6a55b5;--sun:#fff3d6;--sun-i:#a6780b;--red:#c2410c;--red2:#fde4d8}
+:root[data-theme=dark]{--bg:#111917;--card:#1a2422;--ink:#e8f0ee;--muted:#93a5a2;--line:#2a3633;--teal:#5fc0ae;--teal2:#1f3531;--peach:#f2a07b;--peach2:#3a2a22;--sky:#1d2a3a;--sky-i:#8fb6ea;--lav:#272338;--lav-i:#b4a6f0;--sun:#33291a;--sun-i:#e8bf5a;--red:#f08a5d;--red2:#3b241b;color-scheme:dark}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#111917;--card:#1a2422;--ink:#e8f0ee;--muted:#93a5a2;--line:#2a3633;--teal:#5fc0ae;--teal2:#1f3531;--peach:#f2a07b;--peach2:#3a2a22;--sky:#1d2a3a;--sky-i:#8fb6ea;--lav:#272338;--lav-i:#b4a6f0;--sun:#33291a;--sun-i:#e8bf5a;--red:#f08a5d;--red2:#3b241b;color-scheme:dark}}
+*{box-sizing:border-box;min-width:0;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body{padding:env(safe-area-inset-top) 0 calc(84px + env(safe-area-inset-bottom))}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+.wrap{max-width:560px;margin:0 auto;padding:12px 16px}
+header{display:flex;align-items:center;gap:12px;padding:8px 0 12px}
+header h1{margin:0;font-size:24px;line-height:1.1}
+header .age{color:var(--muted);font-size:14px}
+.av{width:44px;height:44px;border-radius:50%;background:var(--teal2);color:var(--teal);display:grid;place-items:center;font-weight:700;font-size:20px;flex:none}
+.card{background:var(--card);border-radius:20px;padding:16px;margin-bottom:12px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.grow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.grow button{background:var(--card);border-radius:16px;padding:10px 12px;text-align:left}
+.grow small{display:block;color:var(--muted);font-size:13px}
+.grow b{font-size:20px}.grow b span{font-size:13px;font-weight:500;color:var(--muted)}
+.timer{background:var(--peach2)}
+.timer .lbl{color:var(--red);font-weight:600;font-size:15px}
+.timer .big{font-size:48px;font-weight:700;line-height:1.05;font-variant-numeric:tabular-nums;margin:2px 0 12px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{flex:1;min-height:48px;border-radius:999px;padding:10px 16px;font-weight:600;background:var(--card);color:var(--ink)}
+.btn.pri{background:var(--peach);color:#3a1d0f}
+.btn.teal{background:var(--teal);color:#fff}
+.btn.ghost{background:var(--teal2);color:var(--teal)}
+.btn.danger{background:var(--red2);color:var(--red)}
+.vax{background:var(--sky);display:flex;gap:12px;align-items:center;width:100%;text-align:left}
+.vax.late{background:var(--red2)}
+.ico{width:42px;height:42px;border-radius:14px;background:var(--card);display:grid;place-items:center;flex:none}
+.ico svg{width:22px;height:22px}
+h2{font-size:18px;margin:18px 0 10px}
+.today{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.stat{background:var(--card);border-radius:18px;padding:14px;text-align:left}
+.stat .t{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px}
+.stat .t .ico{width:32px;height:32px;border-radius:10px}
+.stat .t .ico svg{width:18px;height:18px}
+.stat .v{font-size:24px;font-weight:700;margin:8px 0 2px;font-variant-numeric:tabular-nums}
+.stat .s{color:var(--muted);font-size:13px}
+.stat .f{border-top:1px solid var(--line);margin-top:8px;padding-top:6px;font-size:13px;font-weight:600}
+.c-feed{color:var(--red)}.c-sleep{color:var(--lav-i)}.c-diap{color:var(--sun-i)}.c-tum{color:var(--teal)}.c-bot{color:var(--sky-i)}
+.b-feed{background:var(--peach2)!important}.b-sleep{background:var(--lav)!important}.b-diap{background:var(--sun)!important}.b-tum{background:var(--teal2)!important}.b-bot{background:var(--sky)!important}
+.fab{position:fixed;right:20px;bottom:calc(92px + env(safe-area-inset-bottom));width:60px;height:60px;border-radius:50%;background:var(--peach);color:#3a1d0f;font-size:32px;box-shadow:0 6px 18px rgba(0,0,0,.18);display:grid;place-items:center;z-index:5}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding-bottom:env(safe-area-inset-bottom);z-index:6}
+nav button{padding:8px 0 10px;font-size:12px;color:var(--muted);display:grid;justify-items:center;gap:2px;min-height:60px}
+nav button svg{width:24px;height:24px}
+nav button.on{color:var(--teal);font-weight:700}
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:10;display:none;align-items:flex-end;justify-content:center}
+.sheet-bg.open{display:flex}
+.sheet{background:var(--bg);width:100%;max-width:560px;border-radius:24px 24px 0 0;padding:18px 16px calc(20px + env(safe-area-inset-bottom));max-height:88vh;overflow:auto;animation:up .2s ease}
+@keyframes up{from{transform:translateY(30px);opacity:.6}}
+@media(prefers-reduced-motion:reduce){.sheet{animation:none}}
+.sheet h3{margin:0 0 14px;font-size:20px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.tile{background:var(--card);border-radius:18px;padding:14px 6px;display:grid;justify-items:center;gap:6px;font-size:13px;font-weight:600;text-align:center;min-height:92px}
+label{display:block;font-size:14px;color:var(--muted);margin:10px 0 4px}
+input,select,textarea{width:100%;min-height:48px;border-radius:14px;border:1px solid var(--line);background:var(--card);padding:10px 12px;font-size:16px}
+textarea{min-height:110px}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--teal);outline-offset:1px}
+.seg{display:flex;background:var(--card);border-radius:999px;padding:4px;gap:4px}
+.seg button{flex:1;min-height:42px;border-radius:999px;font-weight:600;color:var(--muted)}
+.seg button.on{background:var(--teal);color:#fff}
+.list{background:var(--card);border-radius:18px;overflow:hidden}
+.item{display:flex;gap:12px;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line);width:100%;text-align:left}
+.item:last-child{border-bottom:0}
+.item .ico{width:36px;height:36px;border-radius:12px}
+.item .ico svg{width:18px;height:18px}
+.item .m{flex:1}.item .m b{display:block;font-size:15px}.item .m small{color:var(--muted);font-size:13px}
+.item .tm{color:var(--muted);font-size:14px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.day{font-weight:700;margin:16px 4px 8px;font-size:15px}
+.chk{width:28px;height:28px;border-radius:9px;border:2px solid var(--line);display:grid;place-items:center;flex:none}
+.chk.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.tag{font-size:12px;font-weight:700;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.tag.late{background:var(--red2);color:var(--red)}.tag.soon{background:var(--sun);color:var(--sun-i)}.tag.done{background:var(--teal2);color:var(--teal)}
+.muted{color:var(--muted);font-size:14px}
+.empty{text-align:center;color:var(--muted);padding:28px 10px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(160px + env(safe-area-inset-bottom));background:#1d2b2a;color:#fff;border-radius:999px;padding:10px 16px;display:none;gap:14px;align-items:center;z-index:20;font-size:14px;max-width:92vw}
+.toast.show{display:flex}.toast button{color:#9fe3d5;font-weight:700}
+.chart{height:200px;position:relative}.chart svg{position:absolute;inset:0;width:100%;height:100%}
+table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:8px 6px;border-bottom:1px solid var(--line);text-align:right}td:first-child,th:first-child{text-align:left}
+.chart.tall{height:260px}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted);margin-top:6px}.legend i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:4px;vertical-align:middle}
+.zbox{border-radius:14px;padding:10px 12px;margin-top:10px;font-size:14px;background:var(--teal2)}.zbox.warn{background:var(--red2)}
+.ms{display:flex;gap:12px;align-items:center;padding:12px;border-bottom:1px solid var(--line);width:100%;text-align:left}.ms:last-child{border-bottom:0}
+.ms .m b{display:block}
+.ms .ph{width:64px;height:64px;border-radius:14px;background:var(--teal2);flex:none;overflow:hidden;display:grid;place-items:center;color:var(--teal)}
+.ms .ph img,.prev img{width:100%;height:100%;object-fit:cover;display:block}
+.prev{width:100%;aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:var(--card);display:grid;place-items:center;color:var(--muted);margin-top:6px}
+.med{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.med button{border-radius:999px;padding:8px 12px;min-height:40px;background:var(--bg);font-weight:600;font-size:14px}.med button.on{background:var(--teal);color:#fff}
+.sw{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 0}.sw input{width:22px;height:22px;min-height:0;flex:none}
+.setup{max-width:480px;margin:6vh auto;padding:0 20px}
+.setup h1{font-size:32px;line-height:1.1;margin:0 0 6px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="sheet-bg" id="sheetBg"><div class="sheet" id="sheet"></div></div>
+<div class="toast" id="toast"><span id="toastMsg"></span><button id="toastBtn">Urungkan</button></div>
+<input type="file" id="photoIn" accept="image/*" hidden>
+<input type="file" id="fileIn" accept="application/json,.json,text/plain" hidden>
+<script>
+{
+const KEY='bayiku.v1';
+const DEF_SET={theme:'auto',feedOn:true,feedHours:3,vaxOn:true,vaxDays:3};
+const WHO={"wm":[[0.3487,3.3464,0.14602],[0.2297,4.4709,0.13395],[0.197,5.5675,0.12385],[0.1738,6.3762,0.11727],[0.1553,7.0023,0.11316],[0.1395,7.5105,0.1108],[0.1257,7.934,0.10958],[0.1134,8.297,0.10902],[0.1021,8.6151,0.10882],[0.0917,8.9014,0.10881],[0.082,9.1649,0.10891],[0.073,9.4122,0.10906],[0.0644,9.6479,0.10925],[0.0563,9.8749,0.10949],[0.0487,10.0953,0.10976],[0.0413,10.3108,0.11007],[0.0343,10.5228,0.11041],[0.0275,10.7319,0.11079],[0.0211,10.9385,0.11119],[0.0148,11.143,0.11164],[0.0087,11.3462,0.11211],[0.0029,11.5486,0.11261],[-0.0028,11.7504,0.11314],[-0.0083,11.9514,0.11369],[-0.0137,12.1515,0.11426]],"wf":[[0.3809,3.2322,0.14171],[0.1714,4.1873,0.13724],[0.0962,5.1282,0.13],[0.0402,5.8458,0.12619],[-0.005,6.4237,0.12402],[-0.043,6.8985,0.12274],[-0.0756,7.297,0.12204],[-0.1039,7.6422,0.12178],[-0.1288,7.9487,0.12181],[-0.1507,8.2254,0.12199],[-0.17,8.48,0.12223],[-0.1872,8.7192,0.12247],[-0.2024,8.9481,0.12268],[-0.2158,9.1699,0.12283],[-0.2278,9.387,0.12294],[-0.2384,9.6008,0.12299],[-0.2478,9.8124,0.12303],[-0.2562,10.0226,0.12306],[-0.2637,10.2315,0.12309],[-0.2703,10.4393,0.12315],[-0.2762,10.6464,0.12323],[-0.2815,10.8534,0.12335],[-0.2862,11.0608,0.1235],[-0.2903,11.2688,0.12369],[-0.2941,11.4775,0.1239]],"lm":[[1.0,49.8842,0.03795],[1.0,54.7244,0.03557],[1.0,58.4249,0.03424],[1.0,61.4292,0.03328],[1.0,63.886,0.03257],[1.0,65.9026,0.03204],[1.0,67.6236,0.03165],[1.0,69.1645,0.03139],[1.0,70.5994,0.03124],[1.0,71.9687,0.03117],[1.0,73.2812,0.03118],[1.0,74.5388,0.03125],[1.0,75.7488,0.03137],[1.0,76.9186,0.03154],[1.0,78.0497,0.03174],[1.0,79.1458,0.03197],[1.0,80.2113,0.03222],[1.0,81.2487,0.0325],[1.0,82.2587,0.03279],[1.0,83.2418,0.0331],[1.0,84.1996,0.03342],[1.0,85.1348,0.03376],[1.0,86.0477,0.0341],[1.0,86.941,0.03445],[1.0,87.8161,0.03479]],"lf":[[1.0,49.1477,0.0379],[1.0,53.6872,0.0364],[1.0,57.0673,0.03568],[1.0,59.8029,0.0352],[1.0,62.0899,0.03486],[1.0,64.0301,0.03463],[1.0,65.7311,0.03448],[1.0,67.2873,0.03441],[1.0,68.7498,0.0344],[1.0,70.1435,0.03444],[1.0,71.4818,0.03452],[1.0,72.771,0.03464],[1.0,74.015,0.03479],[1.0,75.2176,0.03496],[1.0,76.3817,0.03514],[1.0,77.5099,0.03534],[1.0,78.6055,0.03555],[1.0,79.671,0.03576],[1.0,80.7079,0.03598],[1.0,81.7182,0.0362],[1.0,82.7036,0.03643],[1.0,83.6654,0.03666],[1.0,84.604,0.03688],[1.0,85.5202,0.03711],[1.0,86.4153,0.03734]],"hm":[[1.0,34.4618,0.03686],[1.0,37.2759,0.03133],[1.0,39.1285,0.02997],[1.0,40.5135,0.02918],[1.0,41.6317,0.02868],[1.0,42.5576,0.02837],[1.0,43.3306,0.02817],[1.0,43.9803,0.02804],[1.0,44.53,0.02796],[1.0,44.9998,0.02792],[1.0,45.4051,0.0279],[1.0,45.7573,0.02789],[1.0,46.0661,0.02789],[1.0,46.3395,0.02789],[1.0,46.5844,0.02791],[1.0,46.806,0.02792],[1.0,47.0088,0.02795],[1.0,47.1962,0.02797],[1.0,47.3711,0.028],[1.0,47.5357,0.02803],[1.0,47.6919,0.02806],[1.0,47.8408,0.0281],[1.0,47.9833,0.02813],[1.0,48.1201,0.02817],[1.0,48.2515,0.02821]],"hf":[[1.0,33.8787,0.03496],[1.0,36.5463,0.0321],[1.0,38.2521,0.03168],[1.0,39.5328,0.0314],[1.0,40.5817,0.03119],[1.0,41.459,0.03102],[1.0,42.1995,0.03087],[1.0,42.829,0.03075],[1.0,43.3671,0.03063],[1.0,43.83,0.03053],[1.0,44.2319,0.03044],[1.0,44.5844,0.03035],[1.0,44.8965,0.03027],[1.0,45.1752,0.03019],[1.0,45.4265,0.03012],[1.0,45.6551,0.03006],[1.0,45.865,0.02999],[1.0,46.0598,0.02993],[1.0,46.2424,0.02987],[1.0,46.4152,0.02982],[1.0,46.5801,0.02977],[1.0,46.7384,0.02972],[1.0,46.8913,0.02967],[1.0,47.0391,0.02962],[1.0,47.1822,0.02957]]};
+const I={
+ feed:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v3l-2 3v10a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V9l-2-3V3"/><path d="M8 13h8"/></svg>',
+ bottle:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4v3h-4zM8 8a2 2 0 0 1 2-3h4a2 2 0 0 1 2 3v12a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2z"/><path d="M8 12h3M8 16h3"/></svg>',
+ sleep:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>',
+ diaper:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18v4a9 9 0 0 1-18 0z"/><path d="M8 10c0 2 1 4 4 4s4-2 4-4"/></svg>',
+ tummy:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="8" r="3"/><path d="M3 18h18M4 18c1-4 5-6 10-5"/></svg>',
+ grow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M6 16l4-5 3 3 5-7"/></svg>',
+ temp:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14V5a2 2 0 0 0-4 0v9a4 4 0 1 0 4 0z"/></svg>',
+ note:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h10l4 4v14H5z"/><path d="M9 12h6M9 16h4"/></svg>',
+ vax:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2l4 4M17 7l-9 9-3 1 1-3 9-9M14 4l6 6M3 21l3-3"/></svg>',
+ home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>',
+ list:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>',
+ gear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>'
+};
+const VAX={
+ nasional:[[0,'Usia < 24 jam',['Hepatitis B (HB-0)']],[1,'Usia 1 bulan',['Polio tetes 1 (OPV 1)','BCG']],[2,'Usia 2 bulan',['DPT-HB-Hib 1','Polio tetes 2 (OPV 2)','PCV 1','Rotavirus 1 (RV 1)']],[3,'Usia 3 bulan',['DPT-HB-Hib 2','Polio tetes 3 (OPV 3)','PCV 2','Rotavirus 2 (RV 2)']],[4,'Usia 4 bulan',['DPT-HB-Hib 3','Polio tetes 4 (OPV 4)','Polio suntik 1 (IPV 1)','Rotavirus 3 (RV 3)']],[9,'Usia 9 bulan',['Campak Rubela 1','Polio suntik 2 (IPV 2)']],[10,'Usia 10 bulan',['JE (khusus daerah endemis)']],[12,'Usia 12 bulan',['PCV 3']],[18,'Usia 18 bulan',['DPT-HB-Hib 4','Campak Rubela 2']]],
+ yogyakarta:[[0,'Usia < 24 jam',['Hepatitis B (HB-0)']],[1,'Usia 1 bulan',['BCG']],[2,'Usia 2 bulan',['DPT-HB-Hib 1','PCV 1','Rotavirus 1 (RV 1)','Polio suntik 1 (IPV 1)']],[3,'Usia 3 bulan',['DPT-HB-Hib 2','PCV 2','Rotavirus 2 (RV 2)','Polio suntik 2 (IPV 2)']],[4,'Usia 4 bulan',['DPT-HB-Hib 3','Rotavirus 3 (RV 3)','Polio suntik 3 (IPV 3)']],[9,'Usia 9 bulan',['Campak Rubela 1']],[10,'Usia 10 bulan',['JE (khusus daerah endemis)']],[12,'Usia 12 bulan',['PCV 3']],[18,'Usia 18 bulan',['DPT-HB-Hib 4','Campak Rubela 2']]]
+};
+let S=load(), tab='home', undo=null, toastT=null, growInd='w', growView='chart', photoDraft=null;
+function blank(){return{profile:null,entries:[],timers:{},vax:{},stock:{diapers:0},settings:Object.assign({},DEF_SET),meds:[],milestones:[]}}
+function load(){try{const d=JSON.parse(localStorage.getItem(KEY));if(d&&d.entries){const b=Object.assign(blank(),d);b.settings=Object.assign({},DEF_SET,d.settings||{});return b}}catch(e){}return blank()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){toast('Gagal menyimpan di HP')}syncNative()}
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const dec=v=>String(v).replace('.',',');
+const pad=n=>String(n).padStart(2,'0');
+const hm=t=>{const d=new Date(t);return pad(d.getHours())+':'+pad(d.getMinutes())};
+const dayKey=t=>{const d=new Date(t);return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())};
+const startOfDay=t=>{const d=new Date(t);d.setHours(0,0,0,0);return d.getTime()};
+const BULAN=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+const HARI=['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+const tgl=t=>{const d=new Date(t);return d.getDate()+' '+BULAN[d.getMonth()]+' '+d.getFullYear()};
+const dur=ms=>{ms=Math.max(0,ms);const m=Math.round(ms/60000);if(m<60)return m+'m';return Math.floor(m/60)+'j '+(m%60)+'m'};
+const clock=ms=>{const s=Math.floor(Math.max(0,ms)/1000),h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return(h?h+':'+pad(m):m)+':'+pad(x)};
+const ago=t=>{const ms=Date.now()-t;if(ms<60000)return'baru saja';return dur(ms)+' lalu'};
+const toLocalInput=t=>{const d=new Date(t);return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes())};
+const fromLocalInput=v=>new Date(v).getTime();
+const birthTs=()=>{const[y,m,d]=S.profile.birth.split('-').map(Number);return new Date(y,m-1,d).getTime()};
+function addMonths(ts,n){const d=new Date(ts);const day=d.getDate();d.setMonth(d.getMonth()+n);if(d.getDate()<day)d.setDate(0);return startOfDay(d.getTime())}
+function ageText(){const b=birthTs(),now=startOfDay(Date.now());const days=Math.round((now-b)/864e5);if(days<0)return'Belum lahir';if(days<60)return days+' hari';let m=0;while(addMonths(b,m+1)<=now)m++;const rest=Math.round((now-addMonths(b,m))/864e5);return m+' bulan'+(rest?' '+rest+' hari':'')}
+const TYPES={feed:['Menyusu',I.feed,'feed'],bottle:['Botol',I.bottle,'bot'],sleep:['Tidur',I.sleep,'sleep'],diaper:['Popok',I.diaper,'diap'],tummy:['Tummy time',I.tummy,'tum'],growth:['Pertumbuhan',I.grow,'tum'],temp:['Suhu',I.temp,'bot'],note:['Catatan',I.note,'diap'],med:['Obat / vitamin',I.temp,'tum']};
+function sideName(s){return s==='L'?'Kiri':'Kanan'}
+function describe(e){
+ switch(e.type){
+  case'feed':return['Menyusu · '+sideName(e.side),dur(e.dur)];
+  case'bottle':return['Botol · '+esc(e.milk),e.ml+' ml'];
+  case'sleep':return['Tidur',dur(e.end-e.t)];
+  case'tummy':return['Tummy time',dur(e.end-e.t)];
+  case'diaper':return['Popok · '+({pipis:'Pipis',pup:'Pup',keduanya:'Pipis + pup'}[e.kind]),''];
+  case'growth':return['Pertumbuhan',[e.w&&dec(e.w)+' kg',e.l&&dec(e.l)+' cm',e.hc&&'LK '+dec(e.hc)+' cm'].filter(Boolean).join(' · ')];
+  case'temp':return['Suhu badan',dec(e.c)+' °C'];
+  case'note':return['Catatan',esc(e.text)];
+  case'med':return['Obat · '+esc(e.name),esc(e.dose||'')+(e.slot?' (jadwal '+e.slot+')':'')];
+ }return['',''];
+}
+const sorted=()=>S.entries.slice().sort((a,b)=>b.t-a.t);
+function feedElapsed(f){return(f.pausedAt||Date.now())-f.start-(f.pausedMs||0)}
+
+/* ---------- RENDER ---------- */
+function render(){
+ applyTheme();
+ if(!S.profile){renderSetup();return}
+ const views={home:vHome,hist:vHist,vax:vVax,grow:vGrow,set:vSet};
+ $('#app').innerHTML='<div class="wrap">'+views[tab]()+'</div>'+
+  ((tab==='home'||tab==='hist')?'<button class="fab" data-a="add" aria-label="Tambah catatan">+</button>':'')+
+  '<nav>'+[['home','Beranda',I.home],['hist','Riwayat',I.list],['vax','Imunisasi',I.vax],['grow','Tumbuh',I.grow],['set','Atur',I.gear]].map(([k,n,ic])=>`<button data-tab="${k}" class="${tab===k?'on':''}">${ic}${n}</button>`).join('')+'</nav>';
+}
+function renderSetup(){
+ const p=S.profile||{};
+ $('#app').innerHTML=`<div class="setup"><h1>Selamat datang 👶</h1><p class="muted">Isi data si kecil dulu. Semua catatan disimpan di HP ini saja, tanpa internet.</p>
+ <form id="setupForm"><label for="sName">Nama bayi</label><input id="sName" required value="${esc(p.name)}" placeholder="mis. Aisyah">
+ <label for="sBirth">Tanggal lahir</label><input id="sBirth" type="date" required value="${esc(p.birth)}">
+ <label>Jenis kelamin</label><div class="seg" id="sSex"><button type="button" data-sex="L" class="on">Laki-laki</button><button type="button" data-sex="P">Perempuan</button></div>
+ <label>Jadwal imunisasi</label><div class="seg" id="sReg"><button type="button" data-reg="nasional" class="on">Nasional</button><button type="button" data-reg="yogyakarta">Yogyakarta</button></div>
+ <div style="height:18px"></div><button class="btn teal" style="width:100%">Mulai</button></form></div>`;
+}
+function header(){return`<header><div class="av">${esc(S.profile.name[0]||'?').toUpperCase()}</div><div><h1>${esc(S.profile.name)}</h1><div class="age">${ageText()}</div></div></header>`}
+function lastGrowth(){const g={};for(const e of sorted())if(e.type==='growth'){if(g.w==null&&e.w)g.w=e.w;if(g.l==null&&e.l)g.l=e.l;if(g.hc==null&&e.hc)g.hc=e.hc}return g}
+function vHome(){
+ const g=lastGrowth(),T=S.timers,now=Date.now(),sod=startOfDay(now);
+ const today=S.entries.filter(e=>e.t>=sod);
+ const sum=(f)=>today.filter(f);
+ const feeds=sum(e=>e.type==='feed'),bottles=sum(e=>e.type==='bottle'),sleeps=sum(e=>e.type==='sleep'),diap=sum(e=>e.type==='diaper'),tums=sum(e=>e.type==='tummy');
+ const lastOf=t=>sorted().find(e=>e.type===t);
+ const lf=lastOf('feed'),ls=lastOf('sleep'),ld=lastOf('diaper'),lt=lastOf('tummy');
+ let h=header();
+ h+=`<div class="grow">${[['Berat',g.w,'kg'],['Panjang',g.l,'cm'],['Lingkar kepala',g.hc,'cm']].map(([n,v,u])=>`<button data-a="growth"><small>${n}</small><b>${v!=null?String(v).replace('.',','):'–'} <span>${u}</span></b></button>`).join('')}</div>`;
+ if(T.feed){const f=T.feed;h+=`<div class="card timer"><div class="lbl">Menyusu · ${sideName(f.side)}${f.pausedAt?' · dijeda':''}</div><div class="big" data-clock="feed">${clock(feedElapsed(f))}</div>
+  <div class="row"><button class="btn" data-a="feedPause">${f.pausedAt?'Lanjut':'Jeda'}</button><button class="btn" data-a="feedSwitch">Ganti ${sideName(f.side==='L'?'R':'L')}</button><button class="btn pri" data-a="feedStop">Selesai</button></div></div>`}
+ for(const k of['sleep','tummy'])if(T[k])h+=`<div class="card timer ${k==='sleep'?'b-sleep':'b-tum'}"><div class="lbl ${k==='sleep'?'c-sleep':'c-tum'}">${k==='sleep'?'Sedang tidur':'Tummy time'} · mulai ${hm(T[k].start)}</div><div class="big" data-clock="${k}">${clock(now-T[k].start)}</div><div class="row"><button class="btn" data-a="cancel" data-k="${k}">Batal</button><button class="btn pri" data-a="stop" data-k="${k}">${k==='sleep'?'Bangun':'Selesai'}</button></div></div>`;
+ if(!T.feed)h+=`<div class="row" style="margin-bottom:12px"><button class="btn pri" data-a="feedStart" data-side="L">Menyusu kiri</button><button class="btn pri" data-a="feedStart" data-side="R">Menyusu kanan</button></div>`;
+ const nv=nextVax();
+ if(nv)h+=`<button class="card vax ${nv.late?'late':''}" data-tab="vax"><div class="ico c-bot">${I.vax}</div><div style="flex:1"><b>${nv.late?'Imunisasi terlewat':nv.soon?'Saatnya imunisasi':'Imunisasi berikutnya'}</b><div class="muted">${esc(nv.items.join(', '))}</div><div class="muted">${nv.late||nv.soon?'Jadwal ':''}${tgl(nv.due)}</div></div></button>`;
+ h+=medsToday();
+ h+=`<h2>Hari ini</h2><div class="today">
+ ${stat('feed','Menyusu',I.feed,dur(feeds.reduce((a,e)=>a+e.dur,0)),feeds.length+'× · '+(lf?'terakhir '+ago(lf.end):'belum ada'),T.feed?'Sedang menyusu':(lf?sideName(lf.side==='L'?'R':'L')+' berikutnya':''))}
+ ${stat('sleep','Tidur',I.sleep,dur(sleeps.reduce((a,e)=>a+e.end-e.t,0)),sleeps.length+'× tidur',T.sleep?'Sedang tidur':(ls?'Bangun '+ago(ls.end):''),'sleepStart')}
+ ${stat('diap','Popok',I.diaper,ld?ago(ld.t):'–',diap.filter(e=>e.kind!=='pup').length+' pipis · '+diap.filter(e=>e.kind!=='pipis').length+' pup','Stok '+(S.stock.diapers||0),'diaper')}
+ ${stat('bot','Botol',I.bottle,bottles.reduce((a,e)=>a+Number(e.ml||0),0)+' ml',bottles.length+'× hari ini','','bottle')}
+ ${stat('tum','Tummy time',I.tummy,dur(tums.reduce((a,e)=>a+e.end-e.t,0)),tums.length+'× · '+(lt?ago(lt.end):'belum'),T.tummy?'Sedang berjalan':'','tummyStart')}
+ ${stat('bot','Suhu',I.temp,(()=>{const x=lastOf('temp');return x?String(x.c).replace('.',',')+' °C':'–'})(),(()=>{const x=lastOf('temp');return x?ago(x.t):'belum dicatat'})(),'','temp')}
+ </div>`;
+ return h;
+}
+function stat(c,name,ic,v,s,f,act){return`<button class="stat" ${act?`data-a="${act}"`:'data-a="add"'}><div class="t"><span class="ico b-${c} c-${c}">${ic}</span>${name}</div><div class="v">${v}</div><div class="s">${s}</div>${f?`<div class="f c-${c}">${f}</div>`:''}</button>`}
+function vHist(){
+ const list=sorted();if(!list.length)return header()+'<div class="empty">Belum ada catatan. Tekan + untuk menambah.</div>';
+ let h=header(),cur='';h+='<p class="muted">Ketuk catatan untuk mengubah jam atau menghapus.</p>';
+ for(const e of list.slice(0,400)){const k=dayKey(e.t);if(k!==cur){if(cur)h+='</div>';cur=k;const d=new Date(e.t);const isT=k===dayKey(Date.now());h+=`<div class="day">${isT?'Hari ini':HARI[d.getDay()]+', '+tgl(e.t)}</div><div class="list">`}
+  const[t,v]=describe(e),ty=TYPES[e.type];
+  h+=`<button class="item" data-edit="${e.id}"><span class="ico b-${ty[2]} c-${ty[2]}">${ty[1]}</span><span class="m"><b>${t}</b><small>${v}</small></span><span class="tm">${hm(e.t)}${e.end?'–'+hm(e.end):''}</span></button>`}
+ return h+'</div>';
+}
+function vaxRows(){const b=birthTs(),today=startOfDay(Date.now());return VAX[S.profile.region||'nasional'].map(([m,label,items])=>{const due=addMonths(b,m);return{m,label,due,items:items.map(n=>({n,key:m+'|'+n,done:S.vax[m+'|'+n]}))}}).map(r=>Object.assign(r,{allDone:r.items.every(i=>i.done),late:r.due<today&&!r.items.every(i=>i.done),soon:r.due>=today&&r.due-today<=14*864e5}))}
+function nextVax(){const r=vaxRows().find(r=>!r.allDone);if(!r)return null;const today=startOfDay(Date.now());return{items:r.items.filter(i=>!i.done).map(i=>i.n),due:r.due,late:r.due<today,soon:r.due-today<=14*864e5}}
+function vVax(){
+ let h=header()+`<p class="muted">Jadwal ${S.profile.region==='yogyakarta'?'Yogyakarta':'Nasional'} Kemenkes. Centang yang sudah diberikan; tanggal dihitung dari tanggal lahir.</p>`;
+ for(const r of vaxRows()){h+=`<div class="day" style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span>${r.label} · ${tgl(r.due)}</span>${r.allDone?'<span class="tag done">Lengkap</span>':r.late?'<span class="tag late">Terlewat</span>':r.soon?'<span class="tag soon">Segera</span>':''}</div><div class="list">`;
+  for(const i of r.items)h+=`<button class="item" data-vax="${esc(i.key)}"><span class="chk ${i.done?'on':''}">${i.done?'✓':''}</span><span class="m"><b>${esc(i.n)}</b><small>${i.done?'Diberikan '+tgl(i.done):'Belum'}</small></span></button>`;
+  h+='</div>'}
+ return h+'<p class="muted" style="margin-top:14px">JE hanya untuk daerah endemis. Ikuti arahan bidan/dokter anak jika jadwal berbeda.</p>';
+}
+const MS_PRESET=['Senyum pertama','Tertawa','Mengangkat kepala','Tengkurap sendiri','Berguling','Duduk sendiri','Merangkak','Gigi pertama','MPASI pertama','Berdiri berpegangan','Langkah pertama','Kata pertama'];
+const IND={w:['Berat badan','kg','w'],l:['Panjang badan','cm','l'],h:['Lingkar kepala','cm','hc']};
+const ageMo=t=>(t-birthTs())/(30.4375*864e5);
+function lms(ind,mo){const tb=WHO[ind+(S.profile.sex==='P'?'f':'m')];mo=Math.max(0,Math.min(24,mo));const i=Math.floor(mo),j=Math.min(24,i+1),f=mo-i;return tb[i].map((v,k)=>v+(tb[j][k]-v)*f)}
+const atZ=([L,M,Sv],z)=>L===0?M*Math.exp(Sv*z):M*Math.pow(1+L*Sv*z,1/L);
+const zOf=([L,M,Sv],x)=>L===0?Math.log(x/M)/Sv:(Math.pow(x/M,L)-1)/(L*Sv);
+function vGrow(){
+ let h=header()+`<div class="seg" style="margin-bottom:12px"><button data-a="gv" data-v="chart" class="${growView==='chart'?'on':''}">Pertumbuhan</button><button data-a="gv" data-v="ms" class="${growView==='ms'?'on':''}">Milestone</button></div>`;
+ return h+(growView==='ms'?vMs():vChart());
+}
+function vChart(){
+ const g=S.entries.filter(e=>e.type==='growth').sort((a,b)=>a.t-b.t);
+ let h=`<button class="btn teal" data-a="growth" style="width:100%;margin-bottom:12px">Catat berat / panjang / lingkar kepala</button>`;
+ if(!S.profile.sex)return h+`<div class="card">Isi jenis kelamin di menu <b>Atur</b> supaya kurva WHO bisa ditampilkan.</div>`;
+ const [nm,u,f]=IND[growInd],pts=g.filter(e=>e[f]&&ageMo(e.t)>=0&&ageMo(e.t)<=24);
+ h+=`<div class="card"><div class="seg" style="margin-bottom:10px">${Object.entries(IND).map(([k,v])=>`<button data-gi="${k}" class="${growInd===k?'on':''}">${k==='h'?'Lingkar kepala':v[0].split(' ')[0]}</button>`).join('')}</div>
+ <b>${nm} (${u}) menurut umur · WHO ${S.profile.sex==='P'?'perempuan':'laki-laki'}</b><div class="chart tall"><svg id="wchart"></svg></div>
+ <div class="legend"><span><i style="background:var(--teal)"></i>Median</span><span><i style="background:var(--sun-i)"></i>±2 SD</span><span><i style="background:var(--red)"></i>±3 SD</span><span><i style="background:var(--ink)"></i>${esc(S.profile.name)}</span></div>`;
+ if(pts.length){const e=pts[pts.length-1],z=zOf(lms(growInd,ageMo(e.t)),+e[f]);let msg,warn=false;
+  if(z<-2){msg='di bawah rentang normal WHO (< −2 SD). Sebaiknya konsultasikan ke dokter anak atau bidan.';warn=true}
+  else if(z>2){msg=growInd==='l'?'di atas +2 SD, lebih tinggi dari kebanyakan anak seusianya.':'di atas rentang normal WHO (> +2 SD). Sebaiknya konsultasikan ke dokter anak atau bidan.';warn=growInd!=='l'}
+  else msg='dalam rentang normal WHO (−2 sampai +2 SD).';
+  h+=`<div class="zbox ${warn?'warn':''}">Pengukuran terakhir ${dec(e[f])} ${u} (${tgl(e.t)}), z-score ${dec(z.toFixed(1))}: ${msg}</div>`}
+ else h+=`<p class="muted">Belum ada data ${nm.toLowerCase()} untuk umur 0–24 bulan.</p>`;
+ h+='</div>';
+ if(g.length)h+=`<div class="card" style="overflow-x:auto"><table><thead><tr><th>Tanggal</th><th>Berat</th><th>Panjang</th><th>LK</th></tr></thead><tbody>${g.slice().reverse().map(e=>`<tr data-edit="${e.id}"><td>${tgl(e.t)}</td><td>${e.w?dec(e.w)+' kg':'–'}</td><td>${e.l?dec(e.l)+' cm':'–'}</td><td>${e.hc?dec(e.hc)+' cm':'–'}</td></tr>`).join('')}</tbody></table></div>`;
+ return h+'<p class="muted">Kurva berdasarkan Standar Pertumbuhan Anak WHO (0–24 bulan). Grafik ini alat bantu, bukan pengganti pemeriksaan tenaga kesehatan.</p>';
+}
+function drawChart(){const s=$('#wchart');if(!s||!S.profile||!S.profile.sex)return;const W=s.clientWidth,H=s.clientHeight;if(!W)return;
+ const f=IND[growInd][2],pts=S.entries.filter(e=>e.type==='growth'&&e[f]).map(e=>[ageMo(e.t),+e[f]]).filter(p=>p[0]>=0&&p[0]<=24).sort((a,b)=>a[0]-b[0]);
+ const xMax=Math.min(24,Math.max(6,Math.ceil(Math.max(ageMo(Date.now()),...pts.map(p=>p[0]),0)+2)));
+ const lines=[-3,-2,0,2,3].map(z=>{const a=[];for(let m=0;m<=xMax;m+=0.5)a.push([m,atZ(lms(growInd,m),z)]);return[z,a]});
+ const all=lines.flatMap(l=>l[1].map(p=>p[1])).concat(pts.map(p=>p[1]));let y0=Math.min(...all),y1=Math.max(...all);const pd=(y1-y0)*0.04;y0-=pd;y1+=pd;
+ const L=36,R=10,T=10,B=24,X=m=>L+m/xMax*(W-L-R),Y=v=>T+(1-(v-y0)/(y1-y0))*(H-T-B);
+ let g='';const step=(y1-y0)>20?5:(y1-y0)>8?2:1;for(let v=Math.ceil(y0/step)*step;v<=y1;v+=step)g+=`<line x1="${L}" x2="${W-R}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${L-6}" y="${Y(v)+4}" font-size="11" text-anchor="end" fill="var(--muted)">${v}</text>`;
+ const xs=xMax<=12?2:3;for(let m=0;m<=xMax;m+=xs)g+=`<text x="${X(m)}" y="${H-6}" font-size="11" text-anchor="middle" fill="var(--muted)">${m}${m===0?'':' bl'}</text>`;
+ for(const[z,a]of lines)g+=`<polyline fill="none" stroke="${z===0?'var(--teal)':Math.abs(z)===2?'var(--sun-i)':'var(--red)'}" stroke-width="${z===0?2.5:1.5}" ${Math.abs(z)===3?'stroke-dasharray="4 4"':''} points="${a.map(p=>X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)).join(' ')}"/>`;
+ if(pts.length>1)g+=`<polyline fill="none" stroke="var(--ink)" stroke-width="2.5" points="${pts.map(p=>X(p[0])+','+Y(p[1])).join(' ')}"/>`;
+ g+=pts.map(p=>`<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="4.5" fill="var(--ink)" stroke="var(--card)" stroke-width="2"/>`).join('');s.innerHTML=g}
+function msAge(t){const d=Math.round((startOfDay(t)-birthTs())/864e5);if(d<0)return'';if(d<60)return'umur '+d+' hari';const b=birthTs();let m=0;while(addMonths(b,m+1)<=startOfDay(t))m++;return'umur '+m+' bulan'}
+function vMs(){
+ const list=S.milestones.slice().sort((a,b)=>b.date-a.date);
+ let h=`<button class="btn teal" data-ms="new" style="width:100%;margin-bottom:12px">Tambah momen</button>`;
+ if(!list.length)return h+'<div class="empty">Belum ada momen. Catat senyum pertama, tengkurap, gigi pertama, dan lainnya, lengkap dengan foto.</div>';
+ return h+'<div class="list">'+list.map(m=>`<button class="ms" data-ms="${m.id}"><span class="ph" data-photo="${m.photo?m.id:''}">${m.photo?'':I.grow}</span><span class="m" style="flex:1"><b>${esc(m.title)}</b><small class="muted">${tgl(m.date)} · ${msAge(m.date)}</small>${m.note?`<small class="muted" style="display:block">${esc(m.note)}</small>`:''}</span></button>`).join('')+'</div>';
+}
+function medsToday(){
+ const meds=S.meds.filter(m=>m.on&&m.times.length);if(!meds.length)return'';const sod=startOfDay(Date.now());
+ const given=S.entries.filter(e=>e.type==='med'&&e.t>=sod);
+ return`<div class="card"><b>Obat & vitamin hari ini</b>${meds.map(m=>`<div style="margin-top:10px"><div style="font-weight:600">${esc(m.name)} <span class="muted">${esc(m.dose||'')}</span></div><div class="med">${m.times.map(t=>{const ok=given.some(e=>e.medId===m.id&&e.slot===t);return`<button class="${ok?'on':''}" ${ok?'':`data-dose="${m.id}" data-slot="${t}"`}>${ok?'✓ ':''}${t}</button>`}).join('')}</div></div>`).join('')}</div>`;
+}
+function vSet(){const p=S.profile;return header()+`
+ <div class="card"><b>Data bayi</b><form id="profForm"><label for="pName">Nama</label><input id="pName" value="${esc(p.name)}" required><label for="pBirth">Tanggal lahir</label><input id="pBirth" type="date" value="${esc(p.birth)}" required>
+ <label for="pSex">Jenis kelamin</label><select id="pSex"><option value="L" ${p.sex!=='P'?'selected':''}>Laki-laki</option><option value="P" ${p.sex==='P'?'selected':''}>Perempuan</option></select>
+ <label for="pReg">Jadwal imunisasi</label><select id="pReg"><option value="nasional" ${p.region!=='yogyakarta'?'selected':''}>Nasional</option><option value="yogyakarta" ${p.region==='yogyakarta'?'selected':''}>Yogyakarta</option></select>
+ <div style="height:12px"></div><button class="btn teal" style="width:100%">Simpan</button></form></div>
+ <div class="card"><b>Pengingat</b>
+ <div class="sw"><span>Pengingat menyusu</span><input type="checkbox" id="rFeed" ${S.settings.feedOn?'checked':''}></div>
+ <label for="rFeedH">Ingatkan setelah (jam) sejak mulai menyusu terakhir</label><select id="rFeedH">${[1.5,2,2.5,3,3.5,4].map(v=>`<option value="${v}" ${S.settings.feedHours==v?'selected':''}>${dec(v)} jam</option>`).join('')}</select>
+ <div class="sw" style="margin-top:8px"><span>Pengingat imunisasi</span><input type="checkbox" id="rVax" ${S.settings.vaxOn?'checked':''}></div>
+ <label for="rVaxD">Ingatkan sebelum jadwal</label><select id="rVaxD">${[1,3,7].map(v=>`<option value="${v}" ${S.settings.vaxDays==v?'selected':''}>${v} hari</option>`).join('')}</select>
+ <p class="muted">Pengingat imunisasi muncul jam 08.00, juga di hari jadwalnya.</p></div>
+ <div class="card"><b>Obat & vitamin</b><p class="muted">Pengingat muncul di jam yang diatur, dan bisa dicentang dari Beranda.</p>
+ ${S.meds.length?'<div class="list" style="background:var(--bg);margin-bottom:10px">'+S.meds.map(m=>`<button class="item" data-med="${m.id}"><span class="m"><b>${esc(m.name)}${m.on?'':' (nonaktif)'}</b><small>${esc(m.dose||'')} · ${m.times.join(', ')}</small></span></button>`).join('')+'</div>':''}
+ <button class="btn ghost" data-a="medNew" style="width:100%">Tambah obat / vitamin</button></div>
+ <div class="card"><b>Tampilan</b><label for="pTheme">Mode gelap</label><select id="pTheme">${[['auto','Otomatis malam (19.00–06.00)'],['system','Ikuti pengaturan HP'],['light','Selalu terang'],['dark','Selalu gelap']].map(([v,n])=>`<option value="${v}" ${S.settings.theme===v?'selected':''}>${n}</option>`).join('')}</select></div>
+ <div class="card"><b>Stok popok</b><p class="muted">Berkurang otomatis setiap ganti popok.</p><form id="stockForm" class="row"><input id="stockIn" type="number" inputmode="numeric" min="0" value="${S.stock.diapers||0}" style="flex:1"><button class="btn ghost" style="flex:none">Simpan</button></form></div>
+ <div class="card"><b>Cadangan data</b><p class="muted">Data hanya ada di HP ini. Simpan cadangan sesekali (mis. ke Google Drive/WhatsApp) supaya tidak hilang kalau HP ganti atau aplikasi terhapus.</p>
+ <div class="row"><button class="btn ghost" data-a="export">Simpan cadangan</button><button class="btn" data-a="import">Pulihkan</button></div></div>
+ <div class="card"><b>Hapus semua data</b><p class="muted">Tidak bisa dibatalkan.</p><button class="btn danger" data-a="wipe" style="width:100%">Hapus semua</button></div>
+ <p class="muted" style="text-align:center">Bayiku 2.0 · ${S.entries.length} catatan tersimpan</p>`}
+
+/* ---------- SHEETS ---------- */
+function openSheet(html){$('#sheet').innerHTML=html;$('#sheetBg').classList.add('open')}
+function closeSheet(){$('#sheetBg').classList.remove('open');$('#sheet').innerHTML=''}
+window.onBack=()=>{if($('#sheetBg').classList.contains('open')){closeSheet();return true}if(S.profile&&tab!=='home'){tab='home';render();return true}return false};
+function sheetAdd(){openSheet(`<h3>Tambah catatan</h3><div class="grid3">
+ ${[['feedStart','Menyusu kiri',I.feed,'feed','L'],['feedStart','Menyusu kanan',I.feed,'feed','R'],['bottle','Botol',I.bottle,'bot'],['sleepStart','Mulai tidur',I.sleep,'sleep'],['diaper','Popok',I.diaper,'diap'],['tummyStart','Tummy time',I.tummy,'tum'],['growth','Pertumbuhan',I.grow,'tum'],['temp','Suhu',I.temp,'bot'],['note','Catatan / obat',I.note,'diap']].map(([a,n,ic,c,sd])=>`<button class="tile" data-a="${a}" ${sd?`data-side="${sd}"`:''}><span class="ico b-${c} c-${c}">${ic}</span>${n}</button>`).join('')}
+ </div><div style="height:12px"></div><button class="btn ghost" style="width:100%" data-a="past">Catat yang sudah lewat (isi jam manual)</button>`)}
+function timeField(id,t,lbl){return`<label for="${id}">${lbl||'Waktu'}</label><input id="${id}" type="datetime-local" value="${toLocalInput(t)}">`}
+function formSheet(type,e){
+ const ed=!!e;e=e||{t:Date.now()};let f='';
+ if(type==='bottle')f=`<label>Jenis susu</label><div class="seg" data-seg="milk">${['ASIP','Sufor'].map(m=>`<button type="button" data-v="${m}" class="${(e.milk||'ASIP')===m?'on':''}">${m}</button>`).join('')}</div><label for="fMl">Jumlah (ml)</label><input id="fMl" type="number" inputmode="numeric" min="1" required value="${e.ml||''}">`+timeField('fT',e.t);
+ if(type==='diaper')f=`<label>Isi popok</label><div class="seg" data-seg="kind">${[['pipis','Pipis'],['pup','Pup'],['keduanya','Keduanya']].map(([v,n])=>`<button type="button" data-v="${v}" class="${(e.kind||'pipis')===v?'on':''}">${n}</button>`).join('')}</div>`+timeField('fT',e.t);
+ if(type==='growth')f=`<label for="fW">Berat (kg)</label><input id="fW" type="number" inputmode="decimal" step="0.01" min="0" value="${e.w||''}" placeholder="mis. 3,53"><label for="fL">Panjang (cm)</label><input id="fL" type="number" inputmode="decimal" step="0.1" min="0" value="${e.l||''}"><label for="fH">Lingkar kepala (cm)</label><input id="fH" type="number" inputmode="decimal" step="0.1" min="0" value="${e.hc||''}">`+timeField('fT',e.t,'Tanggal ukur');
+ if(type==='temp')f=`<label for="fC">Suhu (°C)</label><input id="fC" type="number" inputmode="decimal" step="0.1" min="30" max="45" required value="${e.c||''}" placeholder="mis. 36,8">`+timeField('fT',e.t);
+ if(type==='note')f=`<label for="fN">Catatan (obat, gejala, dll.)</label><textarea id="fN" required>${esc(e.text||'')}</textarea>`+timeField('fT',e.t);
+ if(type==='feed')f=`<label>Sisi</label><div class="seg" data-seg="side">${[['L','Kiri'],['R','Kanan']].map(([v,n])=>`<button type="button" data-v="${v}" class="${(e.side||'L')===v?'on':''}">${n}</button>`).join('')}</div>`+timeField('fT',e.t,'Mulai')+`<label for="fD">Lama (menit)</label><input id="fD" type="number" inputmode="numeric" min="1" required value="${e.dur?Math.round(e.dur/60000):''}">`;
+ if(type==='sleep'||type==='tummy')f=timeField('fT',e.t,'Mulai')+timeField('fE',e.end||Date.now(),'Selesai');
+ openSheet(`<h3>${ed?'Ubah':''} ${TYPES[type][0]}</h3><form id="entryForm" data-type="${type}" data-id="${ed?e.id:''}">${f}<div style="height:16px"></div><div class="row">${ed?'<button type="button" class="btn danger" data-a="del">Hapus</button>':''}<button class="btn teal">Simpan</button></div></form>`);
+}
+function medSheet(m){const ed=!!m;m=m||{name:'',dose:'',times:['08:00'],on:true};
+ openSheet(`<h3>${ed?'Ubah':'Tambah'} obat / vitamin</h3><form id="medForm" data-id="${ed?m.id:''}"><label for="mN">Nama</label><input id="mN" required value="${esc(m.name)}" placeholder="mis. Vitamin D">
+ <label for="mD">Dosis</label><input id="mD" value="${esc(m.dose)}" placeholder="mis. 1 tetes">
+ <label for="mT">Jam minum (pisahkan dengan koma)</label><input id="mT" required value="${esc(m.times.join(', '))}" placeholder="08:00, 20:00">
+ <div class="sw" style="margin-top:8px"><span>Aktif & beri pengingat</span><input type="checkbox" id="mOn" ${m.on?'checked':''}></div>
+ <div style="height:14px"></div><div class="row">${ed?'<button type="button" class="btn danger" data-a="medDel">Hapus</button>':''}<button class="btn teal">Simpan</button></div></form>`)}
+function msSheet(m){const ed=!!m;m=m||{title:'',date:startOfDay(Date.now()),note:'',photo:false};photoDraft=null;
+ openSheet(`<h3>${ed?'Ubah momen':'Momen baru'}</h3><form id="msForm" data-id="${ed?m.id:''}"><label for="msT">Momen</label><input id="msT" list="msList" required value="${esc(m.title)}" placeholder="pilih atau ketik sendiri"><datalist id="msList">${MS_PRESET.map(x=>`<option value="${x}">`).join('')}</datalist>
+ <label for="msD">Tanggal</label><input id="msD" type="date" required value="${dayKey(m.date)}">
+ <label for="msN">Cerita singkat (opsional)</label><textarea id="msN" style="min-height:80px">${esc(m.note||'')}</textarea>
+ <label>Foto</label><button type="button" class="prev" data-a="msPhoto" id="msPrev">${m.photo?'':'Ketuk untuk pilih foto'}</button>
+ <div style="height:14px"></div><div class="row">${ed?'<button type="button" class="btn danger" data-a="msDel">Hapus</button>':''}<button class="btn teal">Simpan</button></div></form>`);
+ if(m.photo)idb('get',m.id).then(u=>{if(u&&$('#msPrev'))$('#msPrev').innerHTML='<img alt="" src="'+u+'">'})}
+function logDose(id,slot){const m=S.meds.find(x=>x.id===id);if(!m)return;S.entries.push({id:uid(),type:'med',t:Date.now(),medId:id,name:m.name,dose:m.dose,slot});save();render();toast(m.name+' dicatat')}
+function sheetPast(){openSheet(`<h3>Catat yang sudah lewat</h3><div class="grid3">${['feed','sleep','tummy','bottle','diaper','note'].map(t=>`<button class="tile" data-form="${t}"><span class="ico b-${TYPES[t][2]} c-${TYPES[t][2]}">${TYPES[t][1]}</span>${TYPES[t][0]}</button>`).join('')}</div>`)}
+function submitEntry(form){
+ const type=form.dataset.type,id=form.dataset.id,old=id?S.entries.find(e=>e.id===id):null;
+ const seg=n=>{const b=form.querySelector(`[data-seg="${n}"] .on`);return b&&b.dataset.v};
+ const num=s=>{const v=form.querySelector(s).value;return v===''?null:Number(String(v).replace(',','.'))};
+ const t=fromLocalInput(form.querySelector('#fT').value);if(!t)return toast('Waktu belum diisi');
+ const e={id:id||uid(),type,t};
+ if(type==='bottle'){e.milk=seg('milk');e.ml=num('#fMl')}
+ if(type==='diaper'){e.kind=seg('kind');if(!old&&S.stock.diapers>0)S.stock.diapers--}
+ if(type==='growth'){e.w=num('#fW');e.l=num('#fL');e.hc=num('#fH');if(!e.w&&!e.l&&!e.hc)return toast('Isi minimal satu ukuran')}
+ if(type==='temp')e.c=num('#fC');
+ if(type==='note')e.text=form.querySelector('#fN').value.trim();
+ if(type==='feed'){e.side=seg('side');e.dur=num('#fD')*60000;e.end=t+e.dur}
+ if(type==='sleep'||type==='tummy'){e.end=fromLocalInput(form.querySelector('#fE').value);if(!(e.end>t))return toast('Jam selesai harus setelah jam mulai')}
+ if(old)Object.assign(old,e);else S.entries.push(e);
+ save();closeSheet();render();toast(old?'Perubahan disimpan':'Tersimpan');
+}
+
+/* ---------- ACTIONS ---------- */
+function act(a,el){
+ const T=S.timers,now=Date.now();
+ switch(a){
+  case'add':sheetAdd();break;
+  case'past':sheetPast();break;
+  case'feedStart':if(T.feed){toast('Masih ada sesi menyusu berjalan');closeSheet();break}T.feed={side:el.dataset.side,start:now,pausedMs:0};save();closeSheet();tab='home';render();break;
+  case'feedPause':{const f=T.feed;if(f.pausedAt){f.pausedMs+=now-f.pausedAt;delete f.pausedAt}else f.pausedAt=now;save();render();break}
+  case'feedSwitch':{const f=T.feed;finishFeed();T.feed={side:f.side==='L'?'R':'L',start:Date.now(),pausedMs:0};save();render();break}
+  case'feedStop':finishFeed();save();render();toast('Menyusu dicatat');break;
+  case'sleepStart':if(T.sleep){toast('Bayi sedang tidur');break}T.sleep={start:now};save();closeSheet();tab='home';render();break;
+  case'tummyStart':if(T.tummy){toast('Tummy time sedang berjalan');break}T.tummy={start:now};save();closeSheet();tab='home';render();break;
+  case'stop':{const k=el.dataset.k,x=T[k];if(now-x.start<30000){delete T[k];save();render();toast('Terlalu singkat, tidak dicatat');break}S.entries.push({id:uid(),type:k,t:x.start,end:now});delete T[k];save();render();toast(k==='sleep'?'Tidur dicatat':'Tummy time dicatat');break}
+  case'cancel':delete T[el.dataset.k];save();render();break;
+  case'bottle':case'diaper':case'growth':case'temp':case'note':formSheet(a);break;
+  case'del':{const id=$('#entryForm').dataset.id,i=S.entries.findIndex(e=>e.id===id);if(i<0)break;const [rm]=S.entries.splice(i,1);save();closeSheet();render();toast('Catatan dihapus',()=>{S.entries.push(rm);save();render()});break}
+  case'export':doExport();break;
+  case'import':$('#fileIn').click();break;
+  case'wipe':openSheet(`<h3>Hapus semua data?</h3><p>Semua catatan ${esc(S.profile.name)} akan hilang dari HP ini dan tidak bisa dikembalikan. Simpan cadangan dulu jika perlu.</p><div class="row"><button class="btn" data-a="close">Batal</button><button class="btn danger" data-a="wipeYes">Ya, hapus</button></div>`);break;
+  case'wipeYes':S=blank();save();closeSheet();tab='home';render();break;
+  case'close':closeSheet();break;
+  case'gv':growView=el.dataset.v;render();break;
+  case'medNew':medSheet();break;
+  case'medDel':{const id=$('#medForm').dataset.id;S.meds=S.meds.filter(m=>m.id!==id);save();closeSheet();render();toast('Obat dihapus');break}
+  case'msDel':{const id=$('#msForm').dataset.id;S.milestones=S.milestones.filter(m=>m.id!==id);idb('delete',id);save();closeSheet();render();toast('Momen dihapus');break}
+  case'msPhoto':$('#photoIn').click();break;
+ }
+}
+function finishFeed(){const f=S.timers.feed;if(!f)return;const d=feedElapsed(f);if(d>=15000)S.entries.push({id:uid(),type:'feed',side:f.side,t:f.start,end:f.pausedAt||Date.now(),dur:d});delete S.timers.feed}
+async function doExport(){let photos={};try{photos=await idb('all')}catch(e){}const json=JSON.stringify(Object.assign({},S,{photos})),name='bayiku-'+(S.profile.name||'bayi').replace(/\W+/g,'')+'-'+dayKey(Date.now())+'.json';
+ if(window.Android&&Android.saveBackup){Android.saveBackup(json,name);return}
+ try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([json],{type:'application/json'}));a.download=name;a.click();toast('Cadangan diunduh')}catch(e){toast('Gagal membuat cadangan')}}
+window.onBackupSaved=ok=>toast(ok?'Cadangan tersimpan':'Cadangan batal disimpan');
+function toast(msg,undoFn){$('#toastMsg').textContent=msg;undo=undoFn||null;$('#toastBtn').style.display=undoFn?'':'none';$('#toast').classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>$('#toast').classList.remove('show'),undoFn?5000:2200)}
+
+/* ---------- EVENTS ---------- */
+document.addEventListener('click',ev=>{
+ const el=ev.target.closest('[data-a],[data-tab],[data-edit],[data-vax],[data-form],[data-reg],[data-sex],[data-ms],[data-med],[data-dose],[data-gi],.seg button');if(!el)return;
+ if(el.matches('.seg button')){el.parentElement.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b===el));if(!el.dataset.reg&&!el.dataset.gi&&!el.dataset.a&&!el.dataset.sex)return}
+ if(el.dataset.reg||el.dataset.sex)return;
+ if(el.dataset.gi){growInd=el.dataset.gi;render();return}
+ if(el.dataset.ms!==undefined&&el.dataset.ms!==''){if(el.dataset.ms==='new')msSheet();else msSheet(S.milestones.find(m=>m.id===el.dataset.ms));return}
+ if(el.dataset.med){medSheet(S.meds.find(m=>m.id===el.dataset.med));return}
+ if(el.dataset.dose){logDose(el.dataset.dose,el.dataset.slot);return}
+ if(el.dataset.tab){tab=el.dataset.tab;closeSheet();render();window.scrollTo(0,0);return}
+ if(el.dataset.edit){const e=S.entries.find(x=>x.id===el.dataset.edit);if(e)formSheet(e.type,e);return}
+ if(el.dataset.form){formSheet(el.dataset.form);return}
+ if(el.dataset.vax){const k=el.dataset.vax;if(S.vax[k]){openSheet(`<h3>Batalkan centang?</h3><p>${esc(k.split('|')[1])} ditandai diberikan ${tgl(S.vax[k])}.</p><div class="row"><button class="btn" data-a="close">Tidak</button><button class="btn danger" data-unvax="${esc(k)}">Hapus tanda</button></div>`)}else openSheet(`<h3>${esc(k.split('|')[1])}</h3><form id="vaxForm" data-k="${esc(k)}"><label for="vD">Tanggal diberikan</label><input id="vD" type="date" value="${dayKey(Date.now())}" required><div style="height:16px"></div><button class="btn teal" style="width:100%">Tandai sudah</button></form>`);return}
+ act(el.dataset.a,el);
+});
+document.addEventListener('click',ev=>{const u=ev.target.closest('[data-unvax]');if(u){delete S.vax[u.dataset.unvax];save();closeSheet();render()}});
+$('#sheetBg').addEventListener('click',ev=>{if(ev.target.id==='sheetBg')closeSheet()});
+$('#toastBtn').addEventListener('click',()=>{if(undo)undo();undo=null;$('#toast').classList.remove('show')});
+document.addEventListener('submit',ev=>{ev.preventDefault();const f=ev.target;
+ if(f.id==='setupForm'){S.profile={name:$('#sName').value.trim(),birth:$('#sBirth').value,sex:$('#sSex .on').dataset.sex,region:$('#sReg .on').dataset.reg};save();render();askNotif()}
+ if(f.id==='profForm'){Object.assign(S.profile,{name:$('#pName').value.trim(),birth:$('#pBirth').value,sex:$('#pSex').value,region:$('#pReg').value});save();render();toast('Data bayi disimpan')}
+ if(f.id==='stockForm'){S.stock.diapers=Math.max(0,parseInt($('#stockIn').value||0,10));save();render();toast('Stok disimpan')}
+ if(f.id==='entryForm')submitEntry(f);
+ if(f.id==='medForm'){const times=$('#mT').value.split(/[,\s]+/).map(x=>x.replace('.',':')).filter(x=>/^\d{1,2}:\d{2}$/.test(x)).map(x=>{const[h,m]=x.split(':');return pad(Math.min(23,+h))+':'+pad(Math.min(59,+m))});if(!times.length)return toast('Isi jam dengan format 08:00');
+  const m={id:f.dataset.id||uid(),name:$('#mN').value.trim(),dose:$('#mD').value.trim(),times:[...new Set(times)].sort(),on:$('#mOn').checked};const i=S.meds.findIndex(x=>x.id===m.id);if(i>=0)S.meds[i]=m;else S.meds.push(m);save();closeSheet();render();toast('Obat disimpan');askNotif()}
+ if(f.id==='msForm'){const id=f.dataset.id||uid(),[y,mo,d]=$('#msD').value.split('-').map(Number),old=S.milestones.find(x=>x.id===id);
+  const m={id,title:$('#msT').value.trim(),date:new Date(y,mo-1,d).getTime(),note:$('#msN').value.trim(),photo:old?old.photo:false};
+  const done=()=>{if(old)Object.assign(old,m);else S.milestones.push(m);save();closeSheet();growView='ms';render();toast('Momen disimpan')};
+  if(photoDraft){m.photo=true;idb('put',id,photoDraft).then(done,()=>{toast('Foto gagal disimpan');m.photo=old?old.photo:false;done()})}else done()}
+ if(f.id==='vaxForm'){const[y,m,d]=$('#vD').value.split('-').map(Number);S.vax[f.dataset.k]=new Date(y,m-1,d).getTime();save();closeSheet();render()}
+});
+document.addEventListener('click',ev=>{const b=ev.target.closest('#sReg button');if(b){b.parentElement.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b))}});
+$('#fileIn').addEventListener('change',async ev=>{const file=ev.target.files[0];ev.target.value='';if(!file)return;try{const d=JSON.parse(await file.text());if(!d||!Array.isArray(d.entries))throw 0;openSheet(`<h3>Pulihkan cadangan?</h3><p>Data di HP ini akan diganti dengan cadangan berisi ${d.entries.length} catatan${d.profile?' untuk '+esc(d.profile.name):''}.</p><div class="row"><button class="btn" data-a="close">Batal</button><button class="btn teal" id="restoreYes">Pulihkan</button></div>`);$('#restoreYes').onclick=async()=>{const ph=d.photos||{};delete d.photos;for(const k in ph){try{await idb('put',k,ph[k])}catch(e){}}S=Object.assign(blank(),d);S.settings=Object.assign({},DEF_SET,d.settings||{});save();closeSheet();tab='home';render();toast('Data dipulihkan')}}catch(e){toast('File cadangan tidak valid')}});
+document.addEventListener('change',ev=>{const t=ev.target;
+ if(t.id==='rFeed'){S.settings.feedOn=t.checked;save();if(t.checked)askNotif()}
+ if(t.id==='rFeedH'){S.settings.feedHours=+t.value;save()}
+ if(t.id==='rVax'){S.settings.vaxOn=t.checked;save();if(t.checked)askNotif()}
+ if(t.id==='rVaxD'){S.settings.vaxDays=+t.value;save()}
+ if(t.id==='pTheme'){S.settings.theme=t.value;save();applyTheme()}
+});
+document.addEventListener('click',ev=>{const b=ev.target.closest('#sSex button');if(b)b.parentElement.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b))});
+/* foto: IndexedDB supaya tidak memenuhi penyimpanan utama */
+let dbp=null;
+function idb(op,key,val){if(!window.indexedDB)return Promise.reject();dbp=dbp||new Promise((res,rej)=>{const r=indexedDB.open('bayiku',1);r.onupgradeneeded=()=>r.result.createObjectStore('photos');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});
+ return dbp.then(db=>new Promise((res,rej)=>{const tx=db.transaction('photos',op==='get'||op==='all'?'readonly':'readwrite'),st=tx.objectStore('photos');let rq;
+  if(op==='get')rq=st.get(key);else if(op==='put')rq=st.put(val,key);else if(op==='delete')rq=st.delete(key);else if(op==='all'){const out={};const c=st.openCursor();c.onsuccess=()=>{const cur=c.result;if(cur){out[cur.key]=cur.value;cur.continue()}else res(out)};c.onerror=()=>rej(c.error);return}
+  rq.onsuccess=()=>res(rq.result);rq.onerror=()=>rej(rq.error)}))}
+function loadPhotos(){document.querySelectorAll('[data-photo]').forEach(n=>{const id=n.dataset.photo;if(!id||n.dataset.done)return;n.dataset.done=1;idb('get',id).then(u=>{if(u)n.innerHTML='<img alt="" src="'+u+'">'}).catch(()=>{})})}
+function shrink(file){return new Promise((res,rej)=>{const img=new Image(),url=URL.createObjectURL(file);img.onload=()=>{const k=Math.min(1,1280/Math.max(img.width,img.height)),c=document.createElement('canvas');c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);c.getContext('2d').drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(url);res(c.toDataURL('image/jpeg',0.82))};img.onerror=()=>{URL.revokeObjectURL(url);rej()};img.src=url})}
+$('#photoIn').addEventListener('change',async ev=>{const f=ev.target.files[0];ev.target.value='';if(!f)return;try{photoDraft=await shrink(f);if($('#msPrev'))$('#msPrev').innerHTML='<img alt="" src="'+photoDraft+'">'}catch(e){toast('Foto tidak bisa dibuka')}});
+/* tema */
+function isDark(){const m=S.settings.theme;if(m==='dark')return true;if(m==='light')return false;if(m==='auto'){const h=new Date().getHours();return h>=19||h<6}return matchMedia('(prefers-color-scheme: dark)').matches}
+function applyTheme(){const m=S.settings.theme,d=isDark();if(m==='system')delete document.documentElement.dataset.theme;else document.documentElement.dataset.theme=d?'dark':'light';try{window.Android&&Android.setDark&&Android.setDark(d)}catch(e){}}
+/* sambungan ke bagian Android: notifikasi, pengingat, widget */
+function askNotif(){try{window.Android&&Android.requestNotif&&Android.requestNotif()}catch(e){}}
+function at8(ts){const d=new Date(ts);d.setHours(8,0,0,0);return d.getTime()}
+function reminders(){const out=[],now=Date.now(),st=S.settings,nm=S.profile.name;
+ const lf=sorted().find(e=>e.type==='feed');
+ if(st.feedOn&&!S.timers.feed&&lf){const t=lf.t+st.feedHours*36e5;if(t>now)out.push({id:'feed',at:t,title:'Waktunya menyusu',body:dec(st.feedHours)+' jam sejak '+nm+' terakhir menyusu ('+sideName(lf.side==='L'?'R':'L')+' berikutnya)'})}
+ if(st.vaxOn)for(const r of vaxRows()){if(r.allDone)continue;const items=r.items.filter(i=>!i.done).map(i=>i.n).join(', ');
+  const pre=at8(r.due-st.vaxDays*864e5),day=at8(r.due);
+  if(pre>now)out.push({id:'vaxpre'+r.m,at:pre,title:'Imunisasi '+st.vaxDays+' hari lagi',body:nm+': '+items+' ('+tgl(r.due)+')'});
+  if(day>now)out.push({id:'vaxday'+r.m,at:day,title:'Hari ini jadwal imunisasi',body:nm+': '+items})}
+ for(const m of S.meds){if(!m.on)continue;for(let d=0;d<14;d++)for(const t of m.times){const[h,mi]=t.split(':').map(Number),x=new Date(startOfDay(now)+d*864e5);x.setHours(h,mi,0,0);if(x.getTime()>now&&!S.entries.some(e=>e.type==='med'&&e.medId===m.id&&e.slot===t&&dayKey(e.t)===dayKey(x.getTime())))out.push({id:'med'+m.id+dayKey(x.getTime())+t,at:x.getTime(),title:'Waktunya '+m.name,body:nm+(m.dose?' · '+m.dose:'')+' (jam '+t+')'})}}
+ return out.sort((a,b)=>a.at-b.at).slice(0,300)}
+function syncNative(){if(!window.Android||!S.profile)return;try{
+ const T=S.timers,tm=[];if(T.feed)tm.push({kind:'feed',label:'Menyusu · '+sideName(T.feed.side),base:Date.now()-feedElapsed(T.feed),paused:!!T.feed.pausedAt,elapsed:feedElapsed(T.feed)});
+ if(T.sleep)tm.push({kind:'sleep',label:'Tidur',base:T.sleep.start,paused:false});if(T.tummy)tm.push({kind:'tummy',label:'Tummy time',base:T.tummy.start,paused:false});
+ Android.setTimers&&Android.setTimers(JSON.stringify(tm));
+ Android.setReminders&&Android.setReminders(JSON.stringify(reminders()));
+ const lf=sorted().find(e=>e.type==='feed'),ld=sorted().find(e=>e.type==='diaper');
+ Android.setWidget&&Android.setWidget(JSON.stringify({name:S.profile.name,status:T.feed?'Sedang menyusu · '+sideName(T.feed.side):T.sleep?'Sedang tidur sejak '+hm(T.sleep.start):lf?'Menyusu terakhir '+hm(lf.t)+' · '+sideName(lf.side):'Belum ada catatan menyusu',sub:(lf&&!T.feed?sideName(lf.side==='L'?'R':'L')+' berikutnya':'')+(ld?(lf&&!T.feed?' · ':'')+'Popok '+hm(ld.t):'')}))
+}catch(e){}}
+window.nativeAction=(a,arg)=>{if(!S.profile)return;closeSheet();tab='home';const T=S.timers;
+ if(a==='feedStart'&&!T.feed)act('feedStart',{dataset:{side:arg||'L'}});
+ else if(a==='stop'){if(arg==='feed'&&T.feed)act('feedStop',{});else if(T[arg])act('stop',{dataset:{k:arg}})}
+ else if(a==='diaper')formSheet('diaper');
+ else render()};
+setInterval(()=>{const T=S.timers;document.querySelectorAll('[data-clock]').forEach(n=>{const k=n.dataset.clock;if(!T[k])return;n.textContent=k==='feed'?clock(feedElapsed(T.feed)):clock(Date.now()-T[k].start)})},1000);
+setInterval(()=>{if(tab==='home'&&!$('#sheetBg').classList.contains('open'))render()},60000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)render()});
+const ro=new ResizeObserver(()=>drawChart());
+new MutationObserver(()=>{const s=$('#wchart');if(s&&!s.dataset.obs){s.dataset.obs=1;ro.observe(s)}}).observe($('#app'),{childList:true,subtree:true});
+render();syncNative();
+new MutationObserver(()=>loadPhotos()).observe($('#app'),{childList:true,subtree:true});
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',applyTheme);
+}
+</script>
+</body>
+</html>

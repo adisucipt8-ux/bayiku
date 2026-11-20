@@ -1,0 +1,40 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'id.adi.bayiku'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'id.adi.bayiku'
+        minSdk 24
+        targetSdk 34
+        // Naikkan angka ini setiap rilis baru supaya bisa dipasang menimpa versi lama
+        versionCode 2
+        versionName '2.0'
+    }
+
+    signingConfigs {
+        release {
+            // Kunci tetap: pembaruan aplikasi bisa dipasang tanpa menghapus data.
+            // Simpan file bayiku.jks ini baik-baik dan jangan bagikan repo ke publik.
+            storeFile file('bayiku.jks')
+            storePassword 'bayiku-humaira'
+            keyAlias 'bayiku'
+            keyPassword 'bayiku-humaira'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}

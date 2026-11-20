@@ -11,8 +11,8 @@ android {
         minSdk 24
         targetSdk 34
         // Naikkan angka ini setiap rilis baru supaya bisa dipasang menimpa versi lama
-        versionCode 5
-        versionName '5.0'
+        versionCode 6
+        versionName '5.1'
     }
 
     signingConfigs {

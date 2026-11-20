@@ -8,7 +8,7 @@ Aplikasi Android untuk mencatat:
 - tummy time,
 - suhu badan dan catatan/obat,
 - berat, panjang, dan lingkar kepala (dengan grafik berat),
-- jadwal imunisasi Kemenkes (Nasional atau Yogyakarta), lengkap dengan tanggalnya dihitung dari tanggal lahir,
+- jadwal imunisasi Nasional Kemenkes, lengkap dengan tanggalnya dihitung dari tanggal lahir,
 - kurva pertumbuhan WHO 0–24 bulan (berat, panjang, lingkar kepala) dan z-score,
 - milestone dengan foto,
 - obat & vitamin dengan jadwal jam,

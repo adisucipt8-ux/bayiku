@@ -168,8 +168,7 @@ const I={
  gear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>'
 };
 const VAX={
- nasional:[[0,'Usia < 24 jam',['Hepatitis B (HB-0)']],[1,'Usia 1 bulan',['Polio tetes 1 (OPV 1)','BCG']],[2,'Usia 2 bulan',['DPT-HB-Hib 1','Polio tetes 2 (OPV 2)','PCV 1','Rotavirus 1 (RV 1)']],[3,'Usia 3 bulan',['DPT-HB-Hib 2','Polio tetes 3 (OPV 3)','PCV 2','Rotavirus 2 (RV 2)']],[4,'Usia 4 bulan',['DPT-HB-Hib 3','Polio tetes 4 (OPV 4)','Polio suntik 1 (IPV 1)','Rotavirus 3 (RV 3)']],[9,'Usia 9 bulan',['Campak Rubela 1','Polio suntik 2 (IPV 2)']],[10,'Usia 10 bulan',['JE (khusus daerah endemis)']],[12,'Usia 12 bulan',['PCV 3']],[18,'Usia 18 bulan',['DPT-HB-Hib 4','Campak Rubela 2']]],
- yogyakarta:[[0,'Usia < 24 jam',['Hepatitis B (HB-0)']],[1,'Usia 1 bulan',['BCG']],[2,'Usia 2 bulan',['DPT-HB-Hib 1','PCV 1','Rotavirus 1 (RV 1)','Polio suntik 1 (IPV 1)']],[3,'Usia 3 bulan',['DPT-HB-Hib 2','PCV 2','Rotavirus 2 (RV 2)','Polio suntik 2 (IPV 2)']],[4,'Usia 4 bulan',['DPT-HB-Hib 3','Rotavirus 3 (RV 3)','Polio suntik 3 (IPV 3)']],[9,'Usia 9 bulan',['Campak Rubela 1']],[10,'Usia 10 bulan',['JE (khusus daerah endemis)']],[12,'Usia 12 bulan',['PCV 3']],[18,'Usia 18 bulan',['DPT-HB-Hib 4','Campak Rubela 2']]]
+ nasional:[[0,'Usia < 24 jam',['Hepatitis B (HB-0)']],[1,'Usia 1 bulan',['Polio tetes 1 (OPV 1)','BCG']],[2,'Usia 2 bulan',['DPT-HB-Hib 1','Polio tetes 2 (OPV 2)','PCV 1','Rotavirus 1 (RV 1)']],[3,'Usia 3 bulan',['DPT-HB-Hib 2','Polio tetes 3 (OPV 3)','PCV 2','Rotavirus 2 (RV 2)']],[4,'Usia 4 bulan',['DPT-HB-Hib 3','Polio tetes 4 (OPV 4)','Polio suntik 1 (IPV 1)','Rotavirus 3 (RV 3)']],[9,'Usia 9 bulan',['Campak Rubela 1','Polio suntik 2 (IPV 2)']],[10,'Usia 10 bulan',['JE (khusus daerah endemis)']],[12,'Usia 12 bulan',['PCV 3']],[18,'Usia 18 bulan',['DPT-HB-Hib 4','Campak Rubela 2']]]
 };
 let S=load(), tab='home', undo=null, toastT=null, growInd='w', growView='chart', photoDraft=null;
 function blank(){return{profile:null,entries:[],timers:{},vax:{},stock:{diapers:0},settings:Object.assign({},DEF_SET),meds:[],milestones:[]}}
@@ -248,7 +247,6 @@ function renderSetup(){
  <label for="sHpl">HPL (hari perkiraan lahir) <span style="font-weight:600">— opsional</span></label><input id="sHpl" type="date">
  <label for="sBw">Berat lahir (gram) <span style="font-weight:600">— opsional</span></label><input id="sBw" type="number" inputmode="numeric" min="300" max="6000" placeholder="mis. 1850">
  <p class="muted" style="margin:6px 0 0">Isi untuk bayi prematur supaya usia koreksi dihitung otomatis.</p>
- <label>Jadwal imunisasi</label><div class="seg" id="sReg"><button type="button" data-reg="nasional" class="on">Nasional</button><button type="button" data-reg="yogyakarta">Yogyakarta</button></div>
  <div style="height:18px"></div><button class="btn teal" style="width:100%">Mulai</button></form>
  <div style="height:10px"></div><button class="btn ghost" data-a="syncJoin" style="width:100%">Sudah dipakai di HP pasangan? Gabung sinkron</button>${S.sync&&S.sync.on?'<p class="muted" style="text-align:center">Menunggu data dari HP pertama…</p>':''}</div>`;
 }
@@ -293,10 +291,10 @@ function vHist(){
   h+=`<button class="item" data-edit="${e.id}"><span class="ico b-${ty[2]} c-${ty[2]}">${ty[1]}</span><span class="m"><b>${t}</b><small>${v}</small></span><span class="tm">${hm(e.t)}${e.end?'–'+hm(e.end):''}</span></button>`}
  return h+'</div>';
 }
-function vaxRows(){const b=birthTs(),today=startOfDay(Date.now()),low=S.profile.bw&&S.profile.bw<2000;return VAX[S.profile.region||'nasional'].map(([m,label,items])=>{const due=addMonths(b,m===0&&low?1:m);if(m===0&&low)label='Ditunda (berat lahir < 2000 g): usia 1 bulan / saat pulang';return{m,label,due,items:items.map(n=>({n,key:m+'|'+n,done:S.vax[m+'|'+n]}))}}).map(r=>Object.assign(r,{allDone:r.items.every(i=>i.done),late:r.due<today&&!r.items.every(i=>i.done),soon:r.due>=today&&r.due-today<=14*864e5}))}
+function vaxRows(){const b=birthTs(),today=startOfDay(Date.now()),low=S.profile.bw&&S.profile.bw<2000;return VAX.nasional.map(([m,label,items])=>{const due=addMonths(b,m===0&&low?1:m);if(m===0&&low)label='Ditunda (berat lahir < 2000 g): usia 1 bulan / saat pulang';return{m,label,due,items:items.map(n=>({n,key:m+'|'+n,done:S.vax[m+'|'+n]}))}}).map(r=>Object.assign(r,{allDone:r.items.every(i=>i.done),late:r.due<today&&!r.items.every(i=>i.done),soon:r.due>=today&&r.due-today<=14*864e5}))}
 function nextVax(){const r=vaxRows().find(r=>!r.allDone);if(!r)return null;const today=startOfDay(Date.now());return{items:r.items.filter(i=>!i.done).map(i=>i.n),due:r.due,late:r.due<today,soon:r.due-today<=14*864e5}}
 function vVax(){
- let h=header()+`<p class="muted">Jadwal ${S.profile.region==='yogyakarta'?'Yogyakarta':'Nasional'} Kemenkes. Centang yang sudah diberikan; tanggal dihitung dari tanggal lahir.</p>`;
+ let h=header()+`<p class="muted">Jadwal imunisasi Nasional Kemenkes. Centang yang sudah diberikan; tanggal dihitung dari tanggal lahir.</p>`;
  for(const r of vaxRows()){h+=`<div class="day" style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span>${r.label} · ${tgl(r.due)}</span>${r.allDone?'<span class="tag done">Lengkap</span>':r.late?'<span class="tag late">Terlewat</span>':r.soon?'<span class="tag soon">Segera</span>':''}</div><div class="list">`;
   for(const i of r.items)h+=`<button class="item" data-vax="${esc(i.key)}"><span class="chk ${i.done?'on':''}">${i.done?'✓':''}</span><span class="m"><b>${esc(i.n)}</b><small>${i.done?'Diberikan '+tgl(i.done):'Belum'}</small></span></button>`;
   h+='</div>'}
@@ -566,7 +564,6 @@ function vSet(){const p=S.profile;return header()+`
  <label for="pGa">Usia kehamilan saat lahir</label><div class="row"><input id="pGa" type="number" inputmode="numeric" min="22" max="44" placeholder="minggu" value="${p.gaW??''}" style="flex:2"><input id="pGaD" type="number" inputmode="numeric" min="0" max="6" placeholder="+hari" value="${p.gaD??''}" style="flex:1"></div>
  <label for="pHpl">HPL (hari perkiraan lahir)</label><input id="pHpl" type="date" value="${esc(p.hpl||'')}">
  <label for="pBw">Berat lahir (gram)</label><input id="pBw" type="number" inputmode="numeric" min="300" max="6000" value="${p.bw??''}">
- <label for="pReg">Jadwal imunisasi</label><select id="pReg"><option value="nasional" ${p.region!=='yogyakarta'?'selected':''}>Nasional</option><option value="yogyakarta" ${p.region==='yogyakarta'?'selected':''}>Yogyakarta</option></select>
  <div style="height:12px"></div><button class="btn teal" style="width:100%">Simpan</button></form></div>
  ${syncCard()}
  <button class="card" data-tab="prem" style="width:100%;text-align:left"><b style="font:700 18px Fraunces,Georgia,serif">Buku Bayi Kecil (prematur/BBLR)</b><br><span class="muted">Data lahir & pulang, usia koreksi, penapisan, PMK, rekap harian, kontrol</span></button>
@@ -588,7 +585,7 @@ function vSet(){const p=S.profile;return header()+`
  <div class="card"><b>Cadangan data</b><p class="muted">${S.sync&&S.sync.on?"Sinkron aktif, tapi cadangan tetap dianjurkan.":"Data hanya ada di HP ini."} Simpan cadangan sesekali (mis. ke Google Drive/WhatsApp) supaya tidak hilang kalau HP ganti atau aplikasi terhapus.</p>
  <div class="row"><button class="btn ghost" data-a="export">Simpan cadangan</button><button class="btn" data-a="import">Pulihkan</button></div></div>
  <div class="card"><b>Hapus semua data</b><p class="muted">Tidak bisa dibatalkan.</p><button class="btn danger" data-a="wipe" style="width:100%">Hapus semua</button></div>
- <p class="muted" style="text-align:center">Bayiku 5.0 · ${S.entries.length} catatan tersimpan</p>`}
+ <p class="muted" style="text-align:center">Bayiku 5.1 · ${S.entries.length} catatan tersimpan</p>`}
 
 /* ---------- SHEETS ---------- */
 function openSheet(html){$('#sheet').innerHTML=html;$('#sheetBg').classList.add('open')}
@@ -770,8 +767,8 @@ document.addEventListener('click',ev=>{const u=ev.target.closest('[data-unvax]')
 $('#sheetBg').addEventListener('click',ev=>{if(ev.target.id==='sheetBg')closeSheet()});
 $('#toastBtn').addEventListener('click',()=>{if(undo)undo();undo=null;$('#toast').classList.remove('show')});
 document.addEventListener('submit',ev=>{ev.preventDefault();const f=ev.target;
- if(f.id==='setupForm'){S.profile=Object.assign({name:$('#sName').value.trim(),birth:$('#sBirth').value,sex:$('#sSex .on').dataset.sex,region:$('#sReg .on').dataset.reg},readPrem('s'));save();render();askNotif()}
- if(f.id==='profForm'){Object.assign(S.profile,{name:$('#pName').value.trim(),birth:$('#pBirth').value,sex:$('#pSex').value,region:$('#pReg').value},readPrem('p'));save();render();toast('Data bayi disimpan')}
+ if(f.id==='setupForm'){S.profile=Object.assign({name:$('#sName').value.trim(),birth:$('#sBirth').value,sex:$('#sSex .on').dataset.sex},readPrem('s'));save();render();askNotif()}
+ if(f.id==='profForm'){Object.assign(S.profile,{name:$('#pName').value.trim(),birth:$('#pBirth').value,sex:$('#pSex').value},readPrem('p'));save();render();toast('Data bayi disimpan')}
  if(f.id==='wtForm'){const v=$('#wtIn').value;S.settings.wTarget=v===''?null:Math.max(1,+v);save();render();toast('Target disimpan')}
  if(f.id==='stockForm'){S.stock.diapers=Math.max(0,parseInt($('#stockIn').value||0,10));save();render();toast('Stok disimpan')}
  if(f.id==='entryForm')submitEntry(f);

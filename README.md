@@ -18,7 +18,12 @@ Aplikasi Android untuk mencatat:
 - tampilan earth tone dengan mode terang/gelap,
 - vitamin/obat manual (ml), tren berat & panjang badan,
 - Buku Bayi Kecil (Kemenkes): usia koreksi, data lahir & pulang RS, penapisan, PMK, perah ASI, rekap pemantauan harian BBLR, tanda bahaya, tahapan perkembangan, ringkasan pelayanan/kontrol,
-- ekspor riwayat ke Excel dan PDF.
+- ekspor riwayat ke Excel dan PDF,
+- status kenaikan berat (naik/mendatar/turun) dan target dari dokter,
+- tahapan perkembangan 9–24 bulan (checklist CDC/AAP 2022),
+- sinkron 2 HP lewat Firebase Firestore (opsional, kode keluarga).
+
+Pustaka pihak ketiga: Firebase JS SDK (Apache-2.0), SheetJS (Apache-2.0), font Fraunces & Nunito (OFL).
 
 Semua data tersimpan di HP saja dan aplikasinya bisa dipakai tanpa internet. Ada fitur **Simpan cadangan** dan **Pulihkan** di menu Atur.
 

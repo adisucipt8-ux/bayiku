@@ -54,6 +54,8 @@ public class MainActivity extends Activity {
         s.setAllowFileAccess(true);
         s.setAllowContentAccess(true);
         s.setTextZoom(100);
+        // Sinkron 2 HP: izinkan halaman lokal (file://) menghubungi server Firebase
+        s.setAllowUniversalAccessFromFileURLs(true);
 
         web.setWebViewClient(new WebViewClient() {
             @Override

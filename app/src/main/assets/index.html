@@ -151,7 +151,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:9px 6px;b
 <script>
 {
 const KEY='bayiku.v1';
-const DEF_SET={theme:'auto',feedOn:true,feedHours:3,vaxOn:true,vaxDays:3,pumpOn:false,pumpHours:3,skinOn:false};
+const DEF_SET={wTarget:null,theme:'auto',feedOn:true,feedHours:3,vaxOn:true,vaxDays:3,pumpOn:false,pumpHours:3,skinOn:false};
 const WHO={"wm":[[0.3487,3.3464,0.14602],[0.2297,4.4709,0.13395],[0.197,5.5675,0.12385],[0.1738,6.3762,0.11727],[0.1553,7.0023,0.11316],[0.1395,7.5105,0.1108],[0.1257,7.934,0.10958],[0.1134,8.297,0.10902],[0.1021,8.6151,0.10882],[0.0917,8.9014,0.10881],[0.082,9.1649,0.10891],[0.073,9.4122,0.10906],[0.0644,9.6479,0.10925],[0.0563,9.8749,0.10949],[0.0487,10.0953,0.10976],[0.0413,10.3108,0.11007],[0.0343,10.5228,0.11041],[0.0275,10.7319,0.11079],[0.0211,10.9385,0.11119],[0.0148,11.143,0.11164],[0.0087,11.3462,0.11211],[0.0029,11.5486,0.11261],[-0.0028,11.7504,0.11314],[-0.0083,11.9514,0.11369],[-0.0137,12.1515,0.11426]],"wf":[[0.3809,3.2322,0.14171],[0.1714,4.1873,0.13724],[0.0962,5.1282,0.13],[0.0402,5.8458,0.12619],[-0.005,6.4237,0.12402],[-0.043,6.8985,0.12274],[-0.0756,7.297,0.12204],[-0.1039,7.6422,0.12178],[-0.1288,7.9487,0.12181],[-0.1507,8.2254,0.12199],[-0.17,8.48,0.12223],[-0.1872,8.7192,0.12247],[-0.2024,8.9481,0.12268],[-0.2158,9.1699,0.12283],[-0.2278,9.387,0.12294],[-0.2384,9.6008,0.12299],[-0.2478,9.8124,0.12303],[-0.2562,10.0226,0.12306],[-0.2637,10.2315,0.12309],[-0.2703,10.4393,0.12315],[-0.2762,10.6464,0.12323],[-0.2815,10.8534,0.12335],[-0.2862,11.0608,0.1235],[-0.2903,11.2688,0.12369],[-0.2941,11.4775,0.1239]],"lm":[[1.0,49.8842,0.03795],[1.0,54.7244,0.03557],[1.0,58.4249,0.03424],[1.0,61.4292,0.03328],[1.0,63.886,0.03257],[1.0,65.9026,0.03204],[1.0,67.6236,0.03165],[1.0,69.1645,0.03139],[1.0,70.5994,0.03124],[1.0,71.9687,0.03117],[1.0,73.2812,0.03118],[1.0,74.5388,0.03125],[1.0,75.7488,0.03137],[1.0,76.9186,0.03154],[1.0,78.0497,0.03174],[1.0,79.1458,0.03197],[1.0,80.2113,0.03222],[1.0,81.2487,0.0325],[1.0,82.2587,0.03279],[1.0,83.2418,0.0331],[1.0,84.1996,0.03342],[1.0,85.1348,0.03376],[1.0,86.0477,0.0341],[1.0,86.941,0.03445],[1.0,87.8161,0.03479]],"lf":[[1.0,49.1477,0.0379],[1.0,53.6872,0.0364],[1.0,57.0673,0.03568],[1.0,59.8029,0.0352],[1.0,62.0899,0.03486],[1.0,64.0301,0.03463],[1.0,65.7311,0.03448],[1.0,67.2873,0.03441],[1.0,68.7498,0.0344],[1.0,70.1435,0.03444],[1.0,71.4818,0.03452],[1.0,72.771,0.03464],[1.0,74.015,0.03479],[1.0,75.2176,0.03496],[1.0,76.3817,0.03514],[1.0,77.5099,0.03534],[1.0,78.6055,0.03555],[1.0,79.671,0.03576],[1.0,80.7079,0.03598],[1.0,81.7182,0.0362],[1.0,82.7036,0.03643],[1.0,83.6654,0.03666],[1.0,84.604,0.03688],[1.0,85.5202,0.03711],[1.0,86.4153,0.03734]],"hm":[[1.0,34.4618,0.03686],[1.0,37.2759,0.03133],[1.0,39.1285,0.02997],[1.0,40.5135,0.02918],[1.0,41.6317,0.02868],[1.0,42.5576,0.02837],[1.0,43.3306,0.02817],[1.0,43.9803,0.02804],[1.0,44.53,0.02796],[1.0,44.9998,0.02792],[1.0,45.4051,0.0279],[1.0,45.7573,0.02789],[1.0,46.0661,0.02789],[1.0,46.3395,0.02789],[1.0,46.5844,0.02791],[1.0,46.806,0.02792],[1.0,47.0088,0.02795],[1.0,47.1962,0.02797],[1.0,47.3711,0.028],[1.0,47.5357,0.02803],[1.0,47.6919,0.02806],[1.0,47.8408,0.0281],[1.0,47.9833,0.02813],[1.0,48.1201,0.02817],[1.0,48.2515,0.02821]],"hf":[[1.0,33.8787,0.03496],[1.0,36.5463,0.0321],[1.0,38.2521,0.03168],[1.0,39.5328,0.0314],[1.0,40.5817,0.03119],[1.0,41.459,0.03102],[1.0,42.1995,0.03087],[1.0,42.829,0.03075],[1.0,43.3671,0.03063],[1.0,43.83,0.03053],[1.0,44.2319,0.03044],[1.0,44.5844,0.03035],[1.0,44.8965,0.03027],[1.0,45.1752,0.03019],[1.0,45.4265,0.03012],[1.0,45.6551,0.03006],[1.0,45.865,0.02999],[1.0,46.0598,0.02993],[1.0,46.2424,0.02987],[1.0,46.4152,0.02982],[1.0,46.5801,0.02977],[1.0,46.7384,0.02972],[1.0,46.8913,0.02967],[1.0,47.0391,0.02962],[1.0,47.1822,0.02957]]};
 const I={
  feed:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v3l-2 3v10a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V9l-2-3V3"/><path d="M8 13h8"/></svg>',
@@ -174,7 +174,8 @@ const VAX={
 let S=load(), tab='home', undo=null, toastT=null, growInd='w', growView='chart', photoDraft=null;
 function blank(){return{profile:null,entries:[],timers:{},vax:{},stock:{diapers:0},settings:Object.assign({},DEF_SET),meds:[],milestones:[]}}
 function load(){try{const d=JSON.parse(localStorage.getItem(KEY));if(d&&d.entries){const b=Object.assign(blank(),d);b.settings=Object.assign({},DEF_SET,d.settings||{});return b}}catch(e){}return blank()}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){toast('Gagal menyimpan di HP')}syncNative()}
+function localSave(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){toast('Gagal menyimpan di HP')}}
+function save(){localSave();syncNative();if(typeof syncPush==='function')syncPush()}
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
@@ -248,7 +249,8 @@ function renderSetup(){
  <label for="sBw">Berat lahir (gram) <span style="font-weight:600">— opsional</span></label><input id="sBw" type="number" inputmode="numeric" min="300" max="6000" placeholder="mis. 1850">
  <p class="muted" style="margin:6px 0 0">Isi untuk bayi prematur supaya usia koreksi dihitung otomatis.</p>
  <label>Jadwal imunisasi</label><div class="seg" id="sReg"><button type="button" data-reg="nasional" class="on">Nasional</button><button type="button" data-reg="yogyakarta">Yogyakarta</button></div>
- <div style="height:18px"></div><button class="btn teal" style="width:100%">Mulai</button></form></div>`;
+ <div style="height:18px"></div><button class="btn teal" style="width:100%">Mulai</button></form>
+ <div style="height:10px"></div><button class="btn ghost" data-a="syncJoin" style="width:100%">Sudah dipakai di HP pasangan? Gabung sinkron</button>${S.sync&&S.sync.on?'<p class="muted" style="text-align:center">Menunggu data dari HP pertama…</p>':''}</div>`;
 }
 function header(withGrow){const d=isDark(),g=withGrow?lastGrowth():null;return`<section class="hero"><svg class="deco" viewBox="0 0 400 96" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><path d="M0 66 C70 38 140 58 210 50 C280 42 340 60 400 46 V96 H0Z" fill="#fff6ec" opacity=".09"/><path d="M0 82 C80 62 150 78 220 72 C290 66 345 82 400 74 V96 H0Z" fill="#fff6ec" opacity=".13"/><path d="M40 70 q6 -14 12 0 M60 74 q5 -11 10 0" stroke="#fff6ec" stroke-opacity=".25" stroke-width="2" fill="none"/></svg><div class="top"><div class="av">${esc(S.profile.name[0]||'?').toUpperCase()}</div><div><h1>${esc(S.profile.name)}</h1><div class="age">${ageText()}${corrText()?'<br>'+corrText():''}</div></div><button class="tbtn" data-a="themeToggle" aria-label="${d?'Ganti ke mode terang':'Ganti ke mode gelap'}">${d?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>'}</button></div>${g?`<div class="grow">${[['Berat',g.w,'kg'],['Panjang',g.l,'cm'],['L. kepala',g.hc,'cm']].map(([n,v,u])=>`<button data-a="growth"><small>${n}</small><b>${v!=null?dec(v):'–'} <span>${u}</span></b></button>`).join('')}</div>`:''}</section>`}
 function lastGrowth(){const g={};for(const e of sorted())if(e.type==='growth'){if(g.w==null&&e.w)g.w=e.w;if(g.l==null&&e.l)g.l=e.l;if(g.hc==null&&e.hc)g.hc=e.hc}return g}
@@ -324,6 +326,7 @@ function vChart(){
   else msg='dalam rentang normal WHO (−2 sampai +2 SD).';
   h+=`<div class="zbox ${warn?'warn':''}">Pengukuran terakhir ${dec(e[f])} ${u} (${tgl(e.t)}), z-score ${dec(z.toFixed(1))}: ${msg}</div>`}
  else h+=`<p class="muted">Belum ada data ${nm.toLowerCase()} untuk umur 0–24 bulan.</p>`;
+ if(growInd==='w'){const st=weightStatus();if(st)h+=`<div class="zbox ${st.lv==='late'?'warn':''}" style="${st.lv==='soon'?'background:var(--sun)':''}"><span class="tag ${st.lv}" style="margin-right:6px">${st.label}</span>${st.txt}</div>`}
  h+='</div>';
  if(g.length)h+=`<div class="card" style="overflow-x:auto"><table><thead><tr><th>Tanggal</th><th>Berat</th><th>Panjang</th><th>LK</th></tr></thead><tbody>${g.slice().reverse().map(e=>{const pv=f=>{const ser=series(f),i=ser.indexOf(e);return i>0?ser[i-1]:null},dl=(f,u,k)=>{if(!e[f])return'–';const p=pv(f);let d='';if(p){const x=+e[f]-+p[f];d=f==='w'?(x>=0?'+':'−')+Math.round(Math.abs(x)*1000)+' g':(x>=0?'+':'−')+dec(Math.round(Math.abs(x)*10)/10)+' cm';d=`<br><small style="color:${x<0?'var(--red)':'var(--sky-i)'};font-weight:700">${d}</small>`}return dec(e[f])+' '+u+d};return`<tr data-edit="${e.id}"><td>${tgl(e.t)}${e.id==='birth'?'<br><small class="muted">lahir</small>':e.id==='discharge'?'<br><small class="muted">pulang RS</small>':''}</td><td>${dl('w','kg')}</td><td>${dl('l','cm')}</td><td>${dl('hc','cm')}</td></tr>`}).join('')}</tbody></table></div>`;
  return h+'<p class="muted">Kurva berdasarkan Standar Pertumbuhan Anak WHO (0–24 bulan). Grafik ini alat bantu, bukan pengganti pemeriksaan tenaga kesehatan.</p>';
@@ -353,11 +356,18 @@ function deltaTxt(f,a,b){const d=+b[f]-+a[f],days=Math.round((startOfDay(b.t)-st
 function spark(list,f){if(list.length<2)return'';const xs=list.map(e=>e.t),ys=list.map(e=>+e[f]),x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
  const X=t=>(t-x0)/((x1-x0)||1)*96+2,Y=v=>28-(v-y0)/((y1-y0)||1)*24;
  return`<svg viewBox="0 0 100 30" preserveAspectRatio="none" style="width:100%;height:38px;display:block;margin-top:6px"><polyline fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round" points="${list.map(e=>X(e.t).toFixed(1)+','+Y(+e[f]).toFixed(1)).join(' ')}"/>${list.map(e=>`<circle cx="${X(e.t).toFixed(1)}" cy="${Y(+e[f]).toFixed(1)}" r="1.6" fill="currentColor"/>`).join('')}</svg>`}
+function weightStatus(){const W=series('w');if(W.length<2)return null;const b=W[W.length-1];let a=null;for(let i=W.length-2;i>=0;i--){if(startOfDay(b.t)-startOfDay(W[i].t)>=864e5){a=W[i];break}}if(!a)return null;
+ const days=Math.round((startOfDay(b.t)-startOfDay(a.t))/864e5),g=Math.round((b.w-a.w)*1000),gpd=g/days,tg=S.settings.wTarget;
+ let lv,txt;if(g<=-10){lv='late';txt='Berat turun '+Math.abs(g)+' g dalam '+days+' hari. Bahaya: segera konsultasikan ke dokter/bidan.'}
+ else if(Math.abs(g)<10){lv='soon';txt='Berat mendatar (berubah < 10 g dalam '+days+' hari). Hati-hati: pantau dan diskusikan dengan dokter.'}
+ else if(tg&&gpd<tg){lv='soon';txt='Naik '+Math.round(gpd)+' g/hari, di bawah target dokter '+tg+' g/hari.'}
+ else{lv='done';txt='Naik '+Math.round(gpd)+' g/hari'+(tg?' (target '+tg+' g/hari tercapai)':'')+'. Baik.'}
+ return{lv,txt,label:{late:'Bahaya',soon:'Hati-hati',done:'Baik'}[lv]}}
 function trendCard(){const W=series('w').slice(-12),L=series('l').slice(-12);if(!W.length&&!L.length)return'';
  const col=(nm,list,f,u,c)=>{if(!list.length)return`<div style="flex:1"><div class="muted" style="font-weight:700">${nm}</div><div class="muted">Belum ada data</div></div>`;const a=list[list.length-2],b=list[list.length-1];
   return`<div style="flex:1;min-width:0" class="${c}"><div class="muted" style="font-weight:700">${nm}</div><div style="font:700 24px Fraunces,Georgia,serif;color:var(--ink)">${dec(b[f])} <span style="font:600 13px Nunito,sans-serif;color:var(--muted)">${u}</span></div><div style="font-size:12.5px;font-weight:700">${a?deltaTxt(f,a,b):'Ukur lagi untuk melihat tren'}</div>${spark(list,f)}<div class="muted" style="font-size:12px">${list.length} kali ukur · terakhir ${tgl(b.t)}</div></div>`};
  return`<button class="card" data-tab="grow" style="width:100%;text-align:left"><div style="display:flex;justify-content:space-between;align-items:center"><b style="font:700 18px Fraunces,Georgia,serif">Tren pertumbuhan</b><span class="tag done" data-a="growth" style="min-height:30px;display:inline-grid;place-items:center">+ Ukur</span></div>
- <div style="display:flex;gap:14px;margin-top:10px">${col('Berat badan',W,'w','kg','c-feed')}${col('Panjang badan',L,'l','cm','c-bot')}</div></button>`}
+ <div style="display:flex;gap:14px;margin-top:10px">${col('Berat badan',W,'w','kg','c-feed')}${col('Panjang badan',L,'l','cm','c-bot')}</div>${(()=>{const st=weightStatus();return st?`<div class="zbox ${st.lv==='late'?'warn':''}" style="${st.lv==='soon'?'background:var(--sun)':''}"><span class="tag ${st.lv}" style="margin-right:6px">${st.label}</span>${st.txt}</div>`:''})()}</button>`}
 function medsToday(){
  const meds=S.meds.filter(m=>m.on);const sod=startOfDay(Date.now());
  if(!meds.length)return`<button class="card" data-a="medNew" style="width:100%;text-align:left;display:flex;gap:12px;align-items:center"><span class="ico b-tum c-tum">${I.temp}</span><span><b style="font:700 17px Fraunces,Georgia,serif">Vitamin & obat</b><br><span class="muted">Tambah Vitamin D, DHA, atau lainnya</span></span></button>`;
@@ -381,6 +391,10 @@ const DEV=[[2,['Senyum responsif saat diajak senyum','Bersuara / cooing (ah, uh)
  [6,['Tersenyum melihat wajah di cermin','Menoleh ketika namanya dipanggil','Bergumam konsonan (m, b)','Duduk sebentar tanpa ditopang','Meraup benda dengan 4 jari','Mencoba memasukkan benda ke mulut','Mengoceh vokal bergiliran (ah, eh, oh)','Memindahkan benda dari satu tangan ke tangan lain','Berguling dua arah'],['Tidak pernah tersenyum atau tertawa','Wajah tanpa ekspresi, tidak tertarik berinteraksi','Tidak menoleh ke arah suara','Tidak pernah mengeluarkan suara vokal','Tidak dapat menopang dada saat tengkurap','Tidak berupaya meraih benda','Tangan sering mengepal','Tampak sangat kaku atau sangat lemas']]];
 const CARE=[["vInv", "Alat bantu napas invasif", "hari"], ["vNon", "Alat bantu napas non-invasif (CPAP/NIPPV/high flow/nasal kanul)", "hari"], ["o2", "Terapi oksigen", "hari"], ["prc", "Transfusi sel darah merah (PRC)", "kali"], ["tc", "Transfusi trombosit (TC)", "kali"], ["ogt", "Sonde lambung (OGT)", "hari"], ["inf", "Infeksi: antibiotik", "hari"], ["hb", "Hb terakhir", "g/dL"]];
 const LEARN=['Perawatan Metode Kanguru (PMK)','Menyusui dan memerah ASI','Memandikan bayi & membersihkan kelamin','Memakaikan baju & mengganti popok','Memijat bayi'];
+const DEV2=[[9,['Malu, menempel, atau takut pada orang asing','Menunjukkan beberapa ekspresi wajah (senang, sedih, marah, kaget)','Menoleh saat namanya dipanggil','Bereaksi saat ditinggal (melihat, meraih, atau menangis)','Tersenyum/tertawa saat main ciluk-ba','Mengoceh berbagai suara seperti "mamama", "bababa"','Mengangkat tangan minta digendong','Mencari benda yang jatuh dari pandangan','Membenturkan dua benda','Bisa duduk sendiri dari posisi berbaring','Memindahkan benda dari satu tangan ke tangan lain','Meraup makanan dengan jari','Duduk tanpa ditopang']],
+ [12,['Bermain tepuk-tepuk tangan bersama','Melambai "dadah"','Memanggil orang tua "mama", "papa", atau panggilan khusus','Mengerti kata "jangan" (berhenti sebentar)','Memasukkan benda ke wadah, misalnya balok ke gelas','Mencari benda yang disembunyikan, misalnya mainan di bawah selimut','Menarik badan untuk berdiri','Berjalan sambil berpegangan perabot','Minum dari gelas tanpa tutup yang dipegangi','Mengambil benda kecil dengan ibu jari dan telunjuk']],
+ [18,['Menjauh tapi menoleh memastikan orang tua dekat','Menunjuk untuk memperlihatkan sesuatu yang menarik','Menyodorkan tangan untuk dicuci','Melihat beberapa halaman buku bersama','Membantu berpakaian (memasukkan tangan ke lengan baju)','Mencoba mengucapkan 3 kata atau lebih selain "mama"/"papa"','Mengikuti perintah satu langkah tanpa isyarat, mis. "Berikan ke Ibu"','Meniru pekerjaan rumah, mis. menyapu','Bermain mainan dengan cara sederhana, mis. mendorong mobil-mobilan','Berjalan tanpa berpegangan','Mencoret-coret','Minum dari gelas tanpa tutup (kadang tumpah)','Makan sendiri dengan jari','Mencoba memakai sendok','Naik-turun sofa/kursi tanpa bantuan']],
+ [24,['Memperhatikan saat orang lain sedih atau terluka','Melihat wajah orang tua untuk tahu cara bereaksi di situasi baru','Menunjuk gambar di buku saat ditanya, mis. "Mana beruang?"','Mengucapkan minimal dua kata bersambung, mis. "Mau susu"','Menunjuk minimal dua bagian tubuh saat diminta','Memakai isyarat selain melambai dan menunjuk (cium jauh, mengangguk)','Memegang benda di satu tangan sambil memakai tangan lain','Mencoba tombol/saklar pada mainan','Bermain lebih dari satu mainan sekaligus','Menendang bola','Berlari','Berjalan naik beberapa anak tangga','Makan dengan sendok']]];
 const DANGER=['Sesak napas (napas > 60 kali/menit dengan tarikan dinding dada)','Hipotermia: suhu < 36,5 °C dan bayi tidak aktif','Demam: suhu > 37,5 °C','Kejang','Tampak lemas atau tidak mau menyusu','Kulit tampak pucat','Mata dan kulit kuning sampai lutut atau siku','Muntah hijau, muntah darah, atau BAB berdarah','Diare','Tidak BAB > 7 hari (ASI eksklusif) atau > 3 hari (susu formula) disertai perut membuncit','Tali pusat kemerahan, berbau, atau bernanah','Grafik berat badan mendatar atau tidak naik'];
 function isKbk(){const p=S.profile;return!!p&&(isPrem()||(p.bw&&p.bw<2500))}
 function corrMonths(t){return(t-corrBase())/(30.4375*864e5)}
@@ -454,10 +468,98 @@ function vDev(){const pr=corrBase()>birthTs(),cm=Math.max(0,corrMonths(Date.now(
  let h=`<h2>Tahapan perkembangan</h2><p class="muted">Dari Buku KIA Khusus Bayi Kecil. Ketuk saat ${esc(S.profile.name)} sudah bisa melakukannya — ${pr?'usia koreksi':'usia'} saat itu dicatat otomatis.</p>`;
  for(const[m,skills,flags]of DEV){h+=`<div class="day">${pr?'Usia koreksi':'Usia'} ${m} bulan${cm>=m-0.5&&cm<m+2?' <span class="tag soon">sekarang</span>':''}</div><div class="list">`+skills.map(x=>{const k=m+'|'+x,d=(S.dev||{})[k];const aa=d?ageAt(d):null;return`<button class="item" data-dev="${esc(k)}"><span class="chk ${d?'on':''}">${d?'✓':''}</span><span class="m"><b>${x}</b><small>${d?'Bisa sejak '+tgl(d)+' · '+(aa.kor&&pr?'usia koreksi '+aa.kor:'usia '+aa.kron):'Belum'}</small></span></button>`}).join('')+
   `</div><div class="card" style="background:var(--red2);border-color:transparent;margin-top:8px;padding:12px 14px"><small style="font-weight:800;color:var(--red)">Segera konsultasi ke dokter bila di usia ini bayi:</small><ul style="margin:4px 0 0;padding-left:18px;font-size:13px">${flags.map(x=>`<li>${x}</li>`).join('')}</ul></div>`}
+ h+=`<div class="day">Usia 9–24 bulan</div><p class="muted">Daftar dari checklist CDC/AAP (revisi 2022): hal yang bisa dilakukan sebagian besar (≥75%) anak pada usia tersebut. ${pr?'Bayi lahir lebih dari 3 minggu lebih awal memakai usia koreksi.':''}</p>`;
+ for(const[m,skills]of DEV2){const done=skills.filter(x=>(S.dev||{})[m+'|'+x]).length;h+=`<details class="card" style="padding:12px 14px" ${cm>=m-1.5&&cm<m+3?'open':''}><summary style="font:700 17px Fraunces,Georgia,serif;cursor:pointer">${pr?'Usia koreksi':'Usia'} ${m} bulan <span class="muted" style="font:600 13px Nunito,sans-serif">${done}/${skills.length}</span></summary><div class="list" style="margin-top:8px;background:var(--bg)">`+skills.map(x=>{const k=m+'|'+x,d=(S.dev||{})[k];const aa=d?ageAt(d):null;return`<button class="item" data-dev="${esc(k)}"><span class="chk ${d?'on':''}">${d?'✓':''}</span><span class="m"><b style="font-size:14px">${esc(x)}</b><small>${d?'Bisa sejak '+tgl(d)+' · '+(aa.kor&&pr?'usia koreksi '+aa.kor:'usia '+aa.kron):'Belum'}</small></span></button>`}).join('')+`</div></details>`}
+ h+=`<div class="card" style="background:var(--sun);border-color:transparent"><b>Bila ada yang belum bisa</b><p style="margin:6px 0 0;font-size:14px">Beri kesempatan 1–2 minggu dan amati lagi. Bila tetap belum, atau anak kehilangan kemampuan yang sudah dimiliki, bicarakan dengan dokter anak dan tanyakan skrining perkembangan (dianjurkan pada usia 9, 18, dan 30 bulan; skrining autisme pada 18 dan 24 bulan).</p></div>`;
  return h}
 function vitalAlert(e){const w=[];if(e.type==='temp'){if(e.c&&e.c<36.5)w.push('Suhu '+dec(e.c)+' °C (di bawah 36,5 °C). Hangatkan dengan PMK; bila bayi tidak aktif, segera ke fasilitas kesehatan.');if(e.c&&e.c>37.5)w.push('Demam: suhu '+dec(e.c)+' °C (di atas 37,5 °C) termasuk tanda bahaya. Segera bawa bayi ke fasilitas kesehatan.');if(e.rr&&e.rr>60)w.push('Napas '+e.rr+' kali/menit (di atas 60). Bila ada tarikan dinding dada, segera ke fasilitas kesehatan.')}
  if(e.type==='vomit'&&e.kind!=='Biasa')w.push('Muntah '+e.kind.toLowerCase()+' termasuk tanda bahaya. Segera bawa bayi ke fasilitas kesehatan.');
  if(w.length)openSheet(`<h3 style="color:var(--red)">Perhatikan</h3>${w.map(x=>`<div class="zbox warn" style="font-size:15px">${x}</div>`).join('')}<div style="height:14px"></div><button class="btn" data-a="close" style="width:100%">Mengerti</button>`)}
+/* ===== Sinkron 2 HP (Firebase Firestore) =====
+   Data tetap tersimpan lokal; sinkron hanya menyalin perubahan ke/dari Firestore.
+   Jalur: fam/{kode}/e/{idCatatan}, fam/{kode}/s/main (profil & data bersama), fam/{kode}/p/{idFoto}. */
+const SHARED=['profile','vax','prem','dev','meds','milestones','stock','timers'];
+let SY={joining:false,db:null,unsubs:[],sent:new Map(),sharedSent:'',applying:false,timer:null,status:'off',err:''};
+function syncCfg(){return S.sync&&S.sync.on&&S.sync.code&&S.sync.config?S.sync:null}
+function loadScript(src){return new Promise((res,rej)=>{const x=document.createElement('script');x.src=src;x.onload=res;x.onerror=()=>rej(new Error('Gagal memuat '+src));document.head.appendChild(x)})}
+async function syncStart(){const c=syncCfg();if(!c)return;if(SY.db)return;
+ SY.status='menghubungkan';try{
+  if(!window.firebase){await loadScript('lib/firebase-app-compat.js');await loadScript('lib/firebase-firestore-compat.js')}
+  const app=firebase.apps.length?firebase.app():firebase.initializeApp(c.config);
+  const db=app.firestore();try{db.settings({experimentalAutoDetectLongPolling:true,merge:true})}catch(e){}
+  try{await db.enablePersistence({synchronizeTabs:false})}catch(e){}
+  SY.db=db;const base=db.collection('fam').doc(c.code);
+  SY.unsubs.push(base.collection('e').onSnapshot(snap=>remoteEntries(snap),err=>syncFail(err)));
+  SY.unsubs.push(base.collection('s').doc('main').onSnapshot(d=>remoteShared(d),err=>syncFail(err)));
+  SY.status='aktif';syncPush(true);
+ }catch(e){syncFail(e)}}
+function syncStop(){SY.unsubs.forEach(u=>{try{u()}catch(e){}});SY.unsubs=[];SY.db=null;SY.status='off'}
+function syncFail(e){SY.status='error';SY.err=(e&&(e.code||e.message))||String(e);if(tab==='set')render()}
+function sharedJSON(){const o={};for(const k of SHARED)o[k]=S[k]??null;return JSON.stringify(o)}
+function entryJSON(e){return JSON.stringify(e)}
+/* kirim perubahan lokal (dipanggil setelah save) */
+function syncPush(now){if(!SY.db||SY.applying)return;clearTimeout(SY.timer);SY.timer=setTimeout(syncFlush,now?0:700)}
+async function syncFlush(){const c=syncCfg();if(!SY.db||!c)return;const base=SY.db.collection('fam').doc(c.code);
+ try{const cur=new Map(S.entries.map(e=>[e.id,entryJSON(e)]));const batch=SY.db.batch();let n=0;
+  for(const[id,j]of cur){if(SY.sent.get(id)!==j){batch.set(base.collection('e').doc(id),Object.assign(JSON.parse(j),{_by:S.sync.device||'',_at:Date.now()}));SY.sent.set(id,j);n++}}
+  for(const id of [...SY.sent.keys()]){if(!cur.has(id)){batch.delete(base.collection('e').doc(id));SY.sent.delete(id);n++}}
+  const sj=sharedJSON();if(!SY.joining&&sj!==SY.sharedSent){batch.set(base.collection('s').doc('main'),{data:sj,_by:S.sync.device||'',_at:Date.now()});SY.sharedSent=sj;n++}
+  if(n)await batch.commit();
+  for(const m of S.milestones){if(m.photo&&!(S.sync.photos||{})[m.id]){const u=await idb('get',m.id).catch(()=>null);if(u&&u.length<900000){await base.collection('p').doc(m.id).set({data:u});S.sync.photos=Object.assign({},S.sync.photos,{[m.id]:1});localSave()}}}
+  S.sync.last=Date.now();localSave();
+ }catch(e){syncFail(e)}}
+function remoteEntries(snap){let changed=false;SY.applying=true;
+ for(const ch of snap.docChanges()){const id=ch.doc.id;
+  if(ch.type==='removed'){const i=S.entries.findIndex(e=>e.id===id);if(i>=0){S.entries.splice(i,1);changed=true}SY.sent.delete(id);continue}
+  const d=Object.assign({},ch.doc.data());delete d._by;delete d._at;d.id=id;const j=entryJSON(d);SY.sent.set(id,j);
+  const i=S.entries.findIndex(e=>e.id===id);if(i<0){S.entries.push(d);changed=true}else if(entryJSON(S.entries[i])!==j){S.entries[i]=d;changed=true}}
+ SY.applying=false;S.sync.last=Date.now();
+ if(changed){localSave();softRender()}
+ /* catatan lokal yang belum ada di server (mis. dibuat sebelum sinkron aktif) ikut dikirim */
+ if(!snap.metadata.fromCache)syncPush()}
+function remoteShared(d){if(d.metadata&&d.metadata.fromCache&&!d.exists)return;const wasJoin=SY.joining;SY.joining=false;if(!d.exists){syncPush(true);return}const v=d.data();if(!v||!v.data||v.data===SY.sharedSent)return;
+ let o;try{o=JSON.parse(v.data)}catch(e){return}
+ SY.applying=true;for(const k of SHARED)if(o[k]!==undefined&&o[k]!==null)S[k]=o[k];SY.applying=false;SY.sharedSent=v.data;
+ localSave();softRender();
+ for(const m of S.milestones||[]){if(m.photo)idb('get',m.id).then(u=>{if(!u&&SY.db)SY.db.collection('fam').doc(S.sync.code).collection('p').doc(m.id).get().then(x=>{if(x.exists){idb('put',m.id,x.data().data);S.sync.photos=Object.assign({},S.sync.photos,{[m.id]:1});localSave()}})}).catch(()=>{})}}
+function softRender(){if(!$('#sheetBg').classList.contains('open'))render()}
+function newCode(){const a='abcdefghjkmnpqrstuvwxyz23456789';let s='';const r=crypto.getRandomValues(new Uint8Array(20));for(const x of r)s+=a[x%a.length];return s}
+function packLink(){return'BAYIKU1:'+btoa(unescape(encodeURIComponent(JSON.stringify({c:S.sync.code,f:S.sync.config}))))}
+function unpackLink(t){t=t.trim();if(!t.startsWith('BAYIKU1:'))throw 0;const o=JSON.parse(decodeURIComponent(escape(atob(t.slice(8)))));if(!o.c||!o.f||!o.f.projectId)throw 0;return o}
+function parseConfig(t){/* terima JSON atau potongan "const firebaseConfig = {...}" dari Firebase console */
+ let m=t.match(/\{[\s\S]*\}/);if(!m)throw 0;let j=m[0].replace(/\/\/[^\n]*/g,'').replace(/'/g,'"').replace(/([{,]\s*)([A-Za-z_]\w*)\s*:/g,'$1"$2":').replace(/,\s*\}/g,'}');const o=JSON.parse(j);if(!o.apiKey||!o.projectId)throw 0;return{apiKey:o.apiKey,authDomain:o.authDomain,projectId:o.projectId,storageBucket:o.storageBucket,messagingSenderId:o.messagingSenderId,appId:o.appId}}
+function syncCard(){const c=S.sync||{};
+ if(!c.on)return`<div class="card"><b>Sinkron 2 HP</b><p class="muted">Catatan dari HP kamu dan HP pasangan saling muncul. Perlu internet saat sinkron; tanpa internet tetap bisa mencatat, lalu tersinkron otomatis saat online. Butuh proyek Firebase gratis (sekali saja).</p>
+  <div class="row"><button class="btn teal" data-a="syncSetup">Siapkan (HP pertama)</button><button class="btn ghost" data-a="syncJoin">Gabung (HP kedua)</button></div></div>`;
+ const st={aktif:'Tersambung',menghubungkan:'Menghubungkan…',error:'Gagal: '+esc(SY.err),off:'Belum aktif'}[SY.status]||SY.status;
+ return`<div class="card"><b>Sinkron 2 HP</b><p style="margin:6px 0"><span class="tag ${SY.status==='aktif'?'done':SY.status==='error'?'late':'soon'}">${st}</span> <span class="muted">${c.last?'terakhir '+ago(c.last):''}</span></p>
+ <p class="muted">Nama HP ini: <b style="display:inline">${esc(c.device||'-')}</b> · Proyek: ${esc(c.config.projectId)}</p>
+ <div class="row"><button class="btn ghost" data-a="syncShare">Bagikan kode sambung</button><button class="btn" data-a="syncNow">Sinkron sekarang</button></div><div style="height:8px"></div><button class="btn danger" data-a="syncOff" style="width:100%">Putuskan sinkron di HP ini</button></div>`}
+const FB_RULES=`rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /fam/{kode}/{dok=**} {
+      allow read, write: if kode.size() >= 20;
+    }
+  }
+}`;
+function syncSetupSheet(){openSheet(`<h3>Siapkan sinkron</h3><ol style="padding-left:20px;font-size:14px;margin:0">
+ <li>Buka <b style="display:inline">console.firebase.google.com</b> → <i>Add project</i> (Analytics boleh dimatikan).</li>
+ <li>Menu <i>Build → Firestore Database → Create database</i>, pilih lokasi <i>asia-southeast2 (Jakarta)</i>, mode <i>production</i>.</li>
+ <li>Tab <i>Rules</i>: ganti isinya dengan aturan di bawah, lalu <i>Publish</i>.</li>
+ <li><i>Project settings</i> (ikon gerigi) → <i>Your apps</i> → ikon <b style="display:inline">&lt;/&gt;</b> (Web) → daftarkan → salin bagian <code>firebaseConfig</code>.</li></ol>
+ <label>Aturan Firestore</label><textarea readonly style="font:12px monospace;min-height:150px">${FB_RULES}</textarea><button type="button" class="btn" data-a="copyRules" style="width:100%;margin-top:6px">Salin aturan</button>
+ <form id="syncForm"><label for="sfCfg">Tempel firebaseConfig di sini</label><textarea id="sfCfg" required placeholder="const firebaseConfig = { apiKey: ..., projectId: ... }" style="font:13px monospace"></textarea>
+ <label for="sfDev">Nama HP ini</label><input id="sfDev" required placeholder="mis. HP Ayah" value="HP Ayah">
+ <p class="muted">Kode keluarga 20 huruf dibuat otomatis dan menjadi kunci data. Jangan bagikan selain ke pasangan.</p>
+ <button class="btn teal" style="width:100%">Aktifkan sinkron</button></form>`)}
+function syncJoinSheet(){openSheet(`<h3>Gabung sinkron</h3><p class="muted">Di HP pertama buka Atur → Sinkron 2 HP → <i>Bagikan kode sambung</i>, kirim ke HP ini (mis. lewat WhatsApp), lalu tempel di bawah.</p>
+ <form id="joinForm"><label for="jfCode">Kode sambung</label><textarea id="jfCode" required placeholder="BAYIKU1:..." style="font:12px monospace"></textarea>
+ <label for="jfDev">Nama HP ini</label><input id="jfDev" required value="HP Ibu">
+ <p class="muted">Catatan yang sudah ada di HP ini akan digabung dengan catatan di HP pertama. Data bayi (nama, tanggal lahir, dll.) mengikuti HP pertama.</p>
+ <button class="btn teal" style="width:100%">Gabung</button></form>`)}
+async function copyText(t,msg){try{await navigator.clipboard.writeText(t);toast(msg||'Disalin')}catch(e){openSheet(`<h3>Salin manual</h3><textarea readonly style="font:12px monospace;min-height:160px">${esc(t)}</textarea><p class="muted">Tekan lama lalu pilih Salin.</p><button class="btn" data-a="close" style="width:100%">Tutup</button>`)}}
+
 function vSet(){const p=S.profile;return header()+`
  <div class="card"><b>Data bayi</b><form id="profForm"><label for="pName">Nama</label><input id="pName" value="${esc(p.name)}" required><label for="pBirth">Tanggal lahir</label><input id="pBirth" type="date" value="${esc(p.birth)}" required>
  <label for="pSex">Jenis kelamin</label><select id="pSex"><option value="L" ${p.sex!=='P'?'selected':''}>Laki-laki</option><option value="P" ${p.sex==='P'?'selected':''}>Perempuan</option></select>
@@ -466,6 +568,7 @@ function vSet(){const p=S.profile;return header()+`
  <label for="pBw">Berat lahir (gram)</label><input id="pBw" type="number" inputmode="numeric" min="300" max="6000" value="${p.bw??''}">
  <label for="pReg">Jadwal imunisasi</label><select id="pReg"><option value="nasional" ${p.region!=='yogyakarta'?'selected':''}>Nasional</option><option value="yogyakarta" ${p.region==='yogyakarta'?'selected':''}>Yogyakarta</option></select>
  <div style="height:12px"></div><button class="btn teal" style="width:100%">Simpan</button></form></div>
+ ${syncCard()}
  <button class="card" data-tab="prem" style="width:100%;text-align:left"><b style="font:700 18px Fraunces,Georgia,serif">Buku Bayi Kecil (prematur/BBLR)</b><br><span class="muted">Data lahir & pulang, usia koreksi, penapisan, PMK, rekap harian, kontrol</span></button>
  <div class="card"><b>Pengingat</b>
  <div class="sw"><span>Pengingat menyusu</span><input type="checkbox" id="rFeed" ${S.settings.feedOn?'checked':''}></div>
@@ -480,11 +583,12 @@ function vSet(){const p=S.profile;return header()+`
  ${S.meds.length?'<div class="list" style="background:var(--bg);margin-bottom:10px">'+S.meds.map(m=>`<button class="item" data-med="${m.id}"><span class="m"><b>${esc(m.name)}${m.on?'':' (nonaktif)'}</b><small>${esc(mlTxt(m))||'tanpa jumlah'} · ${m.times.length?m.times.join(', '):'tanpa pengingat'}</small></span></button>`).join('')+'</div>':''}
  <button class="btn ghost" data-a="medNew" style="width:100%">Tambah vitamin / obat</button></div>
  <div class="card"><b>Tampilan</b><label for="pTheme">Mode gelap</label><select id="pTheme">${[['auto','Otomatis malam (19.00–06.00)'],['system','Ikuti pengaturan HP'],['light','Selalu terang'],['dark','Selalu gelap']].map(([v,n])=>`<option value="${v}" ${S.settings.theme===v?'selected':''}>${n}</option>`).join('')}</select></div>
+ <div class="card"><b>Target kenaikan berat</b><p class="muted">Isi bila dokter memberi target (gram per hari). Kosongkan bila tidak ada; status tetap menandai naik / mendatar / turun sesuai Buku KBK.</p><form id="wtForm" class="row"><input id="wtIn" type="number" inputmode="numeric" min="1" max="100" placeholder="g/hari" value="${S.settings.wTarget??''}" style="flex:1"><button class="btn ghost" style="flex:none">Simpan</button></form></div>
  <div class="card"><b>Stok popok</b><p class="muted">Berkurang otomatis setiap ganti popok.</p><form id="stockForm" class="row"><input id="stockIn" type="number" inputmode="numeric" min="0" value="${S.stock.diapers||0}" style="flex:1"><button class="btn ghost" style="flex:none">Simpan</button></form></div>
- <div class="card"><b>Cadangan data</b><p class="muted">Data hanya ada di HP ini. Simpan cadangan sesekali (mis. ke Google Drive/WhatsApp) supaya tidak hilang kalau HP ganti atau aplikasi terhapus.</p>
+ <div class="card"><b>Cadangan data</b><p class="muted">${S.sync&&S.sync.on?"Sinkron aktif, tapi cadangan tetap dianjurkan.":"Data hanya ada di HP ini."} Simpan cadangan sesekali (mis. ke Google Drive/WhatsApp) supaya tidak hilang kalau HP ganti atau aplikasi terhapus.</p>
  <div class="row"><button class="btn ghost" data-a="export">Simpan cadangan</button><button class="btn" data-a="import">Pulihkan</button></div></div>
  <div class="card"><b>Hapus semua data</b><p class="muted">Tidak bisa dibatalkan.</p><button class="btn danger" data-a="wipe" style="width:100%">Hapus semua</button></div>
- <p class="muted" style="text-align:center">Bayiku 4.0 · ${S.entries.length} catatan tersimpan</p>`}
+ <p class="muted" style="text-align:center">Bayiku 5.0 · ${S.entries.length} catatan tersimpan</p>`}
 
 /* ---------- SHEETS ---------- */
 function openSheet(html){$('#sheet').innerHTML=html;$('#sheetBg').classList.add('open')}
@@ -584,6 +688,13 @@ function act(a,el){
   case'exXlsx':exportXlsx(+$('#exP').value);break;
   case'exPdf':exportPdf(+$('#exP').value);break;
   case'kbkData':kbkDataSheet();break;
+  case'syncSetup':syncSetupSheet();break;
+  case'syncJoin':syncJoinSheet();break;
+  case'copyRules':copyText(FB_RULES,'Aturan disalin');break;
+  case'syncShare':copyText(packLink(),'Kode sambung disalin. Kirim ke HP pasangan');break;
+  case'syncNow':SY.sent.clear();SY.sharedSent='';if(!SY.db)syncStart();else syncPush(true);toast('Menyinkronkan…');break;
+  case'syncOff':openSheet(`<h3>Putuskan sinkron?</h3><p>Catatan di HP ini tetap ada. HP ini tidak lagi menerima atau mengirim catatan.</p><div class="row"><button class="btn" data-a="close">Batal</button><button class="btn danger" data-a="syncOffYes">Putuskan</button></div>`);break;
+  case'syncOffYes':syncStop();S.sync={on:false};save();closeSheet();render();break;
   case'pmkStart':if(S.timers.pmk){toast('PMK sedang berjalan');break}S.timers.pmk={start:Date.now()};save();closeSheet();tab='home';render();break;
   case'premDel':{const k=$('#premForm').dataset.k;if(S.prem)delete S.prem[k];save();closeSheet();render();break}
   case'themeToggle':S.settings.theme=isDark()?'light':'dark';save();render();toast(isDark()?'Mode gelap':'Mode terang');break;
@@ -661,12 +772,17 @@ $('#toastBtn').addEventListener('click',()=>{if(undo)undo();undo=null;$('#toast'
 document.addEventListener('submit',ev=>{ev.preventDefault();const f=ev.target;
  if(f.id==='setupForm'){S.profile=Object.assign({name:$('#sName').value.trim(),birth:$('#sBirth').value,sex:$('#sSex .on').dataset.sex,region:$('#sReg .on').dataset.reg},readPrem('s'));save();render();askNotif()}
  if(f.id==='profForm'){Object.assign(S.profile,{name:$('#pName').value.trim(),birth:$('#pBirth').value,sex:$('#pSex').value,region:$('#pReg').value},readPrem('p'));save();render();toast('Data bayi disimpan')}
+ if(f.id==='wtForm'){const v=$('#wtIn').value;S.settings.wTarget=v===''?null:Math.max(1,+v);save();render();toast('Target disimpan')}
  if(f.id==='stockForm'){S.stock.diapers=Math.max(0,parseInt($('#stockIn').value||0,10));save();render();toast('Stok disimpan')}
  if(f.id==='entryForm')submitEntry(f);
  if(f.id==='medForm'){const raw=$('#mT').value.trim(),times=raw?raw.split(/[,\s]+/).map(x=>x.replace('.',':')).filter(x=>/^\d{1,2}:\d{2}$/.test(x)).map(x=>{const[h,m]=x.split(':');return pad(Math.min(23,+h))+':'+pad(Math.min(59,+m))}):[];if(raw&&!times.length)return toast('Format jam: 08:00, 20:00');
   const mlv=$('#mD').value;const m={id:f.dataset.id||uid(),name:$('#mN').value.trim(),ml:mlv===''?null:Number(String(mlv).replace(',','.')),times:[...new Set(times)].sort(),on:$('#mOn').checked};const i=S.meds.findIndex(x=>x.id===m.id);if(i>=0)S.meds[i]=m;else S.meds.push(m);save();closeSheet();render();toast(m.name+' disimpan');if(times.length)askNotif()}
  if(f.id==='premForm'){S.prem=S.prem||{};const res={};f.querySelectorAll('select[data-lb]').forEach(x=>{if(x.value)res[x.dataset.lb]=x.value});S.prem[f.dataset.k]={t:dk2ts($('#prD').value),note:$('#prN').value.trim(),res};save();closeSheet();render();toast('Tersimpan')}
  if(f.id==='kbkForm')saveKbk();
+ if(f.id==='syncForm'){let cfg;try{cfg=parseConfig($('#sfCfg').value)}catch(e){return toast('firebaseConfig tidak terbaca. Salin lengkap dari Firebase.')}
+  S.sync={on:true,code:newCode(),config:cfg,device:$('#sfDev').value.trim(),photos:{}};SY.sent.clear();SY.sharedSent='';save();closeSheet();render();syncStart().then(()=>render());toast('Sinkron aktif. Bagikan kode sambung ke HP pasangan')}
+ if(f.id==='joinForm'){let o;try{o=unpackLink($('#jfCode').value)}catch(e){return toast('Kode sambung tidak valid')}
+  S.sync={on:true,code:o.c,config:o.f,device:$('#jfDev').value.trim(),photos:{}};SY.sent.clear();SY.sharedSent='';SY.joining=true;localSave();closeSheet();render();syncStart().then(()=>render());toast('Menyambungkan…')}
  if(f.id==='medLogForm'){const m=S.meds.find(x=>x.id===$('#lM').value);if(!m)return;const v=$('#lMl').value,t=fromLocalInput($('#lT').value)||Date.now();S.entries.push({id:uid(),type:'med',t,medId:m.id,name:m.name,ml:v===''?null:Number(String(v).replace(',','.')),slot:null});save();closeSheet();render();toast(m.name+' dicatat')}
  if(f.id==='msForm'){const id=f.dataset.id||uid(),[y,mo,d]=$('#msD').value.split('-').map(Number),old=S.milestones.find(x=>x.id===id);
   const m={id,title:$('#msT').value.trim(),date:new Date(y,mo-1,d).getTime(),note:$('#msN').value.trim(),photo:old?old.photo:false};
@@ -734,6 +850,8 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden)render()})
 const ro=new ResizeObserver(()=>drawChart());
 new MutationObserver(()=>{const s=$('#wchart');if(s&&!s.dataset.obs){s.dataset.obs=1;ro.observe(s)}}).observe($('#app'),{childList:true,subtree:true});
 render();syncNative();
+if(S.sync&&S.sync.on)syncStart();
+window.__bayiku={get S(){return S},get SY(){return SY}};
 new MutationObserver(()=>loadPhotos()).observe($('#app'),{childList:true,subtree:true});
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',applyTheme);
 }

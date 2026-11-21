@@ -163,6 +163,7 @@ const I={
  temp:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14V5a2 2 0 0 0-4 0v9a4 4 0 1 0 4 0z"/></svg>',
  note:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h10l4 4v14H5z"/><path d="M9 12h6M9 16h4"/></svg>',
  vax:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2l4 4M17 7l-9 9-3 1 1-3 9-9M14 4l6 6M3 21l3-3"/></svg>',
+ sun:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>',
  list:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>',
  gear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>'
@@ -204,7 +205,7 @@ const corrBase=()=>{const h=hplTs();return isPrem()&&h&&h>birthTs()?h:birthTs()}
 function corrText(){const h=hplTs();if(!isPrem()||!h||h<=birthTs())return'';const now=startOfDay(Date.now());if(now<h){const d=Math.round((h-now)/864e5),pma=gaDays()+Math.round((now-birthTs())/864e5);return'Usia koreksi: '+Math.ceil(d/7)+' mgg sebelum HPL · '+Math.floor(pma/7)+'+'+(pma%7)+' mgg'}
  const days=Math.round((now-h)/864e5);if(days<60)return'Usia koreksi: '+days+' hari';let m=0;while(addMonths(h,m+1)<=now)m++;const rest=Math.round((now-addMonths(h,m))/864e5);return'Usia koreksi: '+m+' bln'+(rest?' '+rest+' hr':'')}
 function ageText(){const b=birthTs(),now=startOfDay(Date.now());const days=Math.round((now-b)/864e5);if(days<0)return'Belum lahir';if(days<60)return days+' hari';let m=0;while(addMonths(b,m+1)<=now)m++;const rest=Math.round((now-addMonths(b,m))/864e5);return m+' bulan'+(rest?' '+rest+' hari':'')}
-const TYPES={feed:['Menyusu',I.feed,'feed'],bottle:['Botol',I.bottle,'bot'],sleep:['Tidur',I.sleep,'sleep'],diaper:['Popok',I.diaper,'diap'],tummy:['Tummy time',I.tummy,'tum'],growth:['Pertumbuhan',I.grow,'tum'],temp:['Suhu & napas',I.temp,'bot'],note:['Catatan',I.note,'diap'],med:['Obat / vitamin',I.temp,'tum'],pmk:['PMK (kanguru)',I.sleep,'sleep'],vomit:['Muntah',I.diaper,'diap'],visit:['Kunjungan / kontrol',I.note,'bot'],pijat:['Pijat bayi',I.tummy,'tum'],pump:['Perah ASI',I.bottle,'feed'],skin:['Pelembap kulit',I.note,'tum']};
+const TYPES={feed:['Menyusu',I.feed,'feed'],bottle:['Botol',I.bottle,'bot'],sleep:['Tidur',I.sleep,'sleep'],diaper:['Popok',I.diaper,'diap'],tummy:['Tummy time',I.tummy,'tum'],growth:['Pertumbuhan',I.grow,'tum'],temp:['Suhu & napas',I.temp,'bot'],note:['Catatan',I.note,'diap'],med:['Obat / vitamin',I.temp,'tum'],pmk:['PMK (kanguru)',I.sleep,'sleep'],vomit:['Muntah',I.diaper,'diap'],visit:['Kunjungan / kontrol',I.note,'bot'],pijat:['Pijat bayi',I.tummy,'tum'],sun:['Berjemur',I.sun,'diap'],pump:['Perah ASI',I.bottle,'feed'],skin:['Pelembap kulit',I.note,'tum']};
 function sideName(s){return s==='L'?'Kiri':'Kanan'}
 function describe(e){
  switch(e.type){
@@ -216,6 +217,7 @@ function describe(e){
   case'growth':return['Pertumbuhan',[e.w&&dec(e.w)+' kg',e.l&&dec(e.l)+' cm',e.hc&&'LK '+dec(e.hc)+' cm'].filter(Boolean).join(' · ')];
   case'temp':return['Suhu & napas',[e.c&&dec(e.c)+' °C',e.rr&&e.rr+' x/menit'].filter(Boolean).join(' · ')];
   case'pmk':return['PMK (kanguru)',dur(e.end-e.t)];
+  case'sun':return['Berjemur pagi',dur(e.end-e.t)];
   case'vomit':return['Muntah · '+esc(e.kind||'Biasa'),e.ml?e.ml+' ml':''];
   case'visit':return['Kunjungan'+(e.place?' · '+esc(e.place):''),esc(e.saran||e.keluhan||'')+(e.back?' · kembali '+tgl(dk2ts(e.back)):'')];
   case'pump':return['Perah ASI'+(e.side?' · '+esc(e.side):''),e.ml!=null?e.ml+' ml':''];
@@ -263,7 +265,7 @@ function vHome(){
 
  if(T.feed){const f=T.feed;h+=`<div class="card timer"><div class="lbl">Menyusu · ${sideName(f.side)}${f.pausedAt?' · dijeda':''}</div><div class="big" data-clock="feed">${clock(feedElapsed(f))}</div>
   <div class="row"><button class="btn" data-a="feedPause">${f.pausedAt?'Lanjut':'Jeda'}</button><button class="btn" data-a="feedSwitch">⇄ ${sideName(f.side==='L'?'R':'L')}</button><button class="btn pri" data-a="feedStop">Selesai</button></div></div>`}
- for(const k of['sleep','tummy','pmk'])if(T[k])h+=`<div class="card timer ${k==='tummy'?'b-tum':'b-sleep'}"><div class="lbl ${k==='tummy'?'c-tum':'c-sleep'}">${{sleep:'Sedang tidur',tummy:'Tummy time',pmk:'PMK (kanguru)'}[k]} · mulai ${hm(T[k].start)}</div><div class="big" data-clock="${k}">${clock(now-T[k].start)}</div><div class="row"><button class="btn" data-a="cancel" data-k="${k}">Batal</button><button class="btn pri" data-a="stop" data-k="${k}">${k==='sleep'?'Bangun':'Selesai'}</button></div></div>`;
+ for(const k of['sleep','tummy','pmk','sun'])if(T[k])h+=`<div class="card timer ${k==='tummy'?'b-tum':k==='sun'?'b-diap':'b-sleep'}"><div class="lbl ${k==='tummy'?'c-tum':k==='sun'?'c-diap':'c-sleep'}">${{sleep:'Sedang tidur',tummy:'Tummy time',pmk:'PMK (kanguru)',sun:'Berjemur pagi'}[k]} · mulai ${hm(T[k].start)}</div><div class="big" data-clock="${k}">${clock(now-T[k].start)}</div>${k==='sun'?'<p class="muted" style="margin:-6px 0 10px">Berjemur bukan pengobatan bayi kuning. Bila mata dan kulit kuning sampai lutut/siku, segera ke fasilitas kesehatan.</p>':''}<div class="row"><button class="btn" data-a="cancel" data-k="${k}">Batal</button><button class="btn pri" data-a="stop" data-k="${k}">${k==='sleep'?'Bangun':'Selesai'}</button></div></div>`;
  if(!T.feed){const nx=lf&&lf.side==='L'?'R':'L';h+=`<div class="feedgo">${['L','R'].map(sd=>`<button data-a="feedStart" data-side="${sd}"><span class="ico">${I.feed}</span><span>Menyusu ${sideName(sd).toLowerCase()}<small>${lf&&sd===nx?'disarankan berikutnya':'mulai timer'}</small></span></button>`).join('')}</div>`}
  const nv=nextVax();
  if(nv)h+=`<button class="card vax ${nv.late?'late':''}" data-tab="vax"><div class="ico c-bot">${I.vax}</div><div style="flex:1"><b>${nv.late?'Imunisasi terlewat':nv.soon?'Saatnya imunisasi':'Imunisasi berikutnya'}</b><div class="muted">${esc(nv.items.join(', '))}</div><div class="muted">${nv.late||nv.soon?'Jadwal ':''}${tgl(nv.due)}</div></div></button>`;
@@ -276,6 +278,7 @@ function vHome(){
  ${stat('diap','Popok',I.diaper,ld?ago(ld.t):'–',diap.filter(e=>e.kind!=='pup').length+' pipis · '+diap.filter(e=>e.kind!=='pipis').length+' pup','Stok '+(S.stock.diapers||0),'diaper')}
  ${stat('bot','Botol',I.bottle,bottles.reduce((a,e)=>a+Number(e.ml||0),0)+' ml',bottles.length+'× hari ini','','bottle')}
  ${stat('tum','Tummy time',I.tummy,dur(tums.reduce((a,e)=>a+e.end-e.t,0)),tums.length+'× · '+(lt?ago(lt.end):'belum'),T.tummy?'Sedang berjalan':'','tummyStart')}
+ ${stat('diap','Berjemur',I.sun,dur(today.filter(e=>e.type==='sun').reduce((a,e)=>a+e.end-e.t,0)),(()=>{const x=sorted().find(e=>e.type==='sun');return x?'terakhir '+ago(x.end):'belum hari ini'})(),T.sun?'Sedang berjemur':'','sunStart')}
  ${(isKbk()||S.entries.some(e=>e.type==='pump'))?stat('feed','Perah ASI',I.bottle,today.filter(e=>e.type==='pump').reduce((a,e)=>a+(+e.ml||0),0)+' ml',today.filter(e=>e.type==='pump').length+' dari 8–12× hari ini',(()=>{const x=sorted().find(e=>e.type==='pump');return x?'Terakhir '+ago(x.t):''})(),'pump'):''}
  ${isKbk()?stat('sleep','PMK',I.sleep,dur(today.filter(e=>e.type==='pmk').reduce((a,e)=>a+e.end-e.t,0)),today.filter(e=>e.type==='pmk').length+'× hari ini',S.timers.pmk?'Sedang berjalan':'','pmkStart'):''}
  ${stat('bot','Suhu & napas',I.temp,(()=>{const x=lastOf('temp');return x?String(x.c).replace('.',',')+' °C':'–'})(),(()=>{const x=lastOf('temp');return x?ago(x.t):'belum dicatat'})(),'','temp')}
@@ -361,11 +364,11 @@ function weightStatus(){const W=series('w');if(W.length<2)return null;const b=W[
  else if(tg&&gpd<tg){lv='soon';txt='Naik '+Math.round(gpd)+' g/hari, di bawah target dokter '+tg+' g/hari.'}
  else{lv='done';txt='Naik '+Math.round(gpd)+' g/hari'+(tg?' (target '+tg+' g/hari tercapai)':'')+'. Baik.'}
  return{lv,txt,label:{late:'Bahaya',soon:'Hati-hati',done:'Baik'}[lv]}}
-function trendCard(){const W=series('w').slice(-12),L=series('l').slice(-12);if(!W.length&&!L.length)return'';
- const col=(nm,list,f,u,c)=>{if(!list.length)return`<div style="flex:1"><div class="muted" style="font-weight:700">${nm}</div><div class="muted">Belum ada data</div></div>`;const a=list[list.length-2],b=list[list.length-1];
-  return`<div style="flex:1;min-width:0" class="${c}"><div class="muted" style="font-weight:700">${nm}</div><div style="font:700 24px Fraunces,Georgia,serif;color:var(--ink)">${dec(b[f])} <span style="font:600 13px Nunito,sans-serif;color:var(--muted)">${u}</span></div><div style="font-size:12.5px;font-weight:700">${a?deltaTxt(f,a,b):'Ukur lagi untuk melihat tren'}</div>${spark(list,f)}<div class="muted" style="font-size:12px">${list.length} kali ukur · terakhir ${tgl(b.t)}</div></div>`};
- return`<button class="card" data-tab="grow" style="width:100%;text-align:left"><div style="display:flex;justify-content:space-between;align-items:center"><b style="font:700 18px Fraunces,Georgia,serif">Tren pertumbuhan</b><span class="tag done" data-a="growth" style="min-height:30px;display:inline-grid;place-items:center">+ Ukur</span></div>
- <div style="display:flex;gap:14px;margin-top:10px">${col('Berat badan',W,'w','kg','c-feed')}${col('Panjang badan',L,'l','cm','c-bot')}</div>${(()=>{const st=weightStatus();return st?`<div class="zbox ${st.lv==='late'?'warn':''}" style="${st.lv==='soon'?'background:var(--sun)':''}"><span class="tag ${st.lv}" style="margin-right:6px">${st.label}</span>${st.txt}</div>`:''})()}</button>`}
+function trendCard(){const W=series('w').slice(-12),L=series('l').slice(-12),H=series('hc').slice(-12);if(!W.length&&!L.length&&!H.length)return'';
+ const row=(nm,list,f,u,c)=>{if(!list.length)return`<div style="padding:10px 0;border-top:1px solid var(--line)"><div class="muted" style="font-weight:700">${nm}</div><div class="muted">Belum ada data</div></div>`;const a=list[list.length-2],b=list[list.length-1];
+  return`<div class="${c}" style="display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)"><div><div class="muted" style="font-weight:700">${nm}</div><div style="font:700 24px Fraunces,Georgia,serif;color:var(--ink)">${dec(b[f])} <span style="font:600 13px Nunito,sans-serif;color:var(--muted)">${u}</span></div><div style="font-size:12.5px;font-weight:700">${a?deltaTxt(f,a,b):'Ukur lagi untuk melihat tren'}</div></div><div>${spark(list,f)}<div class="muted" style="font-size:11.5px;text-align:right">${list.length}× ukur · ${tgl(b.t)}</div></div></div>`};
+ return`<button class="card" data-tab="grow" style="width:100%;text-align:left"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><b style="font:700 18px Fraunces,Georgia,serif">Tren pertumbuhan</b><span class="tag done" data-a="growth" style="min-height:30px;display:inline-grid;place-items:center">+ Ukur</span></div>
+ ${row('Berat badan',W,'w','kg','c-feed')}${row('Panjang badan',L,'l','cm','c-bot')}${row('Lingkar kepala',H,'hc','cm','c-sleep')}${(()=>{const st=weightStatus();return st?`<div class="zbox ${st.lv==='late'?'warn':''}" style="${st.lv==='soon'?'background:var(--sun)':''}"><span class="tag ${st.lv}" style="margin-right:6px">${st.label}</span>${st.txt}</div>`:''})()}</button>`}
 function medsToday(){
  const meds=S.meds.filter(m=>m.on);const sod=startOfDay(Date.now());
  if(!meds.length)return`<button class="card" data-a="medNew" style="width:100%;text-align:left;display:flex;gap:12px;align-items:center"><span class="ico b-tum c-tum">${I.temp}</span><span><b style="font:700 17px Fraunces,Georgia,serif">Vitamin & obat</b><br><span class="muted">Tambah Vitamin D, DHA, atau lainnya</span></span></button>`;
@@ -585,14 +588,14 @@ function vSet(){const p=S.profile;return header()+`
  <div class="card"><b>Cadangan data</b><p class="muted">${S.sync&&S.sync.on?"Sinkron aktif, tapi cadangan tetap dianjurkan.":"Data hanya ada di HP ini."} Simpan cadangan sesekali (mis. ke Google Drive/WhatsApp) supaya tidak hilang kalau HP ganti atau aplikasi terhapus.</p>
  <div class="row"><button class="btn ghost" data-a="export">Simpan cadangan</button><button class="btn" data-a="import">Pulihkan</button></div></div>
  <div class="card"><b>Hapus semua data</b><p class="muted">Tidak bisa dibatalkan.</p><button class="btn danger" data-a="wipe" style="width:100%">Hapus semua</button></div>
- <p class="muted" style="text-align:center">Bayiku 5.2 · ${S.entries.length} catatan tersimpan</p>`}
+ <p class="muted" style="text-align:center">Bayiku 5.3 · ${S.entries.length} catatan tersimpan</p>`}
 
 /* ---------- SHEETS ---------- */
 function openSheet(html){$('#sheet').innerHTML=html;$('#sheetBg').classList.add('open')}
 function closeSheet(){$('#sheetBg').classList.remove('open');$('#sheet').innerHTML=''}
 window.onBack=()=>{if($('#sheetBg').classList.contains('open')){closeSheet();return true}if(tab==='prem'){tab='home';render();return true}if(S.profile&&tab!=='home'){tab='home';render();return true}return false};
 function sheetAdd(){openSheet(`<h3>Tambah catatan</h3><div class="grid3">
- ${[['feedStart','Menyusu kiri',I.feed,'feed','L'],['feedStart','Menyusu kanan',I.feed,'feed','R'],['bottle','Botol',I.bottle,'bot'],['sleepStart','Mulai tidur',I.sleep,'sleep'],['diaper','Popok',I.diaper,'diap'],['tummyStart','Tummy time',I.tummy,'tum'],['growth','Pertumbuhan',I.grow,'tum'],['temp','Suhu & napas',I.temp,'bot'],['medLog','Vitamin / obat',I.temp,'tum'],['pmkStart','PMK (kanguru)',I.sleep,'sleep'],['pump','Perah ASI',I.bottle,'feed'],['skin','Pelembap',I.note,'tum'],['vomit','Muntah',I.diaper,'diap'],['note','Catatan',I.note,'diap']].map(([a,n,ic,c,sd])=>`<button class="tile" data-a="${a}" ${sd?`data-side="${sd}"`:''}><span class="ico b-${c} c-${c}">${ic}</span>${n}</button>`).join('')}
+ ${[['feedStart','Menyusu kiri',I.feed,'feed','L'],['feedStart','Menyusu kanan',I.feed,'feed','R'],['bottle','Botol',I.bottle,'bot'],['sleepStart','Mulai tidur',I.sleep,'sleep'],['diaper','Popok',I.diaper,'diap'],['tummyStart','Tummy time',I.tummy,'tum'],['growth','Pertumbuhan',I.grow,'tum'],['temp','Suhu & napas',I.temp,'bot'],['medLog','Vitamin / obat',I.temp,'tum'],['sunStart','Berjemur pagi',I.sun,'diap'],['pmkStart','PMK (kanguru)',I.sleep,'sleep'],['pump','Perah ASI',I.bottle,'feed'],['skin','Pelembap',I.note,'tum'],['vomit','Muntah',I.diaper,'diap'],['note','Catatan',I.note,'diap']].map(([a,n,ic,c,sd])=>`<button class="tile" data-a="${a}" ${sd?`data-side="${sd}"`:''}><span class="ico b-${c} c-${c}">${ic}</span>${n}</button>`).join('')}
  </div><div style="height:12px"></div><button class="btn ghost" style="width:100%" data-a="past">Catat yang sudah lewat (isi jam manual)</button>`)}
 function timeField(id,t,lbl){return`<label for="${id}">${lbl||'Waktu'}</label><input id="${id}" type="datetime-local" value="${toLocalInput(t)}">`}
 function formSheet(type,e){
@@ -608,7 +611,7 @@ function formSheet(type,e){
  if(type==='visit')f=`<label for="vPl">Tempat / dokter</label><input id="vPl" value="${esc(e.place||'')}" placeholder="mis. dr. Sp.A RS ..."><label for="vK">Keluhan</label><textarea id="vK" style="min-height:70px">${esc(e.keluhan||'')}</textarea><label for="vS">Pemeriksaan, tindakan, saran</label><textarea id="vS" style="min-height:90px">${esc(e.saran||'')}</textarea><label for="vB">Tanggal kembali (kontrol berikutnya)</label><input id="vB" type="date" value="${esc(e.back||'')}">`+timeField('fT',e.t,'Tanggal kunjungan');
  if(type==='note')f=`<label for="fN">Catatan (obat, gejala, dll.)</label><textarea id="fN" required>${esc(e.text||'')}</textarea>`+timeField('fT',e.t);
  if(type==='feed')f=`<label>Sisi</label><div class="seg" data-seg="side">${[['L','Kiri'],['R','Kanan']].map(([v,n])=>`<button type="button" data-v="${v}" class="${(e.side||'L')===v?'on':''}">${n}</button>`).join('')}</div>`+timeField('fT',e.t,'Mulai')+`<label for="fD">Lama (menit)</label><input id="fD" type="number" inputmode="numeric" min="1" required value="${e.dur?Math.round(e.dur/60000):''}">`;
- if(type==='sleep'||type==='tummy'||type==='pmk')f=timeField('fT',e.t,'Mulai')+timeField('fE',e.end||Date.now(),'Selesai');
+ if(type==='sleep'||type==='tummy'||type==='pmk'||type==='sun')f=timeField('fT',e.t,'Mulai')+timeField('fE',e.end||Date.now(),'Selesai');
  openSheet(`<h3>${ed?'Ubah':''} ${TYPES[type][0]}</h3><form id="entryForm" data-type="${type}" data-id="${ed?e.id:''}">${f}<div style="height:16px"></div><div class="row">${ed?'<button type="button" class="btn danger" data-a="del">Hapus</button>':''}<button class="btn teal">Simpan</button></div></form>`);
 }
 function medSheet(m){const ed=!!m;m=m||{name:'',ml:'',times:[],on:true};
@@ -635,7 +638,7 @@ function premSheet(k){const it=PREM.find(x=>x.k===k),d=(S.prem||{})[k],fs=it.res
  <label for="prN">Hasil / catatan dokter</label><textarea id="prN" style="min-height:80px" placeholder="mis. normal, kontrol 2 minggu lagi">${esc(d?d.note:'')}</textarea>
  <div style="height:14px"></div><div class="row">${d?'<button type="button" class="btn danger" data-a="premDel">Hapus</button>':''}<button class="btn teal">Simpan</button></div></form>`)}
 function logDose(id,slot){const m=S.meds.find(x=>x.id===id);if(!m)return;S.entries.push({id:uid(),type:'med',t:Date.now(),medId:id,name:m.name,ml:m.ml,dose:m.dose,slot:slot||null});save();render();toast(m.name+' dicatat')}
-function sheetPast(){openSheet(`<h3>Catat yang sudah lewat</h3><div class="grid3">${['feed','sleep','tummy','bottle','diaper','temp','pmk','pump','skin','vomit','visit','pijat','note'].map(t=>`<button class="tile" data-form="${t}"><span class="ico b-${TYPES[t][2]} c-${TYPES[t][2]}">${TYPES[t][1]}</span>${TYPES[t][0]}</button>`).join('')}</div>`)}
+function sheetPast(){openSheet(`<h3>Catat yang sudah lewat</h3><div class="grid3">${['feed','sleep','tummy','sun','bottle','diaper','temp','pmk','pump','skin','vomit','visit','pijat','note'].map(t=>`<button class="tile" data-form="${t}"><span class="ico b-${TYPES[t][2]} c-${TYPES[t][2]}">${TYPES[t][1]}</span>${TYPES[t][0]}</button>`).join('')}</div>`)}
 function submitEntry(form){
  const type=form.dataset.type,id=form.dataset.id,old=id?S.entries.find(e=>e.id===id):null;
  const seg=n=>{const b=form.querySelector(`[data-seg="${n}"] .on`);return b&&b.dataset.v};
@@ -653,7 +656,7 @@ function submitEntry(form){
  if(type==='visit'){e.place=$('#vPl').value.trim();e.keluhan=$('#vK').value.trim();e.saran=$('#vS').value.trim();e.back=$('#vB').value||null}
  if(type==='note')e.text=form.querySelector('#fN').value.trim();
  if(type==='feed'){e.side=seg('side');e.dur=num('#fD')*60000;e.end=t+e.dur}
- if(type==='sleep'||type==='tummy'||type==='pmk'){e.end=fromLocalInput(form.querySelector('#fE').value);if(!(e.end>t))return toast('Jam selesai harus setelah jam mulai')}
+ if(type==='sleep'||type==='tummy'||type==='pmk'||type==='sun'){e.end=fromLocalInput(form.querySelector('#fE').value);if(!(e.end>t))return toast('Jam selesai harus setelah jam mulai')}
  if(old)Object.assign(old,e);else S.entries.push(e);
  save();closeSheet();render();toast(old?'Perubahan disimpan':'Tersimpan');vitalAlert(e);if(type==='visit'&&e.back)askNotif();
 }
@@ -670,7 +673,7 @@ function act(a,el){
   case'feedStop':finishFeed();save();render();toast('Menyusu dicatat');break;
   case'sleepStart':if(T.sleep){toast('Bayi sedang tidur');break}T.sleep={start:now};save();closeSheet();tab='home';render();break;
   case'tummyStart':if(T.tummy){toast('Tummy time sedang berjalan');break}T.tummy={start:now};save();closeSheet();tab='home';render();break;
-  case'stop':{const k=el.dataset.k,x=T[k];if(now-x.start<30000){delete T[k];save();render();toast('Terlalu singkat, tidak dicatat');break}S.entries.push({id:uid(),type:k,t:x.start,end:now});delete T[k];save();render();toast({sleep:'Tidur dicatat',tummy:'Tummy time dicatat',pmk:'PMK dicatat'}[k]);break}
+  case'stop':{const k=el.dataset.k,x=T[k];if(now-x.start<30000){delete T[k];save();render();toast('Terlalu singkat, tidak dicatat');break}S.entries.push({id:uid(),type:k,t:x.start,end:now});delete T[k];save();render();toast({sleep:'Tidur dicatat',tummy:'Tummy time dicatat',pmk:'PMK dicatat',sun:'Berjemur dicatat'}[k]);break}
   case'cancel':delete T[el.dataset.k];save();render();break;
   case'bottle':case'diaper':case'growth':case'temp':case'note':case'vomit':case'pump':case'skin':formSheet(a);break;
   case'del':{const id=$('#entryForm').dataset.id,i=S.entries.findIndex(e=>e.id===id);if(i<0)break;const [rm]=S.entries.splice(i,1);save();closeSheet();render();toast('Catatan dihapus',()=>{S.entries.push(rm);save();render()});break}
@@ -692,6 +695,7 @@ function act(a,el){
   case'syncNow':SY.sent.clear();SY.sharedSent='';if(!SY.db)syncStart();else syncPush(true);toast('Menyinkronkan…');break;
   case'syncOff':openSheet(`<h3>Putuskan sinkron?</h3><p>Catatan di HP ini tetap ada. HP ini tidak lagi menerima atau mengirim catatan.</p><div class="row"><button class="btn" data-a="close">Batal</button><button class="btn danger" data-a="syncOffYes">Putuskan</button></div>`);break;
   case'syncOffYes':syncStop();S.sync={on:false};save();closeSheet();render();break;
+  case'sunStart':if(S.timers.sun){toast('Berjemur sedang berjalan');break}S.timers.sun={start:Date.now()};save();closeSheet();tab='home';render();break;
   case'pmkStart':if(S.timers.pmk){toast('PMK sedang berjalan');break}S.timers.pmk={start:Date.now()};save();closeSheet();tab='home';render();break;
   case'premDel':{const k=$('#premForm').dataset.k;if(S.prem)delete S.prem[k];save();closeSheet();render();break}
   case'themeToggle':S.settings.theme=isDark()?'light':'dark';save();render();toast(isDark()?'Mode gelap':'Mode terang');break;
@@ -704,7 +708,7 @@ function act(a,el){
 }
 function finishFeed(){const f=S.timers.feed;if(!f)return;const d=feedElapsed(f);if(d>=15000)S.entries.push({id:uid(),type:'feed',side:f.side,t:f.start,end:f.pausedAt||Date.now(),dur:d});delete S.timers.feed}
 const plain=h=>{const t=document.createElement('textarea');t.innerHTML=String(h);return t.value};
-const LBL={pump:'Perah ASI',skin:'Pelembap',feed:'Menyusu',bottle:'Minum (botol/sendok)',sleep:'Tidur',tummy:'Tummy time',diaper:'Popok',growth:'Pertumbuhan',temp:'Suhu & napas',note:'Catatan',med:'Vitamin/obat',pmk:'PMK',vomit:'Muntah',visit:'Kunjungan',pijat:'Pijat'};
+const LBL={sun:'Berjemur',pump:'Perah ASI',skin:'Pelembap',feed:'Menyusu',bottle:'Minum (botol/sendok)',sleep:'Tidur',tummy:'Tummy time',diaper:'Popok',growth:'Pertumbuhan',temp:'Suhu & napas',note:'Catatan',med:'Vitamin/obat',pmk:'PMK',vomit:'Muntah',visit:'Kunjungan',pijat:'Pijat'};
 function periodEntries(days){const from=days===1?startOfDay(Date.now()):days?Date.now()-days*864e5:0;return S.entries.filter(e=>e.t>=from).sort((a,b)=>a.t-b.t)}
 function periodName(days){return days===1?'Hari ini':days?days+' hari terakhir':'Semua catatan'}
 function entryRow(e){const[t,v]=describe(e);const ms=e.type==='feed'||e.type==='pijat'?e.dur:e.end?e.end-e.t:null;return[tgl(e.t),hm(e.t),e.end?hm(e.end):'',LBL[e.type]||e.type,plain(t.split(' · ').slice(1).join(' · ')||'')+(v&&e.type!=='feed'&&e.type!=='sleep'&&e.type!=='tummy'?(t.includes(' · ')?' · ':'')+plain(v):''),ms!=null?Math.round(ms/60000):'']}
@@ -830,7 +834,7 @@ function reminders(){const out=[],now=Date.now(),st=S.settings,nm=S.profile.name
  return out.sort((a,b)=>a.at-b.at).slice(0,300)}
 function syncNative(){if(!window.Android||!S.profile)return;try{
  const T=S.timers,tm=[];if(T.feed)tm.push({kind:'feed',label:'Menyusu · '+sideName(T.feed.side),base:Date.now()-feedElapsed(T.feed),paused:!!T.feed.pausedAt,elapsed:feedElapsed(T.feed)});
- if(T.sleep)tm.push({kind:'sleep',label:'Tidur',base:T.sleep.start,paused:false});if(T.tummy)tm.push({kind:'tummy',label:'Tummy time',base:T.tummy.start,paused:false});if(T.pmk)tm.push({kind:'pmk',label:'PMK (kanguru)',base:T.pmk.start,paused:false});
+ if(T.sleep)tm.push({kind:'sleep',label:'Tidur',base:T.sleep.start,paused:false});if(T.tummy)tm.push({kind:'tummy',label:'Tummy time',base:T.tummy.start,paused:false});if(T.pmk)tm.push({kind:'pmk',label:'PMK (kanguru)',base:T.pmk.start,paused:false});if(T.sun)tm.push({kind:'sun',label:'Berjemur pagi',base:T.sun.start,paused:false});
  Android.setTimers&&Android.setTimers(JSON.stringify(tm));
  Android.setReminders&&Android.setReminders(JSON.stringify(reminders()));
  const lf=sorted().find(e=>e.type==='feed'),ld=sorted().find(e=>e.type==='diaper');

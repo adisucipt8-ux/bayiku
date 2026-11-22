@@ -34,6 +34,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v5.${{ github.run_number }}
-          name: Bayiku 5.3 (build ${{ github.run_number }})
+          name: Bayiku 5.4 (build ${{ github.run_number }})
           body: Unduh Bayiku.apk di bawah, lalu pasang di HP Android.
           files: Bayiku.apk

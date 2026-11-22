@@ -319,27 +319,30 @@ function vChart(){
  if(!S.profile.sex)return h+`<div class="card">Isi jenis kelamin di menu <b>Atur</b> supaya kurva WHO bisa ditampilkan.</div>`;
  const [nm,u,f]=IND[growInd],pts=g.filter(e=>e[f]&&ageMo(e.t)>=0&&ageMo(e.t)<=24);
  h+=`<div class="card"><div class="seg" style="margin-bottom:10px">${Object.entries(IND).map(([k,v])=>`<button data-gi="${k}" class="${growInd===k?'on':''}">${k==='h'?'L. kepala':v[0].split(' ')[0]}</button>`).join('')}</div>
- <b>${nm} (${u}) menurut ${isPrem()?'usia koreksi':'umur'} · WHO ${S.profile.sex==='P'?'perempuan':'laki-laki'}</b>${isPrem()?'<p class="muted" style="margin:4px 0 0">Bayi prematur diplot menurut usia koreksi (dihitung dari HPL). Pengukuran sebelum HPL tidak ditampilkan; untuk masa itu dokter biasanya memakai kurva Fenton.</p>':''}<div class="chart tall"><svg id="wchart"></svg></div>
+ <b>${nm} (${u}) menurut ${isPrem()?'usia koreksi':'umur'} · WHO ${S.profile.sex==='P'?'perempuan':'laki-laki'}</b>${isPrem()?'<p class="muted" style="margin:4px 0 0">Bayi prematur diplot menurut usia koreksi (dihitung dari HPL). Pengukuran sebelum HPL tampil di sisi kiri garis HPL (tanpa pembanding WHO); untuk masa itu dokter biasanya memakai kurva Fenton.</p>':''}<div class="chart tall"><svg id="wchart"></svg></div>
  <div class="legend"><span><i style="background:var(--sky-i)"></i>Median</span><span><i style="background:var(--sun-i)"></i>±2 SD</span><span><i style="background:var(--red)"></i>±3 SD</span><span><i style="background:var(--ink)"></i>${esc(S.profile.name)}</span></div>`;
  if(pts.length){const e=pts[pts.length-1],z=zOf(lms(growInd,ageMo(e.t)),+e[f]);let msg,warn=false;
   if(z<-2){msg='di bawah rentang normal WHO (< −2 SD). Sebaiknya konsultasikan ke dokter anak atau bidan.';warn=true}
   else if(z>2){msg=growInd==='l'?'di atas +2 SD, lebih tinggi dari kebanyakan anak seusianya.':'di atas rentang normal WHO (> +2 SD). Sebaiknya konsultasikan ke dokter anak atau bidan.';warn=growInd!=='l'}
   else msg='dalam rentang normal WHO (−2 sampai +2 SD).';
   h+=`<div class="zbox ${warn?'warn':''}">Pengukuran terakhir ${dec(e[f])} ${u} (${tgl(e.t)}), z-score ${dec(z.toFixed(1))}: ${msg}</div>`}
- else h+=`<p class="muted">Belum ada data ${nm.toLowerCase()} untuk umur 0–24 bulan.</p>`;
+ else{const pre=g.filter(e=>e[f]&&ageMo(e.t)<0);h+=pre.length?`<div class="zbox">Semua pengukuran ${nm.toLowerCase()} ${esc(S.profile.name)} masih sebelum HPL, jadi titiknya tampil di sisi kiri garis HPL. Perbandingan dengan standar WHO (z-score) mulai dihitung setelah HPL.</div>`:`<p class="muted">Belum ada data ${nm.toLowerCase()} untuk umur 0–24 bulan.</p>`}
  if(growInd==='w'){const st=weightStatus();if(st)h+=`<div class="zbox ${st.lv==='late'?'warn':''}" style="${st.lv==='soon'?'background:var(--sun)':''}"><span class="tag ${st.lv}" style="margin-right:6px">${st.label}</span>${st.txt}</div>`}
  h+='</div>';
  if(g.length)h+=`<div class="card" style="overflow-x:auto"><table><thead><tr><th>Tanggal</th><th>Berat</th><th>Panjang</th><th>LK</th></tr></thead><tbody>${g.slice().reverse().map(e=>{const pv=f=>{const ser=series(f),i=ser.indexOf(e);return i>0?ser[i-1]:null},dl=(f,u,k)=>{if(!e[f])return'–';const p=pv(f);let d='';if(p){const x=+e[f]-+p[f];d=f==='w'?(x>=0?'+':'−')+Math.round(Math.abs(x)*1000)+' g':(x>=0?'+':'−')+dec(Math.round(Math.abs(x)*10)/10)+' cm';d=`<br><small style="color:${x<0?'var(--red)':'var(--sky-i)'};font-weight:700">${d}</small>`}return dec(e[f])+' '+u+d};return`<tr data-edit="${e.id}"><td>${tgl(e.t)}${e.id==='birth'?'<br><small class="muted">lahir</small>':e.id==='discharge'?'<br><small class="muted">pulang RS</small>':''}</td><td>${dl('w','kg')}</td><td>${dl('l','cm')}</td><td>${dl('hc','cm')}</td></tr>`}).join('')}</tbody></table></div>`;
  return h+'<p class="muted">Kurva berdasarkan Standar Pertumbuhan Anak WHO (0–24 bulan). Grafik ini alat bantu, bukan pengganti pemeriksaan tenaga kesehatan.</p>';
 }
 function drawChart(){const s=$('#wchart');if(!s||!S.profile||!S.profile.sex)return;const W=s.clientWidth,H=s.clientHeight;if(!W)return;
- const f=IND[growInd][2],pts=S.entries.filter(e=>e.type==='growth'&&e[f]).map(e=>[ageMo(e.t),+e[f]]).filter(p=>p[0]>=0&&p[0]<=24).sort((a,b)=>a[0]-b[0]);
- const xMax=Math.min(24,Math.max(6,Math.ceil(Math.max(ageMo(Date.now()),...pts.map(p=>p[0]),0)+2)));
+ const f=IND[growInd][2],pts=S.entries.filter(e=>e.type==='growth'&&e[f]).map(e=>[ageMo(e.t),+e[f]]).filter(p=>p[0]>=-4&&p[0]<=24).sort((a,b)=>a[0]-b[0]);
+ const xMin=Math.min(0,Math.floor(Math.min(0,...pts.map(p=>p[0]))*2)/2);
+ const xMax=Math.min(24,Math.max(xMin<0?2:6,Math.ceil(Math.max(ageMo(Date.now()),...pts.map(p=>p[0]),0)+2)));
  const lines=[-3,-2,0,2,3].map(z=>{const a=[];for(let m=0;m<=xMax;m+=0.5)a.push([m,atZ(lms(growInd,m),z)]);return[z,a]});
  const all=lines.flatMap(l=>l[1].map(p=>p[1])).concat(pts.map(p=>p[1]));let y0=Math.min(...all),y1=Math.max(...all);const pd=(y1-y0)*0.04;y0-=pd;y1+=pd;
- const L=36,R=10,T=10,B=24,X=m=>L+m/xMax*(W-L-R),Y=v=>T+(1-(v-y0)/(y1-y0))*(H-T-B);
- let g='';const step=(y1-y0)>20?5:(y1-y0)>8?2:1;for(let v=Math.ceil(y0/step)*step;v<=y1;v+=step)g+=`<line x1="${L}" x2="${W-R}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${L-6}" y="${Y(v)+4}" font-size="11" text-anchor="end" fill="var(--muted)">${v}</text>`;
- const xs=xMax<=12?2:3;for(let m=0;m<=xMax;m+=xs)g+=`<text x="${X(m)}" y="${H-6}" font-size="11" text-anchor="middle" fill="var(--muted)">${m}${m===0?'':' bl'}</text>`;
+ const L=36,R=10,T=10,B=24,X=m=>L+(m-xMin)/(xMax-xMin)*(W-L-R),Y=v=>T+(1-(v-y0)/(y1-y0))*(H-T-B);
+ let g='';if(xMin<0)g+=`<rect x="${X(xMin)}" y="${T}" width="${X(0)-X(xMin)}" height="${H-T-B}" fill="var(--lav)" opacity=".55"/>`;
+ const step=(y1-y0)>20?5:(y1-y0)>8?2:1;for(let v=Math.ceil(y0/step)*step;v<=y1;v+=step)g+=`<line x1="${L}" x2="${W-R}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${L-6}" y="${Y(v)+4}" font-size="11" text-anchor="end" fill="var(--muted)">${v}</text>`;
+ const xs=(xMax-xMin)<=4?1:(xMax-xMin)<=12?2:3;for(let m=0;m<=xMax;m+=xs)g+=`<text x="${X(m)}" y="${H-6}" font-size="11" text-anchor="middle" fill="var(--muted)">${m===0?(xMin<0?'HPL':'0'):m+' bl'}</text>`;
+ if(xMin<0){g+=`<line x1="${X(0)}" x2="${X(0)}" y1="${T}" y2="${H-B}" stroke="var(--lav-i)" stroke-dasharray="3 3"/><text x="${(X(xMin)+X(0))/2}" y="${T+14}" font-size="11" text-anchor="middle" fill="var(--lav-i)">sebelum HPL</text>`}
  for(const[z,a]of lines)g+=`<polyline fill="none" stroke="${z===0?'var(--sky-i)':Math.abs(z)===2?'var(--sun-i)':'var(--red)'}" stroke-width="${z===0?2.5:1.5}" ${Math.abs(z)===3?'stroke-dasharray="4 4"':''} points="${a.map(p=>X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)).join(' ')}"/>`;
  if(pts.length>1)g+=`<polyline fill="none" stroke="var(--ink)" stroke-width="2.5" points="${pts.map(p=>X(p[0])+','+Y(p[1])).join(' ')}"/>`;
  g+=pts.map(p=>`<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="4.5" fill="var(--ink)" stroke="var(--card)" stroke-width="2"/>`).join('');s.innerHTML=g}
@@ -588,7 +591,7 @@ function vSet(){const p=S.profile;return header()+`
  <div class="card"><b>Cadangan data</b><p class="muted">${S.sync&&S.sync.on?"Sinkron aktif, tapi cadangan tetap dianjurkan.":"Data hanya ada di HP ini."} Simpan cadangan sesekali (mis. ke Google Drive/WhatsApp) supaya tidak hilang kalau HP ganti atau aplikasi terhapus.</p>
  <div class="row"><button class="btn ghost" data-a="export">Simpan cadangan</button><button class="btn" data-a="import">Pulihkan</button></div></div>
  <div class="card"><b>Hapus semua data</b><p class="muted">Tidak bisa dibatalkan.</p><button class="btn danger" data-a="wipe" style="width:100%">Hapus semua</button></div>
- <p class="muted" style="text-align:center">Bayiku 5.3 · ${S.entries.length} catatan tersimpan</p>`}
+ <p class="muted" style="text-align:center">Bayiku 5.4 · ${S.entries.length} catatan tersimpan</p>`}
 
 /* ---------- SHEETS ---------- */
 function openSheet(html){$('#sheet').innerHTML=html;$('#sheetBg').classList.add('open')}
